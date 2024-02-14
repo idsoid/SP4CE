@@ -20,7 +20,7 @@ public abstract class EnemyBase : MonoBehaviour
     }
     protected State currentState;
 
-    private bool allowAttack = false;
+    protected bool allowAttack = false;
 
     //Move
     public virtual void Move(GameObject targetTransform)
@@ -32,9 +32,9 @@ public abstract class EnemyBase : MonoBehaviour
     //Attack
     public virtual void AttackPlayer()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 2.5f))
+        if (Physics.Linecast(transform.position, target.transform.position, out RaycastHit hit))
         {
-            if (hit.transform.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
                 hit.transform.GetComponent<IHealth>().UpdateHealth(-damage);
             }

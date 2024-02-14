@@ -15,16 +15,21 @@ public class EnemyStarer : EnemyBase, ISightObserver
     private int currWaypoint = 0;
     private bool goingUp = false;
 
-    private bool canMove;
-    private bool playerSpotted;
+    private float walkSpeed = 3.5f;
+    private float chaseSpeed = 7.0f;
     private GameObject currTarget;
     private float waitTime = 0.0f;
+
+    public bool canMove;
+    public bool playerSpotted;
+    public bool isSeen;
+    public bool isFlashed;
 
     // Start is called before the first frame update
     void Start()
     {
         damage = 20;
-        speed = 3.5f;
+        speed = walkSpeed;
         canMove = playerSpotted = false;
         agent = GetComponent<NavMeshAgent>();
         currentState = State.PATROL;
@@ -35,15 +40,8 @@ public class EnemyStarer : EnemyBase, ISightObserver
     void Update()
     {
         PlayerSeen();
+        FSM();
         Move(currTarget);
-        //if (playerSpotted && canMove)
-        //{
-        //    Move(playerTarget);
-        //}
-        //else if (!playerSpotted && canMove) 
-        //{
-        //    Move(patrolWaypoints[currWaypoint]);
-        //}
     }
 
     //See Player
@@ -85,26 +83,77 @@ public class EnemyStarer : EnemyBase, ISightObserver
         {
             case State.IDLE:
                 waitTime += Time.deltaTime;
-                if (waitTime >= 1.0f && !playerSpotted)
+                if (waitTime >= 1.0f)
                 {
-                    currWaypoint = goingUp ? currWaypoint++ : currWaypoint--; 
-                    if ((currWaypoint + 1) > patrolWaypoints.Count || (currWaypoint - 1) < 0)
+                    if (!isSeen)
                     {
-                        goingUp = !goingUp;
+                        //Patrol
+                        if (!playerSpotted)
+                        {
+                            currWaypoint = goingUp ? currWaypoint++ : currWaypoint--;
+                            if ((currWaypoint + 1) > patrolWaypoints.Count || (currWaypoint - 1) < 0)
+                            {
+                                goingUp = !goingUp;
+                            }
+                            currTarget = patrolWaypoints[currWaypoint];
+                            speed = walkSpeed;
+                            currentState = State.PATROL;
+                        }
+                        //Chase
+                        else if (playerSpotted)
+                        {
+                            currTarget = playerTarget;
+                            speed = chaseSpeed;
+                            currentState = State.CHASE;
+                        }
                     }
-                    currTarget = patrolWaypoints[currWaypoint];
-                    currentState = State.PATROL;
-                }
-                else if (playerSpotted) 
-                {
-                    currentState = State.CHASE;
+                    //Spotted by player
+                    else
+                    {
+                        waitTime = 0.0f;
+                    }
                 }
                 break;
             case State.PATROL:
-                
+                if (!isSeen)
+                {
+                    //Idle
+                    if (Vector3.Distance(currTarget.transform.position, transform.position) <= 0.75f)
+                    {
+                        speed = 0;
+                        currentState = State.IDLE;
+                    }
+                    //Chase
+                    else if (playerSpotted)
+                    {
+                        currTarget = playerTarget;
+                        speed = chaseSpeed;
+                        currentState = State.CHASE;
+                    }
+                }
+                //Spotted by player
+                else
+                {
+                    speed = 0;
+                    currentState = State.IDLE;
+                }
                 break;
             case State.CHASE:
-                
+                if (!isSeen) 
+                {
+                    //Attack
+                    if (Vector3.Distance(currTarget.transform.position, transform.position) <= 0.75f)
+                    {
+                        AttackPlayer();
+                        speed = 0;
+                        currentState = State.IDLE;
+                    }
+                }
+                else
+                {
+                    speed = 0;
+                    currentState = State.IDLE;
+                }
                 break;
             case State.FLEE:
                 
