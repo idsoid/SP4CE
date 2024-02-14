@@ -11,7 +11,13 @@ public abstract class EnemyBase : MonoBehaviour
     protected NavMeshAgent agent;
     protected GameObject target;
     
-    protected enum State { };
+    protected enum State
+    {
+        IDLE,
+        PATROL,
+        CHASE,
+        FLEE
+    }
     protected State currentState;
 
     private bool allowAttack = false;
@@ -40,4 +46,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         allowAttack = true;
     }
+
+    //StateManager
+    public abstract void FSM();
 }
