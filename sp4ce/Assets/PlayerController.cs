@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 
 public class PlayerController : MonoBehaviour, IHealth
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
     void Start()
     {
+        InitHealth();
         GetInventory();
 
         equippedIndex = 0;
@@ -35,6 +37,13 @@ public class PlayerController : MonoBehaviour, IHealth
         if(Input.GetMouseButtonDown(0))
         {
             inventory[equippedIndex].GetComponent<IItem>().OnPrimaryAction();
+
+            //check in case for consumable
+            if(inventory[equippedIndex].transform.parent == null)
+            {
+                GetInventory();
+                SwapItem(false);
+            }
         }
         if(Input.GetMouseButtonUp(0))
         {
@@ -49,6 +58,15 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             inventory[equippedIndex].GetComponent<IItem>().OnSecondaryActionRelease();
         }
+
+        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            SwapItem(true);
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            SwapItem(false);
+        }
     }
 
     void GetInventory()
@@ -62,18 +80,44 @@ public class PlayerController : MonoBehaviour, IHealth
         }
     }
 
+    void SwapItem(bool front)
+    {
+        inventory[equippedIndex].SetActive(false);
+        if(front)
+        {
+            equippedIndex = (equippedIndex + 1) % inventory.Count;
+        }
+        else
+        {
+            equippedIndex = (equippedIndex + inventory.Count - 1) % inventory.Count;
+        }
+        inventory[equippedIndex].SetActive(true);
+        inventory[equippedIndex].transform.position = transform.position + Camera.main.transform.right;
+    }
+
+    [SerializeField]
+    private int maxHealth = 100;
+
+    private int health;
+
     public void UpdateHealth(int amt)
     {
-        throw new System.NotImplementedException();
+        health += amt;
+        if(health > maxHealth) health = maxHealth;
+        else if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
     }
 
     public void Die()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("im dead");
     }
 
     public void InitHealth()
     {
-        throw new System.NotImplementedException();
+        health = maxHealth;
     }
 }

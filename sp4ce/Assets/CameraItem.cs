@@ -29,6 +29,7 @@ public class CameraItem : MonoBehaviour, IItem
         isAiming = false;
         lightSource.enabled = false;
     }
+
     public int GetItemID()
     {
         return 0;
@@ -62,11 +63,11 @@ public class CameraItem : MonoBehaviour, IItem
         {
             cd -= Time.deltaTime;
         }
-        transform.LookAt(Camera.main.transform);
+        transform.LookAt(transform.position - Camera.main.transform.forward);
         if(isAiming)
-            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + Camera.main.transform.forward * 0.4f, Time.deltaTime * 25f);
+            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + Camera.main.transform.forward * 0.1f, Time.deltaTime * 25f);
         else
-            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + Camera.main.transform.forward, Time.deltaTime * 25f);
+            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 25f);
     }
 
     private IEnumerator TakePhoto()
