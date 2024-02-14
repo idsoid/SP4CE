@@ -13,11 +13,12 @@ public class EnemyStarer : EnemyBase, ISightObserver
     [SerializeField]
     private List<GameObject> patrolWaypoints = new();
     private int currWaypoint = 0;
+    private bool goingUp = false;
 
-
-
-    public bool canMove;
+    private bool canMove;
     private bool playerSpotted;
+    private GameObject currTarget;
+    private float waitTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,20 +27,23 @@ public class EnemyStarer : EnemyBase, ISightObserver
         speed = 3.5f;
         canMove = playerSpotted = false;
         agent = GetComponent<NavMeshAgent>();
+        currentState = State.PATROL;
+        currTarget = patrolWaypoints[currWaypoint];
     }
 
     // Update is called once per frame
     void Update()
     {
         PlayerSeen();
-        if (playerSpotted && canMove)
-        {
-            Move(playerTarget);
-        }
-        else if (!playerSpotted && canMove) 
-        {
-            Move(patrolWaypoints[currWaypoint]);
-        }
+        Move(currTarget);
+        //if (playerSpotted && canMove)
+        //{
+        //    Move(playerTarget);
+        //}
+        //else if (!playerSpotted && canMove) 
+        //{
+        //    Move(patrolWaypoints[currWaypoint]);
+        //}
     }
 
     //See Player
@@ -75,20 +79,38 @@ public class EnemyStarer : EnemyBase, ISightObserver
     }
 
     //StateManager
-    public void FSM()
+    public override void FSM()
     {
-        //switch (currentState)
-        //{
-        //    case State.IDLE:
-        //        break;
-        //    case State.ROAM:
-        //        break;
-        //    case State.CHASE:
-        //        break;
-        //    case State.FLEE:
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (currentState)
+        {
+            case State.IDLE:
+                waitTime += Time.deltaTime;
+                if (waitTime >= 1.0f && !playerSpotted)
+                {
+                    currWaypoint = goingUp ? currWaypoint++ : currWaypoint--; 
+                    if ((currWaypoint + 1) > patrolWaypoints.Count || (currWaypoint - 1) < 0)
+                    {
+                        goingUp = !goingUp;
+                    }
+                    currTarget = patrolWaypoints[currWaypoint];
+                    currentState = State.PATROL;
+                }
+                else if (playerSpotted) 
+                {
+                    currentState = State.CHASE;
+                }
+                break;
+            case State.PATROL:
+                
+                break;
+            case State.CHASE:
+                
+                break;
+            case State.FLEE:
+                
+                break;
+            default:
+                break;
+        }
     }
 }
