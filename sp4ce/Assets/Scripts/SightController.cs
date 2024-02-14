@@ -11,12 +11,9 @@ public class SightController : MonoBehaviour
     [SerializeField]
     private SphereCollider sphereCollider;
 
-    [SerializeField]
-    private GameObject followPlayer;
-
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(!objectsInRange.Contains(other.gameObject))
+        if(!other.gameObject.CompareTag("Player"))
             objectsInRange.Add(other.gameObject);
     }
 
@@ -27,14 +24,25 @@ public class SightController : MonoBehaviour
 
     void Update()
     {
-        transform.position = followPlayer.transform.position;
+        CheckObjectsInRange();
         SightObjectsInVision();
     }
 
+    public void CheckObjectsInRange()
+    {
+        for(int i = 0; i < objectsInRange.Count; i++)
+        {
+            if(!objectsInRange[i])
+            {
+                objectsInRange.RemoveAt(i);
+            }
+        }
+    }
     private void SightObjectsInVision()
     {
         foreach(GameObject obj in objectsInRange)
         {
+            if(obj==null)continue;
             ISightObserver sightobj = obj.GetComponent<ISightObserver>();
             if(sightobj!=null)
             {
@@ -52,5 +60,26 @@ public class SightController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public List<GameObject> GetObjectsInRange()
+    {
+        List<GameObject> visibleObjects = new List<GameObject>();
+        foreach(GameObject obj in objectsInRange)
+        {
+            ISightObserver sightobj = obj.GetComponent<ISightObserver>();
+            if(sightobj!=null)
+            {
+                Vector3 targetDir = (obj.transform.position - transform.position).normalized;
+                if(Physics.Raycast(transform.position, targetDir, sphereCollider.radius))
+                {
+                    if(Vector3.Angle(targetDir,Camera.main.transform.forward) < 30)
+                    {
+                        visibleObjects.Add(obj);
+                    }
+                }
+            }
+        }
+        return visibleObjects;
     }
 }
