@@ -7,13 +7,19 @@ public abstract class EnemyBase : MonoBehaviour
 {
     protected int damage;
     protected float speed;
-    protected string state;
 
     private bool allowAttack = false;
 
-    public virtual void AttackPlayer(Transform enemyTransform)
+    //Move
+    public virtual void Move(Transform targetTransform)
     {
-        if (Physics.Raycast(enemyTransform.position, enemyTransform.forward, out RaycastHit hit, 2.5f))
+        transform.Translate(speed * Time.deltaTime * (targetTransform.transform.position - transform.position).normalized);
+    }
+
+    //Attack
+    public virtual void AttackPlayer()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 2.5f))
         {
             if (hit.transform.CompareTag("Player"))
             {
