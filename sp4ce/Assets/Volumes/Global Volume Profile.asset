@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf9686f8d710e94485e395806b963bb, type: 3}
   m_Name: NightVisionPostProcess
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   luminosityMidpoint:
     m_OverrideState: 1
     m_Value: 0.01
