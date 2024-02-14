@@ -77,18 +77,18 @@ public class EnemyStarer : EnemyBase, ISightObserver
     //StateManager
     public void FSM()
     {
-        switch (currentState)
-        {
-            case State.IDLE:
-                break;
-            case State.ROAM:
-                break;
-            case State.CHASE:
-                break;
-            case State.FLEE:
-                break;
-            default:
-                break;
-        }
+        //switch (currentState)
+        //{
+        //    case State.IDLE:
+        //        break;
+        //    case State.ROAM:
+        //        break;
+        //    case State.CHASE:
+        //        break;
+        //    case State.FLEE:
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 }
