@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 public abstract class EnemyBase : MonoBehaviour
 {
     protected int damage;
     protected float speed;
+    protected NavMeshAgent agent;
+    protected GameObject target;
 
     private bool allowAttack = false;
 
     //Move
-    public virtual void Move(Transform targetTransform)
+    public virtual void Move(GameObject targetTransform)
     {
-        transform.Translate(speed * Time.deltaTime * (targetTransform.transform.position - transform.position).normalized);
+        agent.speed = speed;
+        agent.SetDestination(targetTransform.transform.position);
     }
 
     //Attack
