@@ -10,16 +10,21 @@ public class EnemyStarer : EnemyBase, ISightObserver
     private GameObject playerTarget;
     [SerializeField]
     private Transform eyeSight;
+    [SerializeField]
+    private List<GameObject> patrolWaypoints = new();
+    private int currWaypoint = 0;
 
-    private bool canMove;
-    private bool inSight;
+
+
+    public bool canMove;
+    private bool playerSpotted;
 
     // Start is called before the first frame update
     void Start()
     {
         damage = 20;
         speed = 3.5f;
-        canMove = inSight = false;
+        canMove = playerSpotted = false;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -27,9 +32,13 @@ public class EnemyStarer : EnemyBase, ISightObserver
     void Update()
     {
         PlayerSeen();
-        if (inSight)
+        if (playerSpotted && canMove)
         {
             Move(playerTarget);
+        }
+        else if (!playerSpotted && canMove) 
+        {
+            Move(patrolWaypoints[currWaypoint]);
         }
     }
 
@@ -41,12 +50,12 @@ public class EnemyStarer : EnemyBase, ISightObserver
             if (hit.collider.gameObject.CompareTag("Player"))
             {
                 Debug.DrawLine(eyeSight.position, hit.point, Color.green);
-                inSight = true;
+                playerSpotted = true;
             }
             else
             {
                 Debug.DrawLine(eyeSight.position, hit.point, Color.red);
-                inSight = false;
+                playerSpotted = false;
             }
         }
     }
@@ -63,5 +72,23 @@ public class EnemyStarer : EnemyBase, ISightObserver
     public void Freeze()
     {
         canMove = false;
+    }
+
+    //StateManager
+    public void FSM()
+    {
+        switch (currentState)
+        {
+            case State.IDLE:
+                break;
+            case State.ROAM:
+                break;
+            case State.CHASE:
+                break;
+            case State.FLEE:
+                break;
+            default:
+                break;
+        }
     }
 }

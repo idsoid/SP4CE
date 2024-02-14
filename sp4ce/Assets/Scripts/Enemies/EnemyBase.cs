@@ -10,6 +10,9 @@ public abstract class EnemyBase : MonoBehaviour
     protected float speed;
     protected NavMeshAgent agent;
     protected GameObject target;
+    
+    protected enum State { };
+    protected State currentState;
 
     private bool allowAttack = false;
 
