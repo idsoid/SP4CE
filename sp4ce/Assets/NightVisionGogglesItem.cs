@@ -14,9 +14,6 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     [SerializeField]
     private GameObject model;
 
-    [SerializeField]
-    private Image blackImage;
-
     bool isOn;
 
     [SerializeField]
