@@ -5,12 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public bool timeStopped;
+    public int accessLevel {get; private set;}
+    
     void Awake()
     {
-        timeStopped = false;
         instance = this;
     }
 
+    void Start()
+    {
+        accessLevel = 0;
+    }
     
 }

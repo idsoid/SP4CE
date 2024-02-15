@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -110,5 +111,10 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position, Time.deltaTime * 5f);
         else
             transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 5f);
+    }
+
+    public bool IsItemInUse()
+    {
+        return isOn;
     }
 }

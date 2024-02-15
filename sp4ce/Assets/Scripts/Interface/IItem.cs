@@ -12,6 +12,7 @@ public interface IItem
     //default - rmb click, rmb release
     public void OnSecondaryAction();
     public void OnSecondaryActionRelease();
+    public bool IsItemInUse();
 
     public void GetRequiredControllers(GameObject obj, GameObject sightController);
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraItem : MonoBehaviour, IItem
 {
     private bool isAiming;
+
     [SerializeField]
     private Material screenMaterial;
 
@@ -91,5 +92,10 @@ public class CameraItem : MonoBehaviour, IItem
     public void GetRequiredControllers(GameObject obj, GameObject sightController)
     {
         sc = sightController.GetComponent<SightController>();
+    }
+
+    public bool IsItemInUse()
+    {
+        return isAiming;
     }
 }

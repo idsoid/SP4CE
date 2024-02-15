@@ -99,4 +99,9 @@ public class Decoy : MonoBehaviour, IItem
             objectsInRange.Add(other.gameObject);
         }
     }
+
+    public bool IsItemInUse()
+    {
+        return false;
+    }
 }
