@@ -25,8 +25,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     {
         IDLE,
         PATROL,
-        CHASE,
-        FLEE
+        CHASE
     }
     private State currentState;
 
@@ -97,11 +96,11 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                         //Patrol
                         if (!playerSpotted)
                         {
+                            currWaypoint = goingUp ? (currWaypoint + 1) : (currWaypoint - 1);
                             if ((currWaypoint + 1) > patrolWaypoints.Count && goingUp || (currWaypoint - 1) < 0 && !goingUp)
                             {
                                 goingUp = !goingUp;
                             }
-                            currWaypoint = goingUp ? (currWaypoint + 1) : (currWaypoint - 1);
                             target = patrolWaypoints[currWaypoint];
                             speed = walkSpeed;
                             currentState = State.PATROL;
@@ -125,7 +124,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                 if (!isSeen)
                 {
                     //Idle
-                    if (Vector3.Distance(target.transform.position, transform.position) <= 0.75f)
+                    if (agent.remainingDistance <= 0.75f)
                     {
                         speed = waitTime = 0;
                         currentState = State.IDLE;
@@ -149,7 +148,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                 if (!isSeen) 
                 {
                     //Attack
-                    if (Vector3.Distance(target.transform.position, transform.position) <= 0.75f)
+                    if (agent.remainingDistance <= 0.75f)
                     {
                         AttackPlayer();
                         speed = waitTime = 0;
@@ -161,9 +160,6 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                     speed = waitTime = 0;
                     currentState = State.IDLE;
                 }
-                break;
-            case State.FLEE:
-                
                 break;
             default:
                 break;

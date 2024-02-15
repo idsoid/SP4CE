@@ -2842,19 +2842,19 @@ PrefabInstance:
     - target: {fileID: 2009873607, guid: bc373946a33fce644828cb0da85bb5ea, type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
       value: 
-      objectReference: {fileID: 1886160230}
+      objectReference: {fileID: 1886160231}
     - target: {fileID: 2009873607, guid: bc373946a33fce644828cb0da85bb5ea, type: 3}
       propertyPath: patrolWaypoints.Array.data[1]
       value: 
-      objectReference: {fileID: 899739420}
+      objectReference: {fileID: 899739421}
     - target: {fileID: 2009873607, guid: bc373946a33fce644828cb0da85bb5ea, type: 3}
       propertyPath: patrolWaypoints.Array.data[2]
       value: 
-      objectReference: {fileID: 1015163862}
+      objectReference: {fileID: 1015163863}
     - target: {fileID: 2009873607, guid: bc373946a33fce644828cb0da85bb5ea, type: 3}
       propertyPath: patrolWaypoints.Array.data[3]
       value: 
-      objectReference: {fileID: 1835649122}
+      objectReference: {fileID: 1835649123}
     - target: {fileID: 3506748300407416653, guid: bc373946a33fce644828cb0da85bb5ea,
         type: 3}
       propertyPath: m_Name

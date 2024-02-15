@@ -18,22 +18,6 @@ public class EnemyEyeless : EnemyBase
 
     public override void FSM()
     {
-        switch (currentState)
-        {
-            case State.IDLE:
-                
-                break;
-            case State.PATROL:
-
-                break;
-            case State.CHASE:
-
-                break;
-            case State.FLEE:
-
-                break;
-            default:
-                break;
-        }
+        
     }
 }
