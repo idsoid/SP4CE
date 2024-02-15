@@ -11,7 +11,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected int damage;
     protected float speed;
     protected NavMeshAgent agent;
-    protected GameObject target;
+    protected Transform target;
     
     protected enum State
     {
@@ -25,10 +25,10 @@ public abstract class EnemyBase : MonoBehaviour
     protected bool allowAttack = false;
 
     //Move
-    public virtual void Move(GameObject targetTransform)
+    public virtual void Move(Transform targetTransform)
     {
         agent.speed = speed;
-        agent.SetDestination(targetTransform.transform.position);
+        agent.SetDestination(targetTransform.position);
     }
 
     //Attack

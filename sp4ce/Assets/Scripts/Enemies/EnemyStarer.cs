@@ -10,11 +10,8 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     private GameObject playerTarget;
     [SerializeField]
     private Transform eyeSight;
-    [SerializeField]
-    private List<GameObject> patrolWaypoints = new();
-    private int currWaypoint = 0;
-    private bool goingUp = true;
 
+    private bool goingUp = true;
     private float walkSpeed = 3.5f;
     private float chaseSpeed = 7.0f;
     private float waitTime = 0.0f;
@@ -103,7 +100,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                         //Chase
                         else if (playerSpotted)
                         {
-                            target = playerTarget;
+                            target = playerTarget.transform;
                             speed = chaseSpeed;
                             currentState = State.CHASE;
                         }
@@ -127,7 +124,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                     //Chase
                     else if (playerSpotted)
                     {
-                        target = playerTarget;
+                        target = playerTarget.transform;
                         speed = chaseSpeed;
                         currentState = State.CHASE;
                     }
@@ -167,6 +164,5 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     public void OnPhotoTaken()
     {
         isFlashed = true;
-        
     }
 }
