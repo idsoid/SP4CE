@@ -366,7 +366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalVolume: {fileID: 0}
   model: {fileID: 1101250228181422735}
-  blackImage: {fileID: 0}
   fTime_elapsed: 0
 --- !u!1 &4594004022113246879
 GameObject:
@@ -948,6 +947,7 @@ GameObject:
   - component: {fileID: 4594004022445722061}
   - component: {fileID: 4594004022445722050}
   - component: {fileID: 4594004022445722051}
+  - component: {fileID: 1899289335}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1087,6 +1087,19 @@ MonoBehaviour:
   inventoryObject: {fileID: 4594004022113246879}
   sightController: {fileID: 4594004020508895366}
   maxHealth: 100
+--- !u!114 &1899289335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594004022445722059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed559bb34ef38df40978449b5e93212e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 4594004022113246879}
 --- !u!1001 &4594004021041772450
 PrefabInstance:
   m_ObjectHideFlags: 0
