@@ -80,6 +80,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTarget: {fileID: 0}
   eyeSight: {fileID: 616737067}
+  patrolWaypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  canMove: 0
+  playerSpotted: 0
+  isSeen: 0
+  isFlashed: 0
 --- !u!195 &2414694415187567186
 NavMeshAgent:
   m_ObjectHideFlags: 0
