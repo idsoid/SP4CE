@@ -7,12 +7,12 @@ using static UnityEngine.GraphicsBuffer;
 public abstract class EnemyBase : MonoBehaviour
 {
     [SerializeField] protected List<Transform> patrolWaypoints = new();
-    protected int currWaypoint = 0;
-    protected int damage;
-    protected float speed;
-    protected NavMeshAgent agent;
-    protected Transform target;
+    [SerializeField] protected int damage;
+    [SerializeField] protected float speed;
+    [SerializeField] protected Transform target;
 
+    protected NavMeshAgent agent;
+    protected int currWaypoint = 0;
     protected bool allowAttack = false;
 
     //Move
