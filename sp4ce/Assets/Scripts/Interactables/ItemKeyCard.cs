@@ -18,6 +18,7 @@ public class ItemKeyCard : MonoBehaviour, IInteract
 
     public void OnInteract(GameObject inventory)
     {
+        GameManager.instance.IncreaseAccessLevel();
         UIManager.instance.OnHoverExit();
         Destroy(gameObject);    
     }

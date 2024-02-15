@@ -16,5 +16,10 @@ public class GameManager : MonoBehaviour
     {
         accessLevel = 0;
     }
-    
+
+    public void IncreaseAccessLevel()
+    {
+        accessLevel++;
+    }
+
 }
