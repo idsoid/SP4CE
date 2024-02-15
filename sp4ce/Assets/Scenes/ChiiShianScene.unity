@@ -15470,6 +15470,11 @@ PrefabInstance:
       propertyPath: globalVolume
       value: 
       objectReference: {fileID: 1543673203}
+    - target: {fileID: 4594004022445722050, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4594004022445722059, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: m_Name

@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOpen: 0
-  openSpeed: 0.1
+  openSpeed: 0.05
   door: {fileID: 3112023533405337693}
   closePosition: {fileID: 3112023532957078302}
   openPosition: {fileID: 3112023532653737741}
