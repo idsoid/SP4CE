@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class EnemyEMP : EnemyBase
 {
+
+
+    private new enum State
+    {
+        PATROL,
+        BLAST,
+        CHARGE,
+        CHASE
+    }
+
+    private new State currentState;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,16 +32,16 @@ public class EnemyEMP : EnemyBase
     {
         switch (currentState)
         {
-            case State.IDLE:
+            case State.PATROL: 
                
                 break;
-            case State.PATROL:
+            case State.BLAST:
+
+                break;
+            case State.CHARGE:
 
                 break;
             case State.CHASE:
-
-                break;
-            case State.FLEE:
 
                 break;
             default:
