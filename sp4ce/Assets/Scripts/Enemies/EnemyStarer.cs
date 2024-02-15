@@ -13,10 +13,9 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
 
     private bool goingUp = true;
     private float walkSpeed = 3.5f;
-    private float chaseSpeed = 7.0f;
+    private float chaseSpeed = 10.0f;
     private float waitTime = 0.0f;
 
-    public bool canMove;
     public bool playerSpotted;
     public bool isSeen;
     public bool isFlashed;
@@ -47,7 +46,6 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
         Debug.Log(currWaypoint);
         PlayerSeen();
         FSM();
-        Move(target);
     }
 
     //See Player
@@ -68,23 +66,14 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
         }
     }
 
-    //Seen
-    public void OnLookAway()
-    {
-        canMove = true;
-    }
-    public void OnSighted()
-    {
-        Invoke(nameof(Freeze), 1.0f);
-    }
-    public void Freeze()
-    {
-        canMove = false;
-    }
-
     //StateManager
     public override void FSM()
     {
+        if (isFlashed)
+        {
+            Destroy(gameObject);
+            return;
+        }
         switch (currentState)
         {
             case State.IDLE:
@@ -97,7 +86,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                         if (!playerSpotted)
                         {
                             currWaypoint = goingUp ? (currWaypoint + 1) : (currWaypoint - 1);
-                            if ((currWaypoint + 1) > patrolWaypoints.Count && goingUp || (currWaypoint - 1) < 0 && !goingUp)
+                            if ((currWaypoint + 1) > (patrolWaypoints.Count - 1) && goingUp || (currWaypoint - 1) < 0 && !goingUp)
                             {
                                 goingUp = !goingUp;
                             }
@@ -164,10 +153,26 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
             default:
                 break;
         }
+        Move(target);
     }
 
+    //CameraFlash
     public void OnPhotoTaken()
     {
         isFlashed = true;
+    }
+
+    //Seen
+    public void OnLookAway()
+    {
+        isSeen = false;
+    }
+    public void OnSighted()
+    {
+        Invoke(nameof(Freeze), 1.0f);
+    }
+    public void Freeze()
+    {
+        isSeen = true;
     }
 }

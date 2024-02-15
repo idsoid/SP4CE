@@ -1,19 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAnti : EnemyBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private enum State
     {
-        
+        IDLE,
+        KILL,
     }
 
-    // Update is called once per frame
-    void Update()
+    private State currState;
+
+    private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         
+        currState = State.IDLE;
+    }
+
+    private void Update()
+    {
+        if (currState == State.IDLE)
+        {
+            Vector3 direction = target.position - transform.position;
+            transform.forward = direction;
+        }
+        else if (currState == State.KILL)
+        {
+            Move(target);
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            currState = State.KILL;
+        }
     }
 
     public override void FSM()

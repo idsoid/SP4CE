@@ -78,14 +78,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7559f42d569e02742986782f4293d8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTarget: {fileID: 0}
-  eyeSight: {fileID: 616737067}
   patrolWaypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  canMove: 0
+  playerTarget: {fileID: 0}
+  eyeSight: {fileID: 616737067}
   playerSpotted: 0
   isSeen: 0
   isFlashed: 0
