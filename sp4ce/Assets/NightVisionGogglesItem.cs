@@ -8,16 +8,17 @@ using UnityEngine.UI;
 
 public class NightVisionGogglesItem : MonoBehaviour, IItem
 {
-    [SerializeField]
-    private Volume globalVolume;
+    [SerializeField] private Volume globalVolume;
+    [SerializeField] private GameObject model;
+    [SerializeField] float fTime_elapsed;
 
-    [SerializeField]
-    private GameObject model;
+    [Header("Night Vision Enemy")]
+    [SerializeField] private GameObject nvEnemyPrefab;
+    [SerializeField] private float distanceFromPlayer;
+    [SerializeField] private LayerMask spawnLayer;
 
-    bool isOn;
-
-    [SerializeField]
-    float fTime_elapsed;
+    private bool isOn;
+    private GameObject spawnedEnemy;
 
     void Start()
     {
@@ -41,6 +42,14 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         {
             fTime_elapsed = 0f;
             isOn = !isOn;
+            if (isOn)
+            {
+                if (RandomNVEnemy())
+                    SpawnNVEnemy();
+            }
+            else
+                Destroy(spawnedEnemy);
+            
             StartCoroutine(ToggleNightVision());
         }
     }
@@ -113,5 +122,36 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     public bool IsItemInUse()
     {
         return isOn;
+    }
+
+    private bool RandomNVEnemy()
+    {
+        int rng = Random.Range(0, 100);
+        Debug.Log("RNG: " + rng);
+        if (rng < 90)
+            return true;
+
+        return false;
+    }
+
+    private void SpawnNVEnemy()
+    {
+        bool spawned = false;
+
+        float x;
+        float z;
+        RaycastHit hit;
+
+        while (!spawned)
+        {
+            x = Random.Range(-distanceFromPlayer, distanceFromPlayer);
+            z = Random.Range(-distanceFromPlayer, distanceFromPlayer);
+
+            if (Physics.Raycast(new Vector3(x, 1f, z), Vector3.down, out hit, 1.2f, spawnLayer))
+            {
+                spawnedEnemy = Instantiate(nvEnemyPrefab, hit.point, Quaternion.identity);
+                Debug.Log("Spawned");
+            }
+        }
     }
 }

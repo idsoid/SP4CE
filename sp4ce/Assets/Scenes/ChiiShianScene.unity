@@ -15465,11 +15465,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4594004021386018876, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004021386018876, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: m_Cameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004021386018878, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: globalVolume
       value: 
       objectReference: {fileID: 1543673203}
+    - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: nvEnemyPrefab
+      value: 
+      objectReference: {fileID: 3506748300407416653, guid: bc373946a33fce644828cb0da85bb5ea,
+        type: 3}
+    - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: spawnLayer.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: distanceFromPlayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4594004022445722050, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: mouseSensitivity

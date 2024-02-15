@@ -50,12 +50,18 @@ public class LevelDoor : MonoBehaviour, IInteract
 
     public string GetItemName()
     {
-        return null;
+        string text = null;
+        if (!open)
+            text = "Open door";
+        else
+            text = "Close door";
+        
+        return text;
     }
 
     public void OnHover()
     {
-        
+        UIManager.instance.OnHover(GetItemName());
     }
 
     public void OnInteract(GameObject inventory)
