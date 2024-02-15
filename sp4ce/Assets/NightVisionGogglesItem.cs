@@ -14,6 +14,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
     [Header("Night Vision Enemy")]
     [SerializeField] private GameObject nvEnemyPrefab;
+    [SerializeField] private float spawnChance;
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private LayerMask spawnLayer;
 
@@ -42,13 +43,6 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         {
             fTime_elapsed = 0f;
             isOn = !isOn;
-            if (isOn)
-            {
-                if (RandomNVEnemy())
-                    SpawnNVEnemy();
-            }
-            else
-                Destroy(spawnedEnemy);
             
             StartCoroutine(ToggleNightVision());
         }
@@ -80,6 +74,8 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             {
                 com.active = true;
             }
+            if (RandomNVEnemy())
+                    SpawnNVEnemy();
         }
         else
         {
@@ -91,6 +87,8 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             }
             model.SetActive(true);
             isOn = false;
+            if (spawnedEnemy)
+                    Destroy(spawnedEnemy);
         }
     }
 
@@ -128,7 +126,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     {
         int rng = Random.Range(0, 100);
         Debug.Log("RNG: " + rng);
-        if (rng < 90)
+        if (rng < spawnChance)
             return true;
 
         return false;
@@ -137,21 +135,23 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     private void SpawnNVEnemy()
     {
         bool spawned = false;
-
         float x;
         float z;
         RaycastHit hit;
 
-        while (!spawned)
-        {
-            x = Random.Range(-distanceFromPlayer, distanceFromPlayer);
-            z = Random.Range(-distanceFromPlayer, distanceFromPlayer);
+        x = transform.position.x + Random.Range(-distanceFromPlayer, distanceFromPlayer);
+        z = transform.position.z + Random.Range(-distanceFromPlayer, distanceFromPlayer);
 
-            if (Physics.Raycast(new Vector3(x, 1f, z), Vector3.down, out hit, 1.2f, spawnLayer))
-            {
-                spawnedEnemy = Instantiate(nvEnemyPrefab, hit.point, Quaternion.identity);
-                Debug.Log("Spawned");
-            }
+        if (Physics.Raycast(new Vector3(x, 1f, z), Vector3.down, out hit, 1.2f, spawnLayer))
+        {
+            spawnedEnemy = Instantiate(nvEnemyPrefab, hit.point, Quaternion.identity);
+            spawned = true;
+        }
+
+        if (!spawned)
+        {
+            SpawnNVEnemy();
+            Debug.Log("Retried spawned");
         }
     }
 }

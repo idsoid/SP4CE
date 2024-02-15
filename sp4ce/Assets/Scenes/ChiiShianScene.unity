@@ -15467,7 +15467,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4594004021386018876, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
+      propertyPath: m_Antialiasing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004021386018876, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
       propertyPath: m_Cameras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004021386018876, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4594004021386018876, guid: ac121ffcc49a43c4b87b82faf5603860,
@@ -15482,6 +15492,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
+      propertyPath: spawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
       propertyPath: globalVolume
       value: 
       objectReference: {fileID: 1543673203}
@@ -15489,8 +15504,7 @@ PrefabInstance:
         type: 3}
       propertyPath: nvEnemyPrefab
       value: 
-      objectReference: {fileID: 3506748300407416653, guid: bc373946a33fce644828cb0da85bb5ea,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: spawnLayer.m_Bits
