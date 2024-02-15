@@ -12,15 +12,6 @@ public abstract class EnemyBase : MonoBehaviour
     protected float speed;
     protected NavMeshAgent agent;
     protected Transform target;
-    
-    protected enum State
-    {
-        IDLE,
-        PATROL,
-        CHASE,
-        FLEE
-    }
-    protected State currentState;
 
     protected bool allowAttack = false;
 

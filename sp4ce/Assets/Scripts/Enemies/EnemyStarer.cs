@@ -21,6 +21,15 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     public bool isSeen;
     public bool isFlashed;
 
+    private enum State
+    {
+        IDLE,
+        PATROL,
+        CHASE,
+        FLEE
+    }
+    private State currentState;
+
     // Start is called before the first frame update
     void Start()
     {
