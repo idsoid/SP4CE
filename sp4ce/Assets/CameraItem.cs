@@ -22,6 +22,12 @@ public class CameraItem : MonoBehaviour, IItem
     [SerializeField]
     private Light lightSource;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip picClip;
+
     private float cd;
 
     void Start()
@@ -84,6 +90,7 @@ public class CameraItem : MonoBehaviour, IItem
         cd = 2f;
         mr.material = whiteMaterial;
         lightSource.enabled = true;
+        audioSource.PlayOneShot(picClip);
         yield return new WaitForSeconds(0.1f);
         mr.material = screenMaterial;
         lightSource.enabled = false;

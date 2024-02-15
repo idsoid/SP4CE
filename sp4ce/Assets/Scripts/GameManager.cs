@@ -10,11 +10,12 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        accessLevel = 0;
     }
 
     void Start()
     {
-        accessLevel = 0;
+        
     }
 
     public void IncreaseAccessLevel()

@@ -22,6 +22,12 @@ public abstract class EnemyBase : MonoBehaviour
         agent.SetDestination(targetTransform.position);
     }
 
+    public virtual void MoveToPos(Vector3 pos)
+    {
+        agent.speed = speed;
+        agent.SetDestination(pos);
+    }
+
     //Attack
     public virtual void AttackPlayer()
     {

@@ -63,14 +63,14 @@ Shader "Custom Post-Processing/NightVision"
             float4 frag(v2f i) : SV_Target
             {
                 i.uv.x = (int)(i.uv.x * 750) / 750.f;
-                i.uv.y = (int)(i.uv.y * 750) / 750.f;
+                i.uv.y = (int)(i.uv.y * 250) / 250.f;
                 float3 c = tex2D(_MainTex, i.uv).rgb;
                 float lum = saturate(lerp(_LuminosityMidpoint, luminance(c), _LuminosityIntensity));
                 c = lum * _NightVisionTint * _NightVisionIntensity;
 
-                c.r = (int)(c.r*30) / 30.f;
-                c.g = (int)(c.g*30) / 30.f;
-                c.b = (int)(c.b*30) / 30.f;
+                c.r = (int)(c.r*10) / 10.f;
+                c.g = (int)(c.g*10) / 10.f;
+                c.b = (int)(c.b*10) / 10.f;
 
                 return float4(c, 1);
             }

@@ -1,9 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking.Types;
 
 public class PlayerController : MonoBehaviour, IHealth
 {
@@ -16,6 +14,7 @@ public class PlayerController : MonoBehaviour, IHealth
     [SerializeField]
     private GameObject sightController;
 
+    
     private int equippedIndex;
 
     void Start()
@@ -42,7 +41,7 @@ public class PlayerController : MonoBehaviour, IHealth
             if(inventory[equippedIndex].transform.parent == null)
             {
                 GetInventory();
-                SwapItem(false);
+                SwapItem(false, true);
             }
         }
         if(Input.GetMouseButtonUp(0))
@@ -61,11 +60,11 @@ public class PlayerController : MonoBehaviour, IHealth
 
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            SwapItem(true);
+            SwapItem(true, false);
         }
         else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            SwapItem(false);
+            SwapItem(false, false);
         }
     }
 
@@ -80,9 +79,16 @@ public class PlayerController : MonoBehaviour, IHealth
         }
     }
 
-    void SwapItem(bool front)
+    void SwapItem(bool front, bool isConsumed)
     {
-        inventory[equippedIndex].SetActive(false);
+        if(!isConsumed)
+        {
+            if(inventory[equippedIndex].GetComponent<IItem>().IsItemInUse())
+            {
+                return;
+            }
+            inventory[equippedIndex].SetActive(false);
+        }
         if(front)
         {
             equippedIndex = (equippedIndex + 1) % inventory.Count;

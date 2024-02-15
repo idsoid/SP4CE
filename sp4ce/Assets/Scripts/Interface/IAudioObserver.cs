@@ -1,5 +1,6 @@
+using UnityEngine;
 
 public interface IAudioObserver
 {   
-    void Notify();
+    void Notify(Vector3 position);
 }

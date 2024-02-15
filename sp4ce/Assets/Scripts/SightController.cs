@@ -14,7 +14,10 @@ public class SightController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(!other.gameObject.CompareTag("Player"))
-            objectsInRange.Add(other.gameObject);
+        {
+            if(!objectsInRange.Contains(other.gameObject))
+                objectsInRange.Add(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)

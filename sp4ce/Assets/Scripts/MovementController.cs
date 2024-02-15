@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
@@ -21,12 +20,21 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float runSpeed = 5f;
 
+    [SerializeField]
+    private float maxStamina=100;
+    private float stamina;
+
+    bool canRun;
+
+
     float moveX, moveY;
     
     // Start is called before the first frame update
     void Start()
     {
         fallVelocity = Vector3.zero;
+        canRun = true;
+        stamina = maxStamina;
     }
 
     // Update is called once per frame
@@ -38,6 +46,8 @@ public class MovementController : MonoBehaviour
             Jump();
         }
         HandleGravity();
+
+        UIManager.instance.SetStaminaLength(stamina / maxStamina);
     }
     private void HandleGravity()
     {
@@ -71,6 +81,8 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    float staminaAlpha = 0f;
     private void HandlePlayerMovement()
     {
         //if(GameManager.instance.timeStopped) return;
@@ -81,15 +93,67 @@ public class MovementController : MonoBehaviour
 
         moveDir.y = 0f;
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift) && canRun)
         {
-            moveDir *= runSpeed;
+            if(stamina > 0f)
+            {
+                
+                moveDir *= runSpeed;
+                if(moveDir != Vector3.zero)
+                {
+                    stamina-=Time.deltaTime*20f;
+                    staminaAlpha += Time.deltaTime * 5f;
+                    if(staminaAlpha > 1f) staminaAlpha = 1f;
+                    UIManager.instance.SetStaminaAlpha(staminaAlpha);
+                }
+                else
+                {
+                    stamina += Time.deltaTime * 5f;
+                }
+            }
+            else
+            {
+                canRun = false;
+            }
         }
         else
         {
+            
+            stamina += Time.deltaTime * 15f;
+            if(stamina > maxStamina)
+            {
+                stamina = maxStamina;
+                canRun = true;
+            }
             moveDir *= walkSpeed;
+
+            if(canRun)
+            {
+                staminaAlpha -= Time.deltaTime * 5f;
+                if(staminaAlpha < 0f) staminaAlpha = 0f;
+                UIManager.instance.SetStaminaAlpha(staminaAlpha);
+            }
+            else
+            {
+                staminaAlpha += Time.deltaTime;
+                if(staminaAlpha > 0.3f)
+                {
+                    UIManager.instance.SetStaminaAlpha(1f);
+                    if(staminaAlpha > 0.6f)
+                    {
+                        staminaAlpha = 0f;
+                    }
+                }
+                else
+                {
+                    UIManager.instance.SetStaminaAlpha(0f);
+                }
+                
+            }
         }
 
         charController.Move(moveDir * Time.deltaTime);
+
+        
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LevelDoor : MonoBehaviour, IInteract
@@ -11,6 +12,9 @@ public class LevelDoor : MonoBehaviour, IInteract
     private BoxCollider collider;
 
     private bool open;
+
+    [SerializeField]
+    int accessLevel = 2;
 
     private void Start()
     {
@@ -45,7 +49,8 @@ public class LevelDoor : MonoBehaviour, IInteract
 
     private void ToggleDoor()
     {
-        open = !open;
+        if(accessLevel <= GameManager.instance.accessLevel)
+            open = !open;
     }
 
     public string GetItemName()
@@ -61,7 +66,12 @@ public class LevelDoor : MonoBehaviour, IInteract
 
     public void OnHover()
     {
-        UIManager.instance.OnHover(GetItemName());
+        if(accessLevel > GameManager.instance.accessLevel)
+            UIManager.instance.OnHover("Requires Level "+accessLevel+" access");
+        else
+        {
+            UIManager.instance.OnHover("Open");
+        }
     }
 
     public void OnInteract(GameObject inventory)

@@ -77,7 +77,7 @@ public class Decoy : MonoBehaviour, IItem
         src.PlayOneShot(pulseClip);
         foreach(GameObject obj in objectsInRange)
         {
-            obj.GetComponent<IAudioObserver>().Notify();
+            obj.GetComponent<IAudioObserver>().Notify(transform.position);
         }
         yield return new WaitForSeconds(2);
         StartCoroutine(Pulse());
@@ -96,7 +96,7 @@ public class Decoy : MonoBehaviour, IItem
     {
         if(objectsInRange.Contains(other.gameObject))
         {
-            objectsInRange.Add(other.gameObject);
+            objectsInRange.Remove(other.gameObject);
         }
     }
 
