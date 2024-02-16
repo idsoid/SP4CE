@@ -57,6 +57,6 @@ public class UIManager : MonoBehaviour
     public void UpdateTemperatureText(float temp)
     {
         temperatureText.text = Mathf.Round(temp*10)*0.1f + "C";
-        temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-49f)/(31f));
+        temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
     }
 }

@@ -16,8 +16,11 @@ public class LevelDoor : MonoBehaviour, IInteract
     [SerializeField]
     int accessLevel = 2;
 
+    float fTime_elapsed;
+
     private void Start()
     {
+        fTime_elapsed = 0f;
         collider = GetComponent<BoxCollider>();
         open = startOpen;
 
@@ -35,6 +38,7 @@ public class LevelDoor : MonoBehaviour, IInteract
 
     private void Update()
     {
+        if(fTime_elapsed < 1f) fTime_elapsed+=Time.deltaTime;
         if (open)
         {
             door.position = Vector3.Slerp(door.position, openPosition.position, openSpeed);
@@ -49,8 +53,13 @@ public class LevelDoor : MonoBehaviour, IInteract
 
     private void ToggleDoor()
     {
+        if(fTime_elapsed < 1f) return;
         if(accessLevel <= GameManager.instance.accessLevel)
+        {
+            fTime_elapsed = 0f;
             open = !open;
+            UIManager.instance.OnHoverExit();
+        }
     }
 
     public string GetItemName()
@@ -66,6 +75,7 @@ public class LevelDoor : MonoBehaviour, IInteract
 
     public void OnHover()
     {
+        if(fTime_elapsed < 1f) return;
         if(accessLevel > GameManager.instance.accessLevel)
             UIManager.instance.OnHover("Requires Level "+accessLevel+" access");
         else
@@ -77,5 +87,6 @@ public class LevelDoor : MonoBehaviour, IInteract
     public void OnInteract(GameObject inventory)
     {
         ToggleDoor();
+        
     }
 }

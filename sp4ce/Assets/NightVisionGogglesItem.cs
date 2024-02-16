@@ -118,8 +118,8 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         }
         else
         {
-            temperature-=Time.deltaTime*0.5f;
-            if(temperature < 49f) temperature = 49f;
+            temperature-=Time.deltaTime;
+            if(temperature < 60f) temperature = 60f;
         }
         fTime_elapsed += Time.deltaTime;
         if(globalVolume.profile.TryGet<NoisePostProcess>(out NoisePostProcess com))
