@@ -97,13 +97,13 @@ public class MovementController : MonoBehaviour
         {
             if(stamina > 0f)
             {
-                
                 moveDir *= runSpeed;
                 if(moveDir != Vector3.zero)
                 {
                     stamina-=Time.deltaTime*20f;
                     staminaAlpha += Time.deltaTime * 5f;
                     if(staminaAlpha > 1f) staminaAlpha = 1f;
+                    Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 70, Time.deltaTime * 20f);
                     UIManager.instance.SetStaminaAlpha(staminaAlpha);
                 }
                 else
@@ -118,7 +118,6 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            
             stamina += Time.deltaTime * 15f;
             if(stamina > maxStamina)
             {
@@ -148,12 +147,10 @@ public class MovementController : MonoBehaviour
                 {
                     UIManager.instance.SetStaminaAlpha(0f);
                 }
-                
             }
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 20f);
         }
 
         charController.Move(moveDir * Time.deltaTime);
-
-        
     }
 }

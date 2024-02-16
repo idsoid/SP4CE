@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject nightVisionUI;
     [SerializeField] private TMP_Text temperatureText;
 
+    [SerializeField] private GameObject itemTipObject;
+    [SerializeField] private ItemTip itemTip;
+
     private void Awake()
     {
         instance = this;
@@ -20,6 +23,7 @@ public class UIManager : MonoBehaviour
         col.a = 0f;
         staminaBar.color = col;
         nightVisionUI.SetActive(false);
+        itemTipObject.SetActive(false);
     }
 
     public void OnHover(string text)
@@ -58,5 +62,12 @@ public class UIManager : MonoBehaviour
     {
         temperatureText.text = Mathf.Round(temp*10)*0.1f + "C";
         temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
+    }
+
+    public void DisplayTip(string name, string desc)
+    {
+        itemTip.fTime_elapsed = 6f;
+        itemTipObject.SetActive(true);
+        itemTip.SetDetails(name,desc);
     }
 }

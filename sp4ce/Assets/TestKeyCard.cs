@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TestKeyCard : MonoBehaviour, IPhotoObserver, ISightObserver
 {
+    [SerializeField]
+    private int accessLevel = 3;
+
     public void OnLookAway()
     {
         //throw new System.NotImplementedException();
@@ -12,7 +15,7 @@ public class TestKeyCard : MonoBehaviour, IPhotoObserver, ISightObserver
     public void OnPhotoTaken()
     {
         Debug.Log("yeah");
-        GameManager.instance.IncreaseAccessLevel();
+        GameManager.instance.SetAccessLevel(accessLevel);
         Destroy(gameObject);
     }
 

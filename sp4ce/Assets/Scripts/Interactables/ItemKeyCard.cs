@@ -4,8 +4,10 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ItemKeyCard : MonoBehaviour, IInteract
+public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObserver
 {
+    [SerializeField]
+    private int accessLevel = 3;
     public string GetItemName()
     {
         return "KeyCard";
@@ -18,8 +20,21 @@ public class ItemKeyCard : MonoBehaviour, IInteract
 
     public void OnInteract(GameObject inventory)
     {
-        GameManager.instance.IncreaseAccessLevel();
+        GameManager.instance.SetAccessLevel(accessLevel);
         UIManager.instance.OnHoverExit();
         Destroy(gameObject);    
+    }
+
+    public void OnLookAway()
+    {
+    }
+
+    public void OnPhotoTaken()
+    {
+        UIManager.instance.DisplayTip("Level 3 Access Keycard", "Access more of the facility.");
+    }
+
+    public void OnSighted()
+    {
     }
 }

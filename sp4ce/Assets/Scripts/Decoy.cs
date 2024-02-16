@@ -17,6 +17,9 @@ public class Decoy : MonoBehaviour, IItem
     [SerializeField]
     private AudioClip pulseClip;
 
+    [SerializeField]
+    private AudioClip clank;
+
     public int GetItemID()
     {
         return 2;
@@ -98,6 +101,11 @@ public class Decoy : MonoBehaviour, IItem
         {
             objectsInRange.Remove(other.gameObject);
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        src.PlayOneShot(clank);
     }
 
     public bool IsItemInUse()

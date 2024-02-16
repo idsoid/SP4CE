@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlashlightItem : MonoBehaviour, IItem
@@ -8,6 +9,13 @@ public class FlashlightItem : MonoBehaviour, IItem
 
     [SerializeField]
     private Light lightSource;
+
+    [SerializeField]
+    private AudioSource src;
+
+    [SerializeField]
+    private AudioClip clickSound;
+
     public int GetItemID()
     {
         return 3;
@@ -27,6 +35,7 @@ public class FlashlightItem : MonoBehaviour, IItem
     {
         isOn = !isOn;
         lightSource.enabled = isOn;
+        src.PlayOneShot(clickSound);
     }
 
     public void OnPrimaryActionRelease()
@@ -46,6 +55,7 @@ public class FlashlightItem : MonoBehaviour, IItem
     void Start()
     {
         isOn = false;
+        lightSource.enabled = isOn;
     }
 
     // Update is called once per frame

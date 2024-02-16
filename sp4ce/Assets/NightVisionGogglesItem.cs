@@ -18,6 +18,10 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private LayerMask spawnLayer;
 
+    [SerializeField] private AudioSource src;
+    [SerializeField] private AudioClip onSfx;
+    [SerializeField] private AudioClip offSfx;
+
     private bool isOn;
     private GameObject spawnedEnemy;
     private float temperature;
@@ -70,6 +74,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     {
         if(isOn)
         {
+            src.PlayOneShot(onSfx);
             yield return new WaitForSeconds(0.5f);
             if(!isOn) yield break;
             model.SetActive(false);
@@ -84,6 +89,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         else
         {
             isOn = true;
+            src.PlayOneShot(offSfx);
             yield return new WaitForSeconds(0.5f);
             if(globalVolume.profile.TryGet<NightVisionPostProcess>(out NightVisionPostProcess com))
             {
@@ -94,7 +100,8 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             isOn = false;
             if(temperature > 85f) temperature = 85f;
             if (spawnedEnemy)
-                    Destroy(spawnedEnemy);
+                Destroy(spawnedEnemy);
+            yield return new WaitForSeconds(0.5f);
         }
         toggleCoroutine = null;
     }
@@ -146,7 +153,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
     public bool IsItemInUse()
     {
-        return isOn;
+        return isOn || toggleCoroutine != null;
     }
 
     private bool RandomNVEnemy()

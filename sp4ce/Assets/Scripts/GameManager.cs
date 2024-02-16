@@ -32,9 +32,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void IncreaseAccessLevel()
+    public void SetAccessLevel(int lvl)
     {
-        accessLevel++;
+        if(accessLevel < lvl)
+            accessLevel = lvl;
     }
 
     public void Save()

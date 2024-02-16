@@ -1,13 +1,22 @@
 using System;
 using UnityEngine;
 
-public class LevelDoor : MonoBehaviour, IInteract
+public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserver
 {
     [SerializeField] private bool startOpen;
     [SerializeField] private float openSpeed;
     [SerializeField] private Transform door;
     [SerializeField] private Transform closePosition;
     [SerializeField] private Transform openPosition;
+
+    [SerializeField]
+    private AudioClip doorOpen;
+
+    [SerializeField]
+    private AudioClip doorClose;
+
+    [SerializeField]
+    private AudioSource source;
 
     private BoxCollider collider;
 
@@ -59,6 +68,11 @@ public class LevelDoor : MonoBehaviour, IInteract
             fTime_elapsed = 0f;
             open = !open;
             UIManager.instance.OnHoverExit();
+
+            if(open)
+                source.PlayOneShot(doorOpen);
+            else
+                source.PlayOneShot(doorClose);
         }
     }
 
@@ -87,6 +101,18 @@ public class LevelDoor : MonoBehaviour, IInteract
     public void OnInteract(GameObject inventory)
     {
         ToggleDoor();
-        
+    }
+
+    public void OnPhotoTaken()
+    {
+        UIManager.instance.DisplayTip("Door", "This door needs level "+accessLevel+" access to open.");
+    }
+
+    public void OnSighted()
+    {
+    }
+
+    public void OnLookAway()
+    {
     }
 }
