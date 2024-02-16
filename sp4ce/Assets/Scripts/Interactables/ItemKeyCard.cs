@@ -20,6 +20,7 @@ public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObser
 
     public void OnInteract(GameObject inventory)
     {
+        UIManager.instance.DisplayTip("Level 3 Access Keycard", "Access more of the facility.", true);
         GameManager.instance.SetAccessLevel(accessLevel);
         UIManager.instance.OnHoverExit();
         Destroy(gameObject);    
@@ -31,7 +32,7 @@ public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObser
 
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("Level 3 Access Keycard", "Access more of the facility.");
+        UIManager.instance.DisplayTip("Level 3 Access Keycard", "Access more of the facility.", true);
     }
 
     public void OnSighted()

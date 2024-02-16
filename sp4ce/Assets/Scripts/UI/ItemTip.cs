@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ItemTip : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class ItemTip : MonoBehaviour
 
     [SerializeField] private TMP_Text itemName;
     [SerializeField] private TMP_Text itemDesc;
+    [SerializeField] private Image durationBar;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class ItemTip : MonoBehaviour
         if(fTime_elapsed > 0f)
         {
             fTime_elapsed-=Time.deltaTime;
+            durationBar.fillAmount = Mathf.SmoothStep(0f,1f,fTime_elapsed/6f);
         }
         else
         {

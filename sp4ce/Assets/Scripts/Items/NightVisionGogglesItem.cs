@@ -98,7 +98,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             model.SetActive(true);
             UIManager.instance.ToggleNightVisionUI();
             isOn = false;
-            if(temperature > 85f) temperature = 85f;
+            if(temperature > 80f) temperature = 80f;
             if (spawnedEnemy)
                 Destroy(spawnedEnemy);
             yield return new WaitForSeconds(0.5f);

@@ -56,7 +56,7 @@ public class MovementController : MonoBehaviour
         {
             isFalling = false;
         }
-        else if(!Physics.Raycast(transform.position, -transform.up, 2f))
+        else if(!Physics.Raycast(transform.position, -new Vector3(0f,-1f,0f), 1f))
         {
             isFalling = true;
         }
@@ -92,6 +92,7 @@ public class MovementController : MonoBehaviour
         Vector3 moveDir = Camera.main.transform.forward * moveY + Camera.main.transform.right * moveX;
 
         moveDir.y = 0f;
+        moveDir = moveDir.normalized;
 
         if(Input.GetKey(KeyCode.LeftShift) && canRun)
         {

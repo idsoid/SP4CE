@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject itemTipObject;
     [SerializeField] private ItemTip itemTip;
+    [SerializeField] private PlayerData playerData;
 
     private void Awake()
     {
@@ -64,8 +65,13 @@ public class UIManager : MonoBehaviour
         temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
     }
 
-    public void DisplayTip(string name, string desc)
+    public void DisplayTip(string name, string desc, bool saveToIndex)
     {
+        if(saveToIndex)
+        {
+            if(playerData.DiscoveryIndex.Contains(name)) return;
+            playerData.DiscoveryIndex.Add(name);
+        }
         itemTip.fTime_elapsed = 6f;
         itemTipObject.SetActive(true);
         itemTip.SetDetails(name,desc);
