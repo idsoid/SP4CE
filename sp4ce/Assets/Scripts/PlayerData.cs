@@ -5,15 +5,17 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
 {
-    public List<int> inventoryIds;
-    public int lastCheckpoint;
-    public int health;
-    public int lastAccessLevel;
+    private List<int> inventoryIds;
+    private int lastCheckpoint;
+    private int health;
+    private int lastAccessLevel;
+    private List<string> discoveryIndex;
 
     public List<int> InventoryIDs { get => inventoryIds; set => inventoryIds = value; }
     public int LastCheckpoint { get => lastCheckpoint; set => lastCheckpoint = value; }
     public int Health { get => health; set => health = value; }
     public int LastAccessLevel { get => lastAccessLevel; set => lastAccessLevel = value; }
+    public List<string> DiscoveryIndex { get => discoveryIndex; set => discoveryIndex = value; }
     public void SaveData()
     {
         string s = JsonUtility.ToJson(this);
