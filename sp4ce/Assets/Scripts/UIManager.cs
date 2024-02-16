@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TMP_Text hoverText;
     [SerializeField] private Image staminaBar;
+    [SerializeField] private GameObject nightVisionUI;
+    [SerializeField] private TMP_Text temperatureText;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
         Color col = staminaBar.color;
         col.a = 0f;
         staminaBar.color = col;
+        nightVisionUI.SetActive(false);
     }
 
     public void OnHover(string text)
@@ -45,5 +47,16 @@ public class UIManager : MonoBehaviour
         Color col = staminaBar.color;
         col.a = alpha;
         staminaBar.color = col;
+    }
+
+    public void ToggleNightVisionUI()
+    {
+        nightVisionUI.SetActive(!nightVisionUI.activeInHierarchy);
+    }
+
+    public void UpdateTemperatureText(float temp)
+    {
+        temperatureText.text = Mathf.Round(temp*10)*0.1f + "C";
+        temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-49f)/(31f));
     }
 }

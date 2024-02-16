@@ -20,11 +20,14 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
     private bool isOn;
     private GameObject spawnedEnemy;
+    private float temperature;
+    private Coroutine toggleCoroutine;
 
     void Start()
     {
         fTime_elapsed = 2f;
         isOn = false;
+        temperature = 49.0f;
     }
 
     public int GetItemID()
@@ -41,10 +44,10 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     {
         if(fTime_elapsed > 1f)
         {
+            if(!isOn && temperature > 70f) return;
             fTime_elapsed = 0f;
             isOn = !isOn;
-            
-            StartCoroutine(ToggleNightVision());
+            toggleCoroutine = StartCoroutine(ToggleNightVision());
         }
     }
 
@@ -74,6 +77,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             {
                 com.active = true;
             }
+            UIManager.instance.ToggleNightVisionUI();
             if (RandomNVEnemy())
                     SpawnNVEnemy();
         }
@@ -86,14 +90,37 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
                 com.active = false;
             }
             model.SetActive(true);
+            UIManager.instance.ToggleNightVisionUI();
             isOn = false;
+            if(temperature > 85f) temperature = 85f;
             if (spawnedEnemy)
                     Destroy(spawnedEnemy);
         }
+        toggleCoroutine = null;
     }
 
     void Update()
     {
+        if(isOn)
+        {
+            if(temperature > 90f && toggleCoroutine == null) 
+            {
+                //TODO: overheat
+                fTime_elapsed = 0f;
+                isOn = false;
+                toggleCoroutine = StartCoroutine(ToggleNightVision());
+            }
+            else
+            {
+                temperature+=Time.deltaTime*2f;
+                UIManager.instance.UpdateTemperatureText(temperature);
+            }
+        }
+        else
+        {
+            temperature-=Time.deltaTime*0.5f;
+            if(temperature < 49f) temperature = 49f;
+        }
         fTime_elapsed += Time.deltaTime;
         if(globalVolume.profile.TryGet<NoisePostProcess>(out NoisePostProcess com))
         {
