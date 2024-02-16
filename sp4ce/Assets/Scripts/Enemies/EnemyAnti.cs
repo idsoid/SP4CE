@@ -32,11 +32,11 @@ public class EnemyAnti : EnemyBase
         {
             Move(target);
         }
+    }
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            currState = State.KILL;
-        }
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 
     public override void FSM()
