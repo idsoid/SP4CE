@@ -106,6 +106,10 @@ public class PlayerController : MonoBehaviour, IHealth
 
     private int health;
 
+    public int GetHealth()
+    {
+        return health;
+    }
     public void UpdateHealth(int amt)
     {
         health += amt;
