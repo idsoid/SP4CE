@@ -9,7 +9,7 @@ public class PlayerData : ScriptableObject
     private int lastCheckpoint;
     private int health;
     private int lastAccessLevel;
-    private List<string> discoveryIndex;
+    public List<string> discoveryIndex;
 
     public List<int> InventoryIDs { get => inventoryIds; set => inventoryIds = value; }
     public int LastCheckpoint { get => lastCheckpoint; set => lastCheckpoint = value; }
