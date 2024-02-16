@@ -12,6 +12,7 @@ public class Checkpoint : MonoBehaviour, ISightObserver, IPhotoObserver
     {
         //TODO: Save
         GameManager.instance.Save();
+        UIManager.instance.DisplayTip("Checkpoint", "Game saved!", false);
     }
 
     public void OnSighted()
