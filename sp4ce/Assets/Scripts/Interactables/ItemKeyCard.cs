@@ -10,7 +10,7 @@ public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObser
     private int accessLevel = 3;
     public string GetItemName()
     {
-        return "KeyCard";
+        return "Press E to pick up keycard";
     }
 
     public void OnHover()

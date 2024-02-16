@@ -15,6 +15,8 @@ public abstract class EnemyBase : MonoBehaviour
     protected int currWaypoint = 0;
     protected bool allowAttack = false;
 
+    protected Animator ar;
+
     //Move
     public virtual void Move(Transform targetTransform)
     {
@@ -36,6 +38,7 @@ public abstract class EnemyBase : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Player"))
             {
                 hit.transform.GetComponent<IHealth>().UpdateHealth(-damage);
+                Debug.Log("hit");
             }
         }
         allowAttack = false;
