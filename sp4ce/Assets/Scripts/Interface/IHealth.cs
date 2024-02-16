@@ -1,5 +1,7 @@
 public interface IHealth
 {
+    //get health
+    public int GetHealth();
     //health += amt;
     public void UpdateHealth(int amt);
 

@@ -8,9 +8,15 @@ public class GameManager : MonoBehaviour
     public int accessLevel {get; private set;}
 
     [SerializeField]
-    private List<GameObject> inventoryObject;
+    private List<GameObject> inventoryObject = new();
 
-    private List<int> inventoryIds;
+    [SerializeField]
+    private GameObject player;
+
+    [SerializeField]
+    private PlayerData playerData;
+
+    private List<int> inventoryIds = new();
 
     public int currCheckpoint;
     
@@ -39,19 +45,17 @@ public class GameManager : MonoBehaviour
             inventoryIds.Add(obj.GetComponent<IItem>().GetItemID());
         }
 
-        //TODO: save it
 
-
-
-
+        //Saving player data
+        playerData.InventoryIDs = inventoryIds;
+        playerData.LastCheckpoint = currCheckpoint;
+        playerData.LastAccessLevel = accessLevel;
+        playerData.Health = player.GetComponent<IHealth>().GetHealth();
+        playerData.SaveData();
     }
-}
 
-//for ref only nino
-class SaveData
-{
-    List<int> inventoryIds;
-    int lastCheckpoint;
-    int health;
-    int lastAccessLevel;
+    public void Load()
+    {
+        playerData.LoadData();
+    }
 }
