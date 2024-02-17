@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c574ec0a857d92b49a7716404beccdc8, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Global Volume Profile 4
   m_EditorClassIdentifier: 
-  discoveryIndex:
-  - Level 3 Access Keycard
-  - Access more of the facility.
-  - Decoy Bomb
-  - Red herring for threats.
+  components: []

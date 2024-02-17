@@ -105,7 +105,7 @@ public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserve
 
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("Door", "This door needs level "+accessLevel+" access to open.",true);
+        UIManager.instance.DisplayTip("Security Door", "This door needs level "+accessLevel+" access to open.",false);
     }
 
     public void OnSighted()

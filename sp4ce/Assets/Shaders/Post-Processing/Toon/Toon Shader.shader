@@ -49,8 +49,8 @@ Shader "Custom Post-Processing/Toon Shader"
                 // sample the texture
 
                 //quantize uv
-                i.uv.x = (int)(i.uv.x * 750) / 750.f;
-                i.uv.y = (int)(i.uv.y * 750) / 750.f;
+                i.uv.x = (int)(i.uv.x * 1000) / 1000.f;
+                i.uv.y = (int)(i.uv.y * 1000) / 1000.f;
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 

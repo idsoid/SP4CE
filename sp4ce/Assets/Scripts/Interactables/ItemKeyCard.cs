@@ -10,7 +10,7 @@ public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObser
     private int accessLevel = 3;
     public string GetItemName()
     {
-        return "Press E to pick up keycard";
+        return "[E] Pick up";
     }
 
     public void OnHover()
@@ -23,6 +23,9 @@ public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObser
         UIManager.instance.DisplayTip("Level 3 Access Keycard", "Access more of the facility.", true);
         GameManager.instance.SetAccessLevel(accessLevel);
         UIManager.instance.OnHoverExit();
+        
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.KEYCARD);
+
         Destroy(gameObject);    
     }
 
@@ -37,5 +40,6 @@ public class ItemKeyCard : MonoBehaviour, IInteract, IPhotoObserver, ISightObser
 
     public void OnSighted()
     {
+
     }
 }

@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.isInUI) return;
         mouseX += Input.GetAxis("Mouse X")* mouseSensitivity;
         mouseY += -Input.GetAxis("Mouse Y") * mouseSensitivity;
         mouseY = Mathf.Clamp(mouseY, -89f, 89f);

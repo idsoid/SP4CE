@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class NightVisionGogglesItem : MonoBehaviour, IItem
@@ -21,6 +22,8 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     [SerializeField] private AudioSource src;
     [SerializeField] private AudioClip onSfx;
     [SerializeField] private AudioClip offSfx;
+
+    [SerializeField] private GameObject NVScanner;
 
     private bool isOn;
     private GameObject spawnedEnemy;
@@ -82,6 +85,11 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             {
                 com.active = true;
             }
+            if(globalVolume.profile.TryGet<LensDistortion>(out LensDistortion ld))
+            {
+                ld.active = true;
+            }
+            NVScanner.SetActive(true);
             UIManager.instance.ToggleNightVisionUI();
             if (RandomNVEnemy())
                     SpawnNVEnemy();
@@ -95,7 +103,12 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             {
                 com.active = false;
             }
+            if(globalVolume.profile.TryGet<LensDistortion>(out LensDistortion ld))
+            {
+                ld.active = false;
+            }
             model.SetActive(true);
+            NVScanner.SetActive(false);
             UIManager.instance.ToggleNightVisionUI();
             isOn = false;
             if(temperature > 80f) temperature = 80f;
@@ -148,7 +161,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         if(isOn)
             transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position, Time.deltaTime * 5f);
         else
-            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 5f);
+            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 15f);
     }
 
     public bool IsItemInUse()

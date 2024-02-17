@@ -23,6 +23,7 @@ public class NoisePass : ScriptableRenderPass
     public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
     {
         if(noisePP == null || !noisePP.IsActive()) return;
+        if(!renderingData.postProcessingEnabled) return;
 
         CommandBuffer cmd = CommandBufferPool.Get("Custom Post-Processing/Noise");
         material.SetFloat("_Blend",noisePP.blend.value);

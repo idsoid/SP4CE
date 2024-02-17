@@ -1578,6 +1578,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8154189152902773258, guid: 5f23ca9ca1f81f243bac6b692ad557c3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f23ca9ca1f81f243bac6b692ad557c3, type: 3}
 --- !u!4 &2389204826338361463 stripped
@@ -2608,6 +2613,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 3112023533997889082, guid: 11b34b539a1d2a94388f83f237d68b9b,
+        type: 3}
+      propertyPath: accessLevel
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3112023533997889083, guid: 11b34b539a1d2a94388f83f237d68b9b,
         type: 3}
       propertyPath: m_RootOrder
@@ -2665,6 +2675,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11b34b539a1d2a94388f83f237d68b9b, type: 3}
+--- !u!1 &8981266631640620003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3112023533997889080, guid: 11b34b539a1d2a94388f83f237d68b9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6310667332085321179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1898132389
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981266631640620003}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &8693735364702777828
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,11 +20,14 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float runSpeed = 5f;
 
+    private float currMoveSpeed = 0f;
+
     [SerializeField]
     private float maxStamina=100;
     private float stamina;
 
     bool canRun;
+    bool isCrouching;
 
 
     float moveX, moveY;
@@ -34,12 +37,14 @@ public class MovementController : MonoBehaviour
     {
         fallVelocity = Vector3.zero;
         canRun = true;
+        isCrouching = false;
         stamina = maxStamina;
     }
 
     // Update is called once per frame
     void Update()
     {
+        HandleCrouching();
         HandlePlayerMovement();
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -56,7 +61,7 @@ public class MovementController : MonoBehaviour
         {
             isFalling = false;
         }
-        else if(!Physics.Raycast(transform.position, -new Vector3(0f,-1f,0f), 1f))
+        else
         {
             isFalling = true;
         }
@@ -67,7 +72,7 @@ public class MovementController : MonoBehaviour
         }
         else
         {
-            fallVelocity = Vector3.zero;
+            fallVelocity = new Vector3(0f,-1f,0f);
         }
     }
 
@@ -76,35 +81,48 @@ public class MovementController : MonoBehaviour
         if(!isFalling)
         {
             isFalling = true;
-            fallVelocity = new Vector3(0f,10f,0f);
-            charController.transform.Translate(0f,1f,0f);
+            fallVelocity = new Vector3(0f,8f,0f);
         }
     }
 
     [SerializeField]
     float staminaAlpha = 0f;
+
+    float fTime_elapsedBob;
+    float fTime_barDuration = 0f;
     private void HandlePlayerMovement()
     {
-        //if(GameManager.instance.timeStopped) return;
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
+
+        if(GameManager.instance.isInUI)
+        {
+            moveX = 0f;
+            moveY = 0f;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 20f);
+        }
 
         Vector3 moveDir = Camera.main.transform.forward * moveY + Camera.main.transform.right * moveX;
 
         moveDir.y = 0f;
         moveDir = moveDir.normalized;
 
-        if(Input.GetKey(KeyCode.LeftShift) && canRun)
+        if(Input.GetKey(KeyCode.LeftShift) && canRun && !isCrouching)
         {
             if(stamina > 0f)
             {
-                moveDir *= runSpeed;
+                currMoveSpeed = runSpeed;
                 if(moveDir != Vector3.zero)
                 {
                     stamina-=Time.deltaTime*20f;
                     staminaAlpha += Time.deltaTime * 5f;
-                    if(staminaAlpha > 1f) staminaAlpha = 1f;
+                    if(staminaAlpha > 1f) {
+                        staminaAlpha = 1f;
+                        fTime_barDuration = 0f;
+                    }
                     Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 70, Time.deltaTime * 20f);
+
+                    //UI updates
                     UIManager.instance.SetStaminaAlpha(staminaAlpha);
                 }
                 else
@@ -125,16 +143,25 @@ public class MovementController : MonoBehaviour
                 stamina = maxStamina;
                 canRun = true;
             }
-            moveDir *= walkSpeed;
+            currMoveSpeed = walkSpeed;
 
+            //ui handling
             if(canRun)
             {
-                staminaAlpha -= Time.deltaTime * 5f;
-                if(staminaAlpha < 0f) staminaAlpha = 0f;
+                if(fTime_barDuration > 1f)
+                {
+                    staminaAlpha -= Time.deltaTime * 5f;
+                    if(staminaAlpha < 0f) staminaAlpha = 0f;
+                }
+                else
+                {
+                    fTime_barDuration+=Time.deltaTime;
+                }
                 UIManager.instance.SetStaminaAlpha(staminaAlpha);
             }
             else
             {
+                //run out of stamina, blinking stamina bar
                 staminaAlpha += Time.deltaTime;
                 if(staminaAlpha > 0.3f)
                 {
@@ -149,9 +176,71 @@ public class MovementController : MonoBehaviour
                     UIManager.instance.SetStaminaAlpha(0f);
                 }
             }
+            //
+            
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 20f);
         }
+        moveDir *= currMoveSpeed;
 
+        HandleBobbing(moveDir.magnitude);
+        HandleFootsteps(moveDir.magnitude);
+
+        if(GameManager.instance.isInUI) return;
         charController.Move(moveDir * Time.deltaTime);
+    }
+
+    private void HandleBobbing(float moveSpeed)
+    {
+        if(!charController.isGrounded) return; 
+        fTime_elapsedBob += Time.deltaTime;
+
+        if(moveSpeed > 0)
+            Camera.main.transform.localPosition = Vector3.Lerp(new Vector3(0f,(isCrouching?0.2f:0.5f) - 0.05f,0f), new Vector3(0f,(isCrouching?0.2f:0.5f) + 0.05f,0f), (Mathf.Sin(fTime_elapsedBob * moveSpeed * 4f) + 1) * 0.5f);
+        else
+            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, new Vector3(0f,isCrouching?0.2f:0.5f,0f),Time.deltaTime*5f); 
+    }
+
+    private void HandleCrouching()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = !isCrouching;
+        }
+        charController.height = isCrouching?0.9f:1.7f;
+    }
+    private Coroutine footstepCoroutine;
+    private IEnumerator PlayFootstep()
+    {
+        if(isCrouching || !charController.isGrounded)
+        {
+            footstepCoroutine = null;
+            yield break;
+        }
+
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.FOOTSTEP_LEFT);
+        yield return new WaitForSeconds(1.5f/currMoveSpeed);
+
+        if(isCrouching || !charController.isGrounded)
+        {
+            footstepCoroutine = null;
+            yield break;
+        }
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.FOOTSTEP_RIGHT);
+        yield return new WaitForSeconds(1.5f/currMoveSpeed);
+
+        footstepCoroutine = StartCoroutine(PlayFootstep());
+    }
+    private void HandleFootsteps(float moveSpeed)
+    {
+        if(moveSpeed > 0)
+        {
+            if(footstepCoroutine != null) return;
+            footstepCoroutine = StartCoroutine(PlayFootstep());
+        }
+        else if(footstepCoroutine!=null)
+        {
+            StopCoroutine(footstepCoroutine);
+            footstepCoroutine = null;
+        }
     }
 }

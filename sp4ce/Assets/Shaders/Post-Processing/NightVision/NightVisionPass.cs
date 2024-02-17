@@ -34,6 +34,7 @@ public class NightVisionPass : ScriptableRenderPass
     {
         if (nightVisionPostProcess == null || !nightVisionPostProcess.IsActive())
             return;
+        
 
         texID = Shader.PropertyToID("_MainTex");
         dest = new RenderTargetHandle();
@@ -48,7 +49,8 @@ public class NightVisionPass : ScriptableRenderPass
     {
         if (nightVisionPostProcess == null || !nightVisionPostProcess.IsActive())
             return;
-            
+        
+        if(!renderingData.postProcessingEnabled) return;
         CommandBuffer cmd = CommandBufferPool.Get("Custom Post-Processing/NightVision");
         material.SetFloat("_LuminosityMidpoint", nightVisionPostProcess.luminosityMidpoint.value);
         material.SetFloat("_LuminosityIntensity", nightVisionPostProcess.luminosityIntensity.value);

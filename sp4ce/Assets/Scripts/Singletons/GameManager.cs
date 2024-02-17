@@ -19,12 +19,15 @@ public class GameManager : MonoBehaviour
     private List<int> inventoryIds = new();
 
     public int currCheckpoint;
+
+    public bool isInUI;
     
     void Awake()
     {
         instance = this;
         accessLevel = 0;
         currCheckpoint = 0;
+        isInUI = false;
     }
 
     void Start()

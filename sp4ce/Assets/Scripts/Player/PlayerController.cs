@@ -124,6 +124,7 @@ public class PlayerController : MonoBehaviour, IHealth
     public void Die()
     {
         Debug.Log("im dead");
+        gameObject.SetActive(false);
     }
 
     public void InitHealth()

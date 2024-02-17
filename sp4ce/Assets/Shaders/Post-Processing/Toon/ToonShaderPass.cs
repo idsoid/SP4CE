@@ -23,6 +23,7 @@ public class ToonShaderPass : ScriptableRenderPass
     public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
     {
         if(toonPostProcess == null || !toonPostProcess.IsActive()) return;
+        if(!renderingData.postProcessingEnabled) return;
 
         CommandBuffer cmd = CommandBufferPool.Get("Custom Post-Processing/Toon Shader");
         material.SetFloat("_Blend",toonPostProcess.blend.value);

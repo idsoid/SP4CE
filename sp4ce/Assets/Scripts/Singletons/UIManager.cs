@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject itemTipObject;
     [SerializeField] private ItemTip itemTip;
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private GameObject discovIndex;
 
     private void Awake()
     {
@@ -44,6 +45,17 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            itemTipObject.SetActive(false);
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            discovIndex.SetActive(!discovIndex.activeInHierarchy);
+            Cursor.lockState = discovIndex.activeInHierarchy?CursorLockMode.None:CursorLockMode.Locked;
+            GameManager.instance.isInUI = discovIndex.activeInHierarchy;
+        }
     }
 
     public void SetStaminaAlpha(float lerpval)
@@ -67,13 +79,21 @@ public class UIManager : MonoBehaviour
 
     public void DisplayTip(string name, string desc, bool saveToIndex)
     {
+        StartCoroutine(DisplayTipCoroutine(name,desc,saveToIndex));
+    }
+
+    private IEnumerator DisplayTipCoroutine(string name, string desc, bool saveToIndex)
+    {
+        yield return new WaitForSeconds(0.5f);
         if(saveToIndex)
         {
-            if(playerData.DiscoveryIndex.Contains(name)) return;
+            if(playerData.DiscoveryIndex.Contains(name)) yield break;
             playerData.DiscoveryIndex.Add(name);
+            playerData.DiscoveryIndex.Add(desc);
         }
         itemTip.fTime_elapsed = 6f;
         itemTipObject.SetActive(true);
         itemTip.SetDetails(name,desc);
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ITEMTIP);
     }
 }

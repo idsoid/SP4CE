@@ -13,7 +13,7 @@ public class SightController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.gameObject.CompareTag("Player"))
+        if(!other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<ISightObserver>() != null)
         {
             if(!objectsInRange.Contains(other.gameObject))
                 objectsInRange.Add(other.gameObject);
@@ -65,7 +65,7 @@ public class SightController : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetObjectsInRange()
+    public List<GameObject> GetObjectsInRange(float thresholdAngle)
     {
         List<GameObject> visibleObjects = new List<GameObject>();
         foreach(GameObject obj in objectsInRange)
@@ -74,9 +74,10 @@ public class SightController : MonoBehaviour
             if(sightobj!=null)
             {
                 Vector3 targetDir = (obj.transform.position - transform.position).normalized;
-                if(Physics.Raycast(transform.position, targetDir, sphereCollider.radius))
+                if(Physics.Raycast(transform.position, targetDir,out RaycastHit hit, sphereCollider.radius))
                 {
-                    if(Vector3.Angle(targetDir,Camera.main.transform.forward) < 30)
+                    if(hit.transform.gameObject != obj) continue;
+                    if(Vector3.Angle(targetDir,Camera.main.transform.forward) < thresholdAngle)
                     {
                         visibleObjects.Add(obj);
                     }

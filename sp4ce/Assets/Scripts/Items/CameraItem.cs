@@ -79,7 +79,14 @@ public class CameraItem : MonoBehaviour, IItem
 
     private IEnumerator TakePhoto()
     {
-        foreach(GameObject obj in sc.GetObjectsInRange())
+        cd = 2f;
+        mr.material = whiteMaterial;
+        lightSource.enabled = true;
+        audioSource.PlayOneShot(picClip);
+        yield return new WaitForSeconds(0.1f);
+
+        //alert objects
+        foreach(GameObject obj in sc.GetObjectsInRange(30f))
         {
             IPhotoObserver ipo = obj.GetComponent<IPhotoObserver>();
             if(ipo != null)
@@ -87,11 +94,7 @@ public class CameraItem : MonoBehaviour, IItem
                 ipo.OnPhotoTaken();
             }
         }
-        cd = 2f;
-        mr.material = whiteMaterial;
-        lightSource.enabled = true;
-        audioSource.PlayOneShot(picClip);
-        yield return new WaitForSeconds(0.1f);
+
         mr.material = screenMaterial;
         lightSource.enabled = false;
     }

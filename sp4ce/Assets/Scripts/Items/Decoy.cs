@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Decoy : MonoBehaviour, IItem
+public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
 {
     [SerializeField]
     private List<GameObject> objectsInRange;
@@ -111,5 +110,18 @@ public class Decoy : MonoBehaviour, IItem
     public bool IsItemInUse()
     {
         return false;
+    }
+
+    public void OnPhotoTaken()
+    {
+        UIManager.instance.DisplayTip("Decoy Bomb", "Red herring for threats.", true);
+    }
+
+    public void OnSighted()
+    {
+    }
+
+    public void OnLookAway()
+    {
     }
 }
