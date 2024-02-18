@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class NightVisionIndicator : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class NightVisionIndicator : MonoBehaviour
 
     [SerializeField]
     private SightController sightController;
+
+    [SerializeField]
+    private TMP_Text scanDetails;
 
     public GameObject targetObject;
 
@@ -52,11 +56,29 @@ public class NightVisionIndicator : MonoBehaviour
             {
                 indicator.SetActive(true);
                 indicator.transform.position = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+                
+                scroll = StartCoroutine(ScrollDetails(targetObject.GetComponent<ISightObserver>()?.GetDetails()));
             }
         }
         else
             indicator.SetActive(false);
         yield return new WaitForSeconds(0.1f);
         co = StartCoroutine(ScanObjects());
+    }
+
+    Coroutine scroll;
+    private IEnumerator ScrollDetails(string details)
+    {
+        if(scroll!=null) yield break;
+
+        scanDetails.text = "";
+        foreach(char character in details)
+        {
+            scanDetails.text = scanDetails.text + character;
+            PlayerAudioController.instance.PlayAudio(AUDIOSOUND.SCROLL);
+            yield return new WaitForSeconds(0.03f);
+        }
+
+        scroll = null;
     }
 }

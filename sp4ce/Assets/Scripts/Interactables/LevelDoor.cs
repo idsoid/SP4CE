@@ -122,4 +122,9 @@ public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserve
     public void OnLookAway()
     {
     }
+
+    public string GetDetails()
+    {
+        return ".";
+    }
 }

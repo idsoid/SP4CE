@@ -42,4 +42,9 @@ public class Checkpoint : MonoBehaviour, ISightObserver, IPhotoObserver
     public void OnSighted()
     {
     }
+
+    public string GetDetails()
+    {
+        return "CHECKPOINT";
+    }
 }
