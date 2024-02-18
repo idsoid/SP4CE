@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour, IHealth
     void Update()
     {
         sightController.transform.position = transform.position;
+
+        if(GameManager.instance.isInUI) return;
+        
         if(Input.GetMouseButtonDown(0))
         {
             inventory[equippedIndex].GetComponent<IItem>().OnPrimaryAction();

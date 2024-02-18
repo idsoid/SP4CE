@@ -38,7 +38,11 @@ public enum AUDIOSOUND
     FOOTSTEP_LEFT = 2,
     FOOTSTEP_RIGHT = 3,
 
-    DISCOVINDEX = 4
+    DISCOVINDEX = 4,
+    TIRED = 5,
+    SCROLL = 6,
+
+    DINDEX_PAGETURN = 7,
 
     //more to add
 }

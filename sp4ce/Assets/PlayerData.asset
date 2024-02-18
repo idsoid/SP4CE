@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   discoveryIndex:
-  - Level 3 Access Keycard
-  - Access more of the facility.
   - Decoy Bomb
   - Red herring for threats.

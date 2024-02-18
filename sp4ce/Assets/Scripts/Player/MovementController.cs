@@ -133,6 +133,7 @@ public class MovementController : MonoBehaviour
             else
             {
                 canRun = false;
+                PlayerAudioController.instance.PlayAudio(AUDIOSOUND.TIRED);
             }
         }
         else

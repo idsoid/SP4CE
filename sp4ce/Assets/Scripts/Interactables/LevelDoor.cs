@@ -16,6 +16,9 @@ public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserve
     private AudioClip doorClose;
 
     [SerializeField]
+    private AudioClip lockedClip;
+
+    [SerializeField]
     private AudioSource source;
 
     private BoxCollider collider;
@@ -73,6 +76,10 @@ public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserve
                 source.PlayOneShot(doorOpen);
             else
                 source.PlayOneShot(doorClose);
+        }
+        else
+        {
+            source.PlayOneShot(lockedClip);
         }
     }
 

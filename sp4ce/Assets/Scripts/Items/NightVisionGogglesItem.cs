@@ -23,12 +23,19 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     [SerializeField] private AudioClip onSfx;
     [SerializeField] private AudioClip offSfx;
 
+    [SerializeField] private AudioClip equipSfx;
+
     [SerializeField] private GameObject NVScanner;
 
     private bool isOn;
     private GameObject spawnedEnemy;
     private float temperature;
     private Coroutine toggleCoroutine;
+
+    void OnEnable()
+    {
+        src.PlayOneShot(equipSfx);
+    }
 
     void Start()
     {

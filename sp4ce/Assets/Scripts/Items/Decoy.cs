@@ -19,6 +19,14 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
     [SerializeField]
     private AudioClip clank;
 
+    [SerializeField]
+    private AudioClip equip;
+
+    void OnEnable()
+    {
+        src.PlayOneShot(equip);
+    }
+
     public int GetItemID()
     {
         return 2;

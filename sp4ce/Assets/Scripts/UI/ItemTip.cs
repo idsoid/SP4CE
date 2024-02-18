@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ItemTip : MonoBehaviour
 {
@@ -37,10 +38,40 @@ public class ItemTip : MonoBehaviour
         }
     }
 
+    Coroutine nameCoroutine, descCoroutine;
     public void SetDetails(string name, string desc)
     {
         fTime_elapsed = 6f;
-        itemName.text = name;
-        itemDesc.text = desc;
+
+        if(nameCoroutine != null || descCoroutine != null) return;
+        
+        nameCoroutine = StartCoroutine(ScrollName(name));
+        descCoroutine = StartCoroutine(ScrollDesc(desc));
+    }
+
+    private IEnumerator ScrollName(string name)
+    {
+        itemName.text = "";
+        foreach(char letter in name)
+        {
+            itemName.text = itemName.text + letter;
+            PlayerAudioController.instance.PlayAudio(AUDIOSOUND.SCROLL);
+            yield return new WaitForSeconds(0.02f);
+        }
+
+        nameCoroutine = null;
+    }
+
+    private IEnumerator ScrollDesc(string desc)
+    {
+        itemDesc.text = "";
+        foreach(char letter in desc)
+        {
+            itemDesc.text = itemDesc.text + letter;
+            PlayerAudioController.instance.PlayAudio(AUDIOSOUND.SCROLL);
+            yield return new WaitForSeconds(0.02f);
+        }
+
+        descCoroutine = null;
     }
 }

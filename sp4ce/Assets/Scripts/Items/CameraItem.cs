@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CameraItem : MonoBehaviour, IItem
 {
@@ -28,7 +29,15 @@ public class CameraItem : MonoBehaviour, IItem
     [SerializeField]
     private AudioClip picClip;
 
+    [SerializeField]
+    private AudioClip equipClip;
+
     private float cd;
+
+    void OnEnable()
+    {
+        audioSource.PlayOneShot(equipClip);
+    }
 
     void Start()
     {
@@ -72,7 +81,7 @@ public class CameraItem : MonoBehaviour, IItem
         }
         transform.LookAt(transform.position - Camera.main.transform.forward);
         if(isAiming)
-            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + Camera.main.transform.forward * 0.1f, Time.deltaTime * 25f);
+            transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + Camera.main.transform.forward * 0.1f, Time.deltaTime * 50f);
         else
             transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 25f);
     }
@@ -86,7 +95,7 @@ public class CameraItem : MonoBehaviour, IItem
         yield return new WaitForSeconds(0.1f);
 
         //alert objects
-        foreach(GameObject obj in sc.GetObjectsInRange(30f))
+        foreach(GameObject obj in sc.GetObjectsInRange(15f))
         {
             IPhotoObserver ipo = obj.GetComponent<IPhotoObserver>();
             if(ipo != null)

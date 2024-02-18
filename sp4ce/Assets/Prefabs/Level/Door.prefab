@@ -119,6 +119,7 @@ MonoBehaviour:
   openPosition: {fileID: 3112023532653737741}
   doorOpen: {fileID: 8300000, guid: a20dd5fd4b18a6a429046394fa5cbdc0, type: 3}
   doorClose: {fileID: 8300000, guid: 5a0d19c404c8c0e4da4ba74352b17a5a, type: 3}
+  lockedClip: {fileID: 8300000, guid: fda81ea034d44dd4382669d3b6258d90, type: 3}
   source: {fileID: -5023811553450685843}
   accessLevel: 0
 --- !u!65 &3112023533997889085

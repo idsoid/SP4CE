@@ -16,9 +16,17 @@ public class FlashlightItem : MonoBehaviour, IItem
     [SerializeField]
     private AudioClip clickSound;
 
+    [SerializeField]
+    private AudioClip equipSound;
+
     public int GetItemID()
     {
         return 3;
+    }
+
+    void OnEnable()
+    {
+        src.PlayOneShot(equipSound);
     }
 
     public void GetRequiredControllers(GameObject obj, GameObject sightController)

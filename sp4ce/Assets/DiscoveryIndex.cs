@@ -46,5 +46,6 @@ public class DiscoveryIndex : MonoBehaviour
         }
         nameText.text = playerData.discoveryIndex[currPageIndex];
         descText.text = playerData.discoveryIndex[currPageIndex+1];
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.DINDEX_PAGETURN);
     }
 }
