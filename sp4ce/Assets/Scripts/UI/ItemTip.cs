@@ -24,6 +24,12 @@ public class ItemTip : MonoBehaviour
         fTime_elapsed = 6f;
     }
 
+    void OnDisable()
+    {
+        nameCoroutine = null;
+        descCoroutine = null;
+    }
+
     // Update is called once per frame
     void Update()
     {

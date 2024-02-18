@@ -48,15 +48,27 @@ public class NightVisionIndicator : MonoBehaviour
 
     private IEnumerator ScanObjects()
     {
-        List<GameObject> targetsList = sightController.GetObjectsInRange(10f);
+        List<GameObject> targetsList = sightController.GetObjectsInRange(20f);
         if(targetsList.Count > 0)
         {
+            if(targetObject!=null)
+            {
+                if(targetObject!=targetsList[0])
+                {
+                    if(scroll != null) 
+                    {
+                        StopCoroutine(scroll);
+                        scroll = null;
+                    }
+                    indicator.transform.position = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+                    scroll = StartCoroutine(ScrollDetails(targetsList[0].GetComponent<ISightObserver>()?.GetDetails()));
+                }
+            }
             targetObject = targetsList[0];
             if(!indicator.activeInHierarchy)
             {
                 indicator.SetActive(true);
                 indicator.transform.position = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
-                
                 scroll = StartCoroutine(ScrollDetails(targetObject.GetComponent<ISightObserver>()?.GetDetails()));
             }
         }

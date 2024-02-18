@@ -85,15 +85,9 @@ public class UIManager : MonoBehaviour
 
     public void DisplayTip(string name, string desc, bool saveToIndex)
     {
-        StartCoroutine(DisplayTipCoroutine(name,desc,saveToIndex));
-    }
-
-    Coroutine fadeCoroutine;
-    private IEnumerator DisplayTipCoroutine(string name, string desc, bool saveToIndex)
-    {
         if(saveToIndex)
         {
-            if(playerData.DiscoveryIndex.Contains(name)) yield break;
+            if(playerData.DiscoveryIndex.Contains(name)) return;
             playerData.DiscoveryIndex.Add(name);
             playerData.DiscoveryIndex.Add(desc);
         }
@@ -108,6 +102,8 @@ public class UIManager : MonoBehaviour
         
         PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ITEMTIP);
     }
+
+    Coroutine fadeCoroutine;
 
     private IEnumerator FadeTip()
     {
