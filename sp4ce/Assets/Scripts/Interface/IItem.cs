@@ -14,5 +14,7 @@ public interface IItem
     public void OnSecondaryActionRelease();
     public bool IsItemInUse();
 
+    public void RunBackgroundProcesses();
+
     public void GetRequiredControllers(GameObject obj, GameObject sightController);
 }

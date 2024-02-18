@@ -72,4 +72,9 @@ public class FlashlightItem : MonoBehaviour, IItem
         transform.LookAt(transform.position + Camera.main.transform.forward);
         transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 25f);
     }
+
+    public void RunBackgroundProcesses()
+    {
+
+    }
 }

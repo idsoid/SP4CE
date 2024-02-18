@@ -132,4 +132,9 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
     public void OnLookAway()
     {
     }
+
+    public void RunBackgroundProcesses()
+    {
+
+    }
 }

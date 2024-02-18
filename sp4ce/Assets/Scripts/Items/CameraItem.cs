@@ -117,4 +117,9 @@ public class CameraItem : MonoBehaviour, IItem
     {
         return isAiming;
     }
+
+    public void RunBackgroundProcesses()
+    {
+
+    }
 }

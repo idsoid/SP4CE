@@ -29,7 +29,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
     private bool isOn;
     private GameObject spawnedEnemy;
-    private float temperature;
+    public float temperature;
     private Coroutine toggleCoroutine;
 
     void OnEnable()
@@ -207,5 +207,10 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             SpawnNVEnemy();
             Debug.Log("Retried spawned");
         }
+    }
+
+    public void RunBackgroundProcesses()
+    {
+        temperature -= Time.deltaTime;
     }
 }

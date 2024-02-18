@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IHealth
         sightController.transform.position = transform.position;
 
         if(GameManager.instance.isInUI) return;
-        
+
         if(Input.GetMouseButtonDown(0))
         {
             inventory[equippedIndex].GetComponent<IItem>().OnPrimaryAction();
@@ -68,6 +68,12 @@ public class PlayerController : MonoBehaviour, IHealth
         else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             SwapItem(false, false);
+        }
+    
+        foreach(GameObject obj in inventory)
+        {
+            if(obj.activeInHierarchy)
+                obj.GetComponent<IItem>()?.RunBackgroundProcesses();
         }
     }
 
