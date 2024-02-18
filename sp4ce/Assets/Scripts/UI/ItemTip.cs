@@ -31,6 +31,7 @@ public class ItemTip : MonoBehaviour
         {
             fTime_elapsed-=Time.deltaTime;
             durationBar.fillAmount = Mathf.SmoothStep(0f,1f,fTime_elapsed/6f);
+            durationBar.material.SetFloat("_Effect",GetComponent<Image>().material.GetFloat("_Effect"));
         }
         else
         {
@@ -44,14 +45,15 @@ public class ItemTip : MonoBehaviour
         fTime_elapsed = 6f;
 
         if(nameCoroutine != null || descCoroutine != null) return;
-        
+        itemName.text = "";
+        itemDesc.text = "";
         nameCoroutine = StartCoroutine(ScrollName(name));
         descCoroutine = StartCoroutine(ScrollDesc(desc));
     }
 
     private IEnumerator ScrollName(string name)
     {
-        itemName.text = "";
+        yield return new WaitForSeconds(0.5f);
         foreach(char letter in name)
         {
             itemName.text = itemName.text + letter;
@@ -64,14 +66,13 @@ public class ItemTip : MonoBehaviour
 
     private IEnumerator ScrollDesc(string desc)
     {
-        itemDesc.text = "";
+        yield return new WaitForSeconds(0.5f);
         foreach(char letter in desc)
         {
             itemDesc.text = itemDesc.text + letter;
             PlayerAudioController.instance.PlayAudio(AUDIOSOUND.SCROLL);
             yield return new WaitForSeconds(0.02f);
         }
-
         descCoroutine = null;
     }
 }

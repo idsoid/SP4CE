@@ -20,6 +20,9 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float runSpeed = 5f;
 
+    [SerializeField]
+    private float crouchSpeed = 1.5f;
+
     private float currMoveSpeed = 0f;
 
     [SerializeField]
@@ -28,7 +31,6 @@ public class MovementController : MonoBehaviour
 
     bool canRun;
     bool isCrouching;
-
 
     float moveX, moveY;
     
@@ -144,7 +146,8 @@ public class MovementController : MonoBehaviour
                 stamina = maxStamina;
                 canRun = true;
             }
-            currMoveSpeed = walkSpeed;
+
+            currMoveSpeed = isCrouching?crouchSpeed:walkSpeed;
 
             //ui handling
             if(canRun)

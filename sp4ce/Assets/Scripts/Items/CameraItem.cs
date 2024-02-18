@@ -97,11 +97,7 @@ public class CameraItem : MonoBehaviour, IItem
         //alert objects
         foreach(GameObject obj in sc.GetObjectsInRange(15f))
         {
-            IPhotoObserver ipo = obj.GetComponent<IPhotoObserver>();
-            if(ipo != null)
-            {
-                ipo.OnPhotoTaken();
-            }
+            obj.GetComponent<IPhotoObserver>()?.OnPhotoTaken();
         }
 
         mr.material = screenMaterial;

@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public int currCheckpoint;
 
     public bool isInUI;
+
+    public Checkpoint checkpt;
     
     void Awake()
     {
@@ -61,5 +63,10 @@ public class GameManager : MonoBehaviour
     public void Load()
     {
         playerData.LoadData();
+    }
+
+    public void OnCheckpointChanged()
+    {
+        checkpt?.DisableCheckpoint();
     }
 }

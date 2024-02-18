@@ -26,6 +26,8 @@ public class Checkpoint : MonoBehaviour, ISightObserver, IPhotoObserver
         //TODO: Save
         //GameManager.instance.Save();
         UIManager.instance.DisplayTip("Checkpoint", "Game saved!", false);
+        GameManager.instance.OnCheckpointChanged();
+        GameManager.instance.checkpt = this;
         src.PlayOneShot(saveSfx);
         checkpointActive = true;
     }
@@ -46,5 +48,14 @@ public class Checkpoint : MonoBehaviour, ISightObserver, IPhotoObserver
     public string GetDetails()
     {
         return "CHECKPOINT";
+    }
+
+    public void DisableCheckpoint()
+    {
+        checkpointActive = false;
+        mr.material.color = Color.white;
+        glow.intensity = 0f;
+        mr.material.SetColor("_EmissionColor",Color.black);
+        mr.material.EnableKeyword("_EMISSION");
     }
 }

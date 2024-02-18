@@ -45,9 +45,15 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) && itemTipObject.activeInHierarchy)
         {
             itemTipObject.SetActive(false);
+
+            if(fadeCoroutine!=null)
+            {
+                StopCoroutine(fadeCoroutine);
+                fadeCoroutine = null;
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.T))
@@ -82,18 +88,36 @@ public class UIManager : MonoBehaviour
         StartCoroutine(DisplayTipCoroutine(name,desc,saveToIndex));
     }
 
+    Coroutine fadeCoroutine;
     private IEnumerator DisplayTipCoroutine(string name, string desc, bool saveToIndex)
     {
-        yield return new WaitForSeconds(0.5f);
         if(saveToIndex)
         {
             if(playerData.DiscoveryIndex.Contains(name)) yield break;
             playerData.DiscoveryIndex.Add(name);
             playerData.DiscoveryIndex.Add(desc);
         }
-        itemTip.fTime_elapsed = 6f;
+        
         itemTipObject.SetActive(true);
+
+        if(fadeCoroutine == null)
+            fadeCoroutine = StartCoroutine(FadeTip());
+        
+        itemTip.fTime_elapsed = 6f;
         itemTip.SetDetails(name,desc);
+        
         PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ITEMTIP);
+    }
+
+    private IEnumerator FadeTip()
+    {
+        if(fadeCoroutine != null)yield break;
+        for(float i = 0; i <= 0.9f; i+=0.1f)
+        {
+            itemTipObject.GetComponent<Image>().material.SetFloat("_Effect",i);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(5f);
+        fadeCoroutine = null;
     }
 }
