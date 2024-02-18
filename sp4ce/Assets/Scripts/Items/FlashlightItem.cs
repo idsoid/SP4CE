@@ -43,7 +43,7 @@ public class FlashlightItem : MonoBehaviour, IItem
     {
         isOn = !isOn;
         lightSource.enabled = isOn;
-        src.PlayOneShot(clickSound);
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.FLASHLIGHT);
     }
 
     public void OnPrimaryActionRelease()

@@ -12014,6 +12014,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1bf00e08c0bb20b40bd357b865942202, type: 3}
   - {fileID: 8300000, guid: bd6674fce0cff604483d25c76b8d5b7d, type: 3}
   - {fileID: 8300000, guid: 8eb5c62f94ea1474d8a0d60cf12b824f, type: 3}
+  - {fileID: 8300000, guid: 64c7ac3e654e4854dacdc7ec746036d5, type: 3}
   src: {fileID: 1230085860}
 --- !u!82 &1230085860
 AudioSource:
@@ -16096,7 +16097,7 @@ PrefabInstance:
     - target: {fileID: 4594004020508895365, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: m_Radius
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4594004021003000864, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}

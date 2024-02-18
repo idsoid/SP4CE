@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
     
     private int equippedIndex;
+    private FlashlightItem flashlight;
 
     void Start()
     {
@@ -70,6 +71,10 @@ public class PlayerController : MonoBehaviour, IHealth
             SwapItem(false, false);
         }
     
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            flashlight.OnPrimaryAction();
+        }
         foreach(GameObject obj in inventory)
         {
             if(obj.activeInHierarchy)
@@ -85,6 +90,9 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             child.GetComponent<IItem>().GetRequiredControllers(gameObject, sightController);
             inventory.Add(child.gameObject);
+
+            FlashlightItem fs = child.GetComponent<FlashlightItem>();
+            if(fs!=null) flashlight=fs;
         }
     }
 
