@@ -222,6 +222,37 @@ Transform:
   m_Father: {fileID: 7997072913794158368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &859337436107386796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9168897744391353069}
+  m_Layer: 0
+  m_Name: DeathCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9168897744391353069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859337436107386796}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.02, y: 2.5, z: 1.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7168004410993764074}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1169346834745043860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,6 +1914,7 @@ Transform:
   - {fileID: 3692850161104457343}
   - {fileID: 7131357965458647541}
   - {fileID: 4978735544929994627}
+  - {fileID: 9168897744391353069}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1939,7 +1971,8 @@ MonoBehaviour:
   speed: 25
   target: {fileID: 0}
   modelObject: {fileID: 1169346834745043860}
-  rageBuildUp: 10
+  rageBuildUp: 25
+  deathCam: {fileID: 859337436107386796}
 --- !u!1 &7681440117787660848
 GameObject:
   m_ObjectHideFlags: 0

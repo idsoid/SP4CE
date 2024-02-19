@@ -10,6 +10,7 @@ public class EnemyAnti : EnemyBase
     [Header("Anti-NV")]
     [SerializeField] private GameObject modelObject;
     [SerializeField] private float rageBuildUp = 1f;
+    [SerializeField] private GameObject deathCam;
 
     private enum State
     {
@@ -57,6 +58,7 @@ public class EnemyAnti : EnemyBase
     {
         if (currState == State.RAGE)
         {
+            GameManager.instance.lastHitEnemy = deathCam;
             AttackPlayer();
         }
     }
@@ -75,11 +77,6 @@ public class EnemyAnti : EnemyBase
         {
             Move(target);
         }
-    }
-
-    public override void AttackPlayer()
-    {
-        target.GetComponent<IHealth>().UpdateHealth(-damage);
     }
 
     public void SetTarget(Transform newTarget)
