@@ -221,4 +221,9 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     {
         temperature -= Time.deltaTime;
     }
+
+    public void OnEMPTrigger()
+    {
+        
+    }
 }

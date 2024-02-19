@@ -16,5 +16,7 @@ public interface IItem
 
     public void RunBackgroundProcesses();
 
+    public void OnEMPTrigger();
+
     public void GetRequiredControllers(GameObject obj, GameObject sightController);
 }

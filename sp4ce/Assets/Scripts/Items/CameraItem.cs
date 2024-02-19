@@ -118,4 +118,9 @@ public class CameraItem : MonoBehaviour, IItem
     {
 
     }
+
+    public void OnEMPTrigger()
+    {
+        
+    }
 }

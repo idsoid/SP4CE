@@ -18,6 +18,8 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
 
     private bool isChasingAudio;
 
+    private GameObject targetObject;
+
     public override void FSM()
     {
         if(isChasingAudio)
@@ -49,8 +51,16 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
         isChasingAudio = false;
     }
 
-    public void Notify(Vector3 position)
+    public void Notify(Vector3 position, GameObject source)
     {
+        if(targetObject != null)
+        {
+            if(targetObject.CompareTag("Decoy"))
+            {
+                return;
+            }
+        }
+        targetObject = source;
         Debug.Log("hi");
         audioPosition = position;
         isChasingAudio = true;

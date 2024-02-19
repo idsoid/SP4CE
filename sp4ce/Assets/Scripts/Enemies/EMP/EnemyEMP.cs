@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyEMP : EnemyBase
+public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 {
     [SerializeField] private Transform player;
     [SerializeField] private float walkSpeed = 2f;
@@ -11,6 +11,7 @@ public class EnemyEMP : EnemyBase
 
     [SerializeField] private GameObject blastPrefab;
 
+    [SerializeField]
     private float patrolTimerSet = 30f;
     private float chaseTimerSet = 20f;
     public float restTimerSet = 50f;
@@ -162,5 +163,23 @@ public class EnemyEMP : EnemyBase
     {
         ar.SetTrigger("rest");
         currentState = State.REST;
+    }
+
+    public void OnSighted()
+    {
+    }
+
+    public void OnLookAway()
+    {
+    }
+
+    public void OnPhotoTaken()
+    {
+        UIManager.instance.DisplayTip("EMP", "put ya desc here stoopid", true);
+    }
+
+    public string GetDetails()
+    {
+        return "DANGER";
     }
 }

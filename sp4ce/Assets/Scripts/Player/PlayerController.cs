@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IHealth
@@ -38,31 +37,42 @@ public class PlayerController : MonoBehaviour, IHealth
 
         if(GameManager.instance.isInUI) return;
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            inventory[equippedIndex].GetComponent<IItem>().OnPrimaryAction();
-
-            //check in case for consumable
-            if(inventory[equippedIndex].transform.parent == null)
+        if(canUse) {
+            if(Input.GetMouseButtonDown(0))
             {
-                GetInventory();
-                SwapItem(false, true);
-            }
-        }
-        if(Input.GetMouseButtonUp(0))
-        {
-            inventory[equippedIndex].GetComponent<IItem>().OnPrimaryActionRelease();
-        }
+                inventory[equippedIndex].GetComponent<IItem>().OnPrimaryAction();
 
-        if(Input.GetMouseButtonDown(1))
-        {
-            inventory[equippedIndex].GetComponent<IItem>().OnSecondaryAction();
-        }
-        if(Input.GetMouseButtonUp(1))
+                //check in case for consumable
+                if(inventory[equippedIndex].transform.parent == null)
+                {
+                    GetInventory();
+                    SwapItem(false, true);
+                }
+            }
+            if(Input.GetMouseButtonUp(0))
+            {
+                inventory[equippedIndex].GetComponent<IItem>().OnPrimaryActionRelease();
+            }
+            if(Input.GetMouseButtonDown(1))
+            {
+                inventory[equippedIndex].GetComponent<IItem>().OnSecondaryAction();
+            }
+            if(Input.GetMouseButtonUp(1))
         {
             inventory[equippedIndex].GetComponent<IItem>().OnSecondaryActionRelease();
         }
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                flashlight.OnPrimaryAction();
+            }
+            foreach(GameObject obj in inventory)
+            {
+                if(obj.activeInHierarchy)
+                    obj.GetComponent<IItem>()?.RunBackgroundProcesses();
+            }
+        }
 
+        //weapon swapping
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             SwapItem(true, false);
@@ -72,16 +82,6 @@ public class PlayerController : MonoBehaviour, IHealth
             SwapItem(false, false);
         }
     
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            flashlight.OnPrimaryAction();
-        }
-        foreach(GameObject obj in inventory)
-        {
-            if(obj.activeInHierarchy)
-                obj.GetComponent<IItem>()?.RunBackgroundProcesses();
-        }
-
         //TODO: remove pls. temporary
         if(Input.GetKeyDown(KeyCode.H))
         {
@@ -155,5 +155,17 @@ public class PlayerController : MonoBehaviour, IHealth
     public void InitHealth()
     {
         health = maxHealth;
+    }
+
+    bool canUse = true;
+    public void DisableEquipment()
+    {
+        canUse = false;
+        inventory[equippedIndex].GetComponent<IItem>()?.OnPrimaryActionRelease();
+        inventory[equippedIndex].GetComponent<IItem>()?.OnSecondaryActionRelease();
+        foreach(GameObject obj in inventory)
+        {
+            obj.GetComponent<IItem>()?.OnEMPTrigger();
+        }
     }
 }

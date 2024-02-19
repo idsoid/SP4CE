@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -77,8 +79,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Image deathImage;
     [SerializeField] private Image skullImage;
+    [SerializeField] private TMP_Text restartText;
     public void Die()
     {
+        restartText.gameObject.SetActive(false);
         deathImage.material.SetFloat("_Effect",0f);
         skullImage.material.SetFloat("_Effect",0f);
         deathScreen.SetActive(true);
@@ -91,6 +95,19 @@ public class GameManager : MonoBehaviour
             deathImage.material.SetFloat("_Effect",eff);
             skullImage.material.SetFloat("_Effect",eff);
             yield return new WaitForSeconds(0.1f);
+        }
+
+        restartText.gameObject.SetActive(true);
+    }
+
+    void Update()
+    {
+        if(restartText.gameObject.activeInHierarchy)
+        {
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 }
