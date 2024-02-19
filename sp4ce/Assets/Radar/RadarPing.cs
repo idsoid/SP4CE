@@ -14,7 +14,7 @@ public class RadarPing : MonoBehaviour {
     {
         material = GetComponent<MeshRenderer>().material;
         material.EnableKeyword("_EMISSION");
-        disappearTimerMax = 2f;
+        disappearTimerMax = 1.5f;
         disappearTimer = 0f;
         color = new Color(1, 0, 0, 1);
     }

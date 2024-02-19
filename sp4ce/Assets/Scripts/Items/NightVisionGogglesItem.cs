@@ -212,8 +212,8 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
         if (!spawned)
         {
+            Debug.Log("Retry spawn");
             SpawnNVEnemy(spawnPosition);
-            Debug.Log("Retried spawned");
         }
     }
 
