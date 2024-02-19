@@ -18,6 +18,7 @@ public class EnemyAnti : EnemyBase
     }
 
     private Material material;
+    private Collider collider;
     private State currState;
     private float rage;
 
@@ -25,6 +26,7 @@ public class EnemyAnti : EnemyBase
     {
         material = modelObject.GetComponent<Renderer>().material;
         agent = GetComponent<NavMeshAgent>();
+        collider = GetComponent<Collider>();
 
         ChangeState(State.IDLE);
     }
@@ -32,6 +34,7 @@ public class EnemyAnti : EnemyBase
     private void Update()
     {
         Vector3 direction = target.position - transform.position;
+        direction.y = 0f;
         transform.forward = direction;
         
         FSM();
@@ -52,11 +55,19 @@ public class EnemyAnti : EnemyBase
         currState = newState;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player");
+        }
+    }
+
     public override void FSM()
     {
         if (currState == State.IDLE)
         {
-            rage += rageBuildUp * Time.deltaTime;
+            //rage += rageBuildUp * Time.deltaTime;
             material.SetFloat("_REFLECTIONS_WEIGHT", rage);
 
             if (rage >= 50f)

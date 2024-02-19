@@ -1331,9 +1331,12 @@ MonoBehaviour:
   globalVolume: {fileID: 832575518}
   model: {fileID: 1101250228181422735}
   fTime_elapsed: 0
-  nvEnemyPrefab: {fileID: 0}
-  spawnChance: 0
-  distanceFromPlayer: 0
+  NVScanner: {fileID: 0}
+  nvEnemyPrefab: {fileID: 7508079626905140304, guid: 7fa36f0b20f6c444db69b65e08a7cf72,
+    type: 3}
+  spawnChance: 40
+  distanceFromPlayer: 5
+  distanceDeviation: 2
   spawnLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1341,7 +1344,6 @@ MonoBehaviour:
   onSfx: {fileID: 8300000, guid: c3dbcf5f1dfc3f84e9693fa847dba8dc, type: 3}
   offSfx: {fileID: 8300000, guid: 5fd899dd549d74b4d87bdd4f3d6aa9de, type: 3}
   equipSfx: {fileID: 8300000, guid: 23e50037bc16f0f4c912d151454e365a, type: 3}
-  NVScanner: {fileID: 0}
   temperature: 0
 --- !u!82 &1405433447
 AudioSource:

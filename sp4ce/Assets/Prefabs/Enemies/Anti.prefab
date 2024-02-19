@@ -232,7 +232,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4978735544929994627}
   - component: {fileID: 2536480877822626732}
-  - component: {fileID: 1510217587}
   m_Layer: 0
   m_Name: thing
   m_TagString: Untagged
@@ -372,20 +371,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0741905, y: 0.31894958, z: 0.0117634535}
     m_Extent: {x: 1.4997681, y: 0.58731306, z: 0.53084373}
   m_DirtyAABB: 0
---- !u!136 &1510217587
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1169346834745043860}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 10
-  m_Height: 58
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 29}
 --- !u!1 &1246097314887198737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,8 +1856,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7168004410993764074}
-  - component: {fileID: 1510217585}
+  - component: {fileID: 1653628986578270358}
   - component: {fileID: 1510217588}
+  - component: {fileID: 1510217585}
   m_Layer: 0
   m_Name: Anti
   m_TagString: Untagged
@@ -1900,24 +1886,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1510217585
-MonoBehaviour:
+--- !u!136 &1653628986578270358
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7508079626905140304}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aee3fcaebf11dcb409ecf82e787f5eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolWaypoints: []
-  damage: 999
-  speed: 25
-  target: {fileID: 0}
-  modelObject: {fileID: 1169346834745043860}
-  rageBuildUp: 10
+  m_Radius: 0.5
+  m_Height: 2.8671255
+  m_Direction: 1
+  m_Center: {x: -0, y: 1.4352646, z: 0}
 --- !u!195 &1510217588
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1940,6 +1922,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1510217585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7508079626905140304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee3fcaebf11dcb409ecf82e787f5eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolWaypoints: []
+  damage: 999
+  speed: 25
+  target: {fileID: 0}
+  modelObject: {fileID: 1169346834745043860}
+  rageBuildUp: 10
 --- !u!1 &7681440117787660848
 GameObject:
   m_ObjectHideFlags: 0
