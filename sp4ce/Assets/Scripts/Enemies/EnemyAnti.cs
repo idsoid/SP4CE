@@ -57,9 +57,9 @@ public class EnemyAnti : EnemyBase
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (currState == State.RAGE)
         {
-            Debug.Log("Player");
+            AttackPlayer();
         }
     }
 
@@ -67,7 +67,7 @@ public class EnemyAnti : EnemyBase
     {
         if (currState == State.IDLE)
         {
-            //rage += rageBuildUp * Time.deltaTime;
+            rage += rageBuildUp * Time.deltaTime;
             material.SetFloat("_REFLECTIONS_WEIGHT", rage);
 
             if (rage >= 50f)
@@ -77,6 +77,11 @@ public class EnemyAnti : EnemyBase
         {
             Move(target);
         }
+    }
+
+    public override void AttackPlayer()
+    {
+        target.GetComponent<IHealth>().UpdateHealth(-damage);
     }
 
     public void SetTarget(Transform newTarget)
