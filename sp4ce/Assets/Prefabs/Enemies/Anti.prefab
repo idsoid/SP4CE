@@ -1861,7 +1861,7 @@ GameObject:
   - component: {fileID: 1510217585}
   m_Layer: 0
   m_Name: Anti
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1908,7 +1908,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7508079626905140304}
   m_Enabled: 1
-  m_AgentTypeID: 287145453
+  m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 50
