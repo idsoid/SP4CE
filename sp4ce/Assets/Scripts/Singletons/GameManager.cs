@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject deathScreen;
+
+    [SerializeField] 
+    private GameObject winScreen;
 
     private List<int> inventoryIds = new();
 
@@ -80,11 +84,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image deathImage;
     [SerializeField] private Image skullImage;
     [SerializeField] private TMP_Text restartText;
+
     public void Die()
     {
         restartText.gameObject.SetActive(false);
-        deathImage.material.SetFloat("_Effect",0f);
-        skullImage.material.SetFloat("_Effect",0f);
+        deathImage.material.SetFloat("_Effect", 0f);
+        skullImage.material.SetFloat("_Effect", 0f);
         deathScreen.SetActive(true);
         StartCoroutine(FadeDeathScreen());
     }
@@ -109,5 +114,17 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
+    }
+
+    public GameObject GetPlayer()
+    {
+        return player;
+    }
+
+    public void Escape()
+    {
+        Debug.Log("Escape");
+        winScreen.SetActive(true);
+        isInUI = true;
     }
 }

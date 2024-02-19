@@ -85,13 +85,7 @@ public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserve
 
     public string GetItemName()
     {
-        string text = null;
-        if (!open)
-            text = "Open door";
-        else
-            text = "Close door";
-        
-        return text;
+        return null;
     }
 
     public void OnHover()

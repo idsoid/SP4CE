@@ -18,7 +18,6 @@ public class EnemyAnti : EnemyBase
     }
 
     private Material material;
-    private Collider collider;
     private State currState;
     private float rage;
 
@@ -26,7 +25,6 @@ public class EnemyAnti : EnemyBase
     {
         material = modelObject.GetComponent<Renderer>().material;
         agent = GetComponent<NavMeshAgent>();
-        collider = GetComponent<Collider>();
 
         ChangeState(State.IDLE);
     }
