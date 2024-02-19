@@ -159,6 +159,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     //CameraFlash
     public void OnPhotoTaken()
     {
+        UIManager.instance.DisplayTip("my cock", "my  cock 2", true);
         isFlashed = true;
     }
 

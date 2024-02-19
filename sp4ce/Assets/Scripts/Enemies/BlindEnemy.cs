@@ -17,6 +17,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
     int waypointIndex;
 
     private bool isChasingAudio;
+    private Animator animator;
 
     //year
     private GameObject targetObject;
@@ -26,7 +27,10 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
         if(isChasingAudio)
         {
             if(Vector3.Distance(audioPosition,transform.position) > 1)
+            {
                 MoveToPos(audioPosition);
+                animator.SetInteger("Move", 2);
+            }
             else
             {
                 StartCoroutine(ReturnToPatrol());
@@ -41,6 +45,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
             else
             {
                 MoveToPos(waypoints[waypointIndex].position);
+                animator.SetInteger("Move", 1);
             }
         }
     }
@@ -61,6 +66,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
                 return;
             }
         }
+        animator.SetTrigger("Attack");
         targetObject = source;
         Debug.Log("hi");
         audioPosition = position;
@@ -70,6 +76,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
 
     void Awake()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         speed = 5f;
         isChasingAudio = false;
