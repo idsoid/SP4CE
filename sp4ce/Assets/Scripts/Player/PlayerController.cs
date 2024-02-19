@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IHealth
@@ -80,6 +81,12 @@ public class PlayerController : MonoBehaviour, IHealth
             if(obj.activeInHierarchy)
                 obj.GetComponent<IItem>()?.RunBackgroundProcesses();
         }
+
+        //TODO: remove pls. temporary
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            GameManager.instance.Die();
+        }
     }
 
     void GetInventory()
@@ -142,6 +149,7 @@ public class PlayerController : MonoBehaviour, IHealth
     {
         Debug.Log("im dead");
         gameObject.SetActive(false);
+        GameManager.instance.Die();
     }
 
     public void InitHealth()
