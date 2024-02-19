@@ -33,6 +33,7 @@ public class AnimationEventEMP : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        GameManager.instance.lastHitEnemy = emp.jumpscareCamTransform.gameObject;
         emp.AttackPlayer();
     }
 }

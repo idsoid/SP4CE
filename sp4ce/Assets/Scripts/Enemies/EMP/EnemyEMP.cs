@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 {
+    public Transform jumpscareCamTransform;
+
     [SerializeField] private Transform player;
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float chaseSpeed = 10f;
@@ -35,7 +37,7 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
     // Start is called before the first frame update
     void Start()
     {
-        damage = 30;
+        damage = 1000;
 
         timer = patrolTimerSet;
 
