@@ -13,11 +13,5 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   discoveryIndex:
-  - EYELESS
-  - 'BLIND BUT EXTREMELY SENSITIVE TO SOUND.
-
-    PROCEED WITH CAUTION.'
-  - Level 3 Access Keycard
-  - Access more of the facility.
-  - Decoy Bomb
-  - Red herring for threats.
+  - EMP
+  - put ya desc here stoopid
