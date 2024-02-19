@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -19,6 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ItemTip itemTip;
     [SerializeField] private PlayerData playerData;
     [SerializeField] private GameObject discovIndex;
+
+    [SerializeField] private GameObject NVScanner;  
 
     [SerializeField] private Volume vol;
 
@@ -137,5 +140,6 @@ public class UIManager : MonoBehaviour
         {
             ld.active = false;
         }
+        NVScanner.SetActive(false);
     }
 }
