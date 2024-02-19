@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -33,14 +34,8 @@ public abstract class EnemyBase : MonoBehaviour
     //Attack
     public virtual void AttackPlayer()
     {
-        if (Physics.Linecast(transform.position, target.transform.position, out RaycastHit hit))
-        {
-            if (hit.collider.gameObject.CompareTag("Player"))
-            {
-                hit.transform.GetComponent<IHealth>().UpdateHealth(-damage);
-                Debug.Log("hit");
-            }
-        }
+        target.GetComponent<IHealth>().UpdateHealth(-damage);
+        Debug.Log("hit");
         allowAttack = false;
         Invoke(nameof(ReadyToAttack), 1.0f);
     }
