@@ -26,6 +26,11 @@ public class AnimationEventEMP : MonoBehaviour
             col.enabled = true;
     }
 
+    public void AttackDone()
+    {
+        emp.AttackDone();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         emp.AttackPlayer();

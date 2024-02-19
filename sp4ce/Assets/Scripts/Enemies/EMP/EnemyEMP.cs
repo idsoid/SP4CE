@@ -9,6 +9,8 @@ public class EnemyEMP : EnemyBase
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float chaseSpeed = 10f;
 
+    [SerializeField] private GameObject blastPrefab;
+
     private float patrolTimerSet = 30f;
     private float chaseTimerSet = 20f;
     public float restTimerSet = 50f;
@@ -72,7 +74,7 @@ public class EnemyEMP : EnemyBase
             case State.PATROL:
                 timer -= Time.deltaTime;
                 speed = walkSpeed;
-                if (timer <= 0f && Random.Range(0, 100) > 10)
+                if (timer <= 0f && Random.Range(0, 100) > 40)
                 {
                     currentState = State.CHARGE;
                     break;
@@ -90,7 +92,7 @@ public class EnemyEMP : EnemyBase
             case State.CHARGE:
                 ar.SetBool("charge", true);
                 speed = 0;
-                if (chargeCount > 5)
+                if (chargeCount == 4)
                 {
                     timer = chaseTimerSet;
                     ar.SetBool("charge", false);
@@ -111,7 +113,6 @@ public class EnemyEMP : EnemyBase
                     gameObject.transform.LookAt(target);
                     ar.SetBool("chase", false);
                     ar.SetTrigger("attack");
-                    currentState = State.REST;
                 }
 
                 if (timer <= 0)
@@ -146,6 +147,13 @@ public class EnemyEMP : EnemyBase
 
     public void Blast()
     {
+        Instantiate(blastPrefab, transform);
         chargeCount++;
+    }
+
+    public void AttackDone()
+    {
+        ar.SetTrigger("rest");
+        currentState = State.REST;
     }
 }
