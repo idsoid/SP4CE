@@ -25,6 +25,7 @@ public class EnemyEMP : EnemyBase
         PATROL,
         CHARGE,
         CHASE,
+        ATTACK,
         REST
     }
 
@@ -62,6 +63,7 @@ public class EnemyEMP : EnemyBase
         }
 
         FSM();
+
         Move(target);
 
         ar.SetFloat("move", agent.velocity.normalized.magnitude);
@@ -108,11 +110,9 @@ public class EnemyEMP : EnemyBase
 
                 if (agent.remainingDistance < 3)
                 {
-                    speed = 0;
-                    agent.velocity = Vector3.zero;
-                    gameObject.transform.LookAt(target);
                     ar.SetBool("chase", false);
-                    ar.SetTrigger("attack");
+                    currentState = State.ATTACK;
+                    break;
                 }
 
                 if (timer <= 0)
@@ -125,6 +125,13 @@ public class EnemyEMP : EnemyBase
 
                 speed = chaseSpeed;
                 target = player;
+
+                break;
+            case State.ATTACK:
+                speed = 0;
+                agent.velocity = Vector3.zero;
+                gameObject.transform.LookAt(target);
+                ar.SetTrigger("attack");
 
                 break;
             case State.REST:
