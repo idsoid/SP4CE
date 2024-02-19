@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Volume vol;
 
+    [SerializeField] private Image nvFill;
+
     private void Awake()
     {
         instance = this;
@@ -52,6 +54,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+
         if(Input.GetKeyDown(KeyCode.R) && itemTipObject.activeInHierarchy)
         {
             itemTipObject.SetActive(false);
@@ -86,6 +89,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTemperatureText(float temp)
     {
+        Debug.Log("temp" + temp + " aa " + (temp - 60) / 30);
+        nvFill.fillAmount = (temp - 60) / 30;
         temperatureText.text = Mathf.Round(temp*10)*0.1f + "C";
         temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
     }

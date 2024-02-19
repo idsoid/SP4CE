@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class CameraItem : MonoBehaviour, IItem
 {
@@ -32,6 +33,9 @@ public class CameraItem : MonoBehaviour, IItem
     [SerializeField]
     private AudioClip equipClip;
 
+    [SerializeField]
+    private Image flashOff;
+
     private float cd;
 
     void OnEnable()
@@ -44,6 +48,7 @@ public class CameraItem : MonoBehaviour, IItem
         cd = 0f;
         isAiming = false;
         lightSource.enabled = false;
+        flashOff.enabled = false;
     }
 
     public int GetItemID()
@@ -77,8 +82,11 @@ public class CameraItem : MonoBehaviour, IItem
     {
         if(cd > 0f)
         {
+            flashOff.enabled = true;
             cd -= Time.deltaTime;
         }
+        else
+            flashOff.enabled = false;
         transform.LookAt(transform.position - Camera.main.transform.forward);
         if(isAiming)
             transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + Camera.main.transform.forward * 0.1f, Time.deltaTime * 50f);
