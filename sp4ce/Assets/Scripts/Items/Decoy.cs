@@ -82,12 +82,15 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
 
     private IEnumerator Pulse()
     {
-        if(pulses <= 0) yield break;
+        if(pulses <= 0)
+        {
+            Destroy(gameObject);
+        }
         pulses--;
         src.PlayOneShot(pulseClip);
         foreach(GameObject obj in objectsInRange)
         {
-            obj.GetComponent<IAudioObserver>().Notify(transform.position);
+            obj.GetComponent<IAudioObserver>().Notify(transform.position,gameObject);
         }
         yield return new WaitForSeconds(2);
         StartCoroutine(Pulse());
@@ -136,5 +139,10 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
     public void RunBackgroundProcesses()
     {
 
+    }
+
+    public void OnEMPTrigger()
+    {
+        
     }
 }

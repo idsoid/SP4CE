@@ -14,7 +14,6 @@ public class BlastEMP : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponent<PlayerController>() != null)
-            Debug.Log("power down");
+        other.transform.GetComponent<PlayerController>()?.DisableEquipment();
     }
 }

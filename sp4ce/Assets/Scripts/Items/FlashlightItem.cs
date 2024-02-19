@@ -53,6 +53,7 @@ public class FlashlightItem : MonoBehaviour, IItem
 
     public void OnSecondaryAction()
     {
+        
     }
 
     public void OnSecondaryActionRelease()
@@ -76,5 +77,11 @@ public class FlashlightItem : MonoBehaviour, IItem
     public void RunBackgroundProcesses()
     {
 
+    }
+
+    public void OnEMPTrigger()
+    {
+        isOn = false;
+        lightSource.enabled = false;
     }
 }

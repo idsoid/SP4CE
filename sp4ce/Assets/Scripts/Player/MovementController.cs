@@ -260,7 +260,7 @@ public class MovementController : MonoBehaviour
     {
         foreach(GameObject obj in sc.GetObjectsInRange())
         {
-            obj.GetComponent<IAudioObserver>()?.Notify(transform.position);
+            obj.GetComponent<IAudioObserver>()?.Notify(transform.position,gameObject);
         }
     }
 }
