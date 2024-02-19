@@ -224,6 +224,9 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
     public void OnEMPTrigger()
     {
-        
+        if(isOn)
+        {
+            OnPrimaryAction();
+        }
     }
 }
