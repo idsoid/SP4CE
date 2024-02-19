@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   discoveryIndex:
-  - Decoy Bomb
-  - Red herring for threats.
+  - EYELESS
+  - 'BLIND BUT EXTREMELY SENSITIVE TO SOUND.
+
+    PROCEED WITH CAUTION.'
   - Level 3 Access Keycard
   - Access more of the facility.

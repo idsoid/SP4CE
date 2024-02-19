@@ -53,6 +53,7 @@ public class NightVisionIndicator : MonoBehaviour
         {
             if(targetObject!=null)
             {
+                //if not same, then switch details
                 if(targetObject!=targetsList[0])
                 {
                     if(scroll != null) 
@@ -61,14 +62,18 @@ public class NightVisionIndicator : MonoBehaviour
                         scroll = null;
                     }
                     indicator.transform.position = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+                    scanDetails.color = targetsList[0].GetComponent<EnemyBase>()?Color.red:Color.white;
                     scroll = StartCoroutine(ScrollDetails(targetsList[0].GetComponent<ISightObserver>()?.GetDetails()));
                 }
             }
+
             targetObject = targetsList[0];
+            
             if(!indicator.activeInHierarchy)
             {
                 indicator.SetActive(true);
                 indicator.transform.position = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
+                scanDetails.color = targetsList[0].GetComponent<EnemyBase>()?Color.red:Color.white;
                 scroll = StartCoroutine(ScrollDetails(targetObject.GetComponent<ISightObserver>()?.GetDetails()));
             }
         }
@@ -82,7 +87,6 @@ public class NightVisionIndicator : MonoBehaviour
     private IEnumerator ScrollDetails(string details)
     {
         if(scroll!=null) yield break;
-
         scanDetails.text = "";
         foreach(char character in details)
         {

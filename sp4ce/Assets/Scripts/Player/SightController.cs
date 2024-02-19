@@ -86,4 +86,9 @@ public class SightController : MonoBehaviour
         }
         return visibleObjects;
     }
+
+    public List<GameObject> GetObjectsInRange()
+    {
+        return objectsInRange;
+    }
 }

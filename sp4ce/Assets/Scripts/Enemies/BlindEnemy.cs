@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BlindEnemy : EnemyBase, IAudioObserver
+public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObserver
 {
     [SerializeField]
     Vector3 audioPosition = Vector3.zero;
@@ -50,6 +51,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver
 
     public void Notify(Vector3 position)
     {
+        Debug.Log("hi");
         audioPosition = position;
         isChasingAudio = true;
         speed = 15f;
@@ -62,9 +64,26 @@ public class BlindEnemy : EnemyBase, IAudioObserver
         isChasingAudio = false;
         waypointIndex = 0;
     }
-
     void Update()
     {
         FSM();
+    }
+
+    public void OnSighted()
+    {
+    }
+
+    public void OnLookAway()
+    {
+    }
+
+    public void OnPhotoTaken()
+    {
+        UIManager.instance.DisplayTip("EYELESS", "BLIND BUT EXTREMELY SENSITIVE TO SOUND.\nPROCEED WITH CAUTION.", true);
+    }
+
+    public string GetDetails()
+    {
+        return "DANGER";
     }
 }

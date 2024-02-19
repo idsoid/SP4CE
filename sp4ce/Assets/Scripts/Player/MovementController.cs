@@ -33,6 +33,9 @@ public class MovementController : MonoBehaviour
     bool isCrouching;
 
     float moveX, moveY;
+
+    [SerializeField]
+    private SightController sc;
     
     // Start is called before the first frame update
     void Start()
@@ -222,6 +225,8 @@ public class MovementController : MonoBehaviour
         }
 
         PlayerAudioController.instance.PlayAudio(AUDIOSOUND.FOOTSTEP_LEFT);
+        AlertSoundObservers();
+
         yield return new WaitForSeconds(1.5f/currMoveSpeed);
 
         if(isCrouching || !charController.isGrounded)
@@ -229,7 +234,10 @@ public class MovementController : MonoBehaviour
             footstepCoroutine = null;
             yield break;
         }
+
         PlayerAudioController.instance.PlayAudio(AUDIOSOUND.FOOTSTEP_RIGHT);
+        AlertSoundObservers();
+
         yield return new WaitForSeconds(1.5f/currMoveSpeed);
 
         footstepCoroutine = StartCoroutine(PlayFootstep());
@@ -245,6 +253,14 @@ public class MovementController : MonoBehaviour
         {
             StopCoroutine(footstepCoroutine);
             footstepCoroutine = null;
+        }
+    }
+
+    private void AlertSoundObservers()
+    {
+        foreach(GameObject obj in sc.GetObjectsInRange())
+        {
+            obj.GetComponent<IAudioObserver>()?.Notify(transform.position);
         }
     }
 }
