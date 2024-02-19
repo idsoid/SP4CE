@@ -44,7 +44,11 @@ public enum AUDIOSOUND
 
     DINDEX_PAGETURN = 7,
 
-    FLASHLIGHT=8
+    FLASHLIGHT=8,
+
+    JUMPSCARE = 9,
+
+    ADRENALINE = 10
 
     //more to add
 }

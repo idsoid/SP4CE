@@ -64,7 +64,7 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
 
     void Update()
     {
-        
+        if(GameManager.instance.bGameOver) return;
         if(transform.parent != null)
             transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + (Camera.main.transform.forward + (Camera.main.transform.right - Camera.main.transform.up) * 0.5f) * 0.5f, Time.deltaTime * 25f);
     }
@@ -82,6 +82,7 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
 
     private IEnumerator Pulse()
     {
+        if(GameManager.instance.bGameOver) yield break;
         if(pulses <= 0)
         {
             Destroy(gameObject);

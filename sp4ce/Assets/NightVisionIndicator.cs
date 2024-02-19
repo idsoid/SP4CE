@@ -71,6 +71,11 @@ public class NightVisionIndicator : MonoBehaviour
             
             if(!indicator.activeInHierarchy)
             {
+                if(scroll != null) 
+                {
+                    StopCoroutine(scroll);
+                    scroll = null;
+                }
                 indicator.SetActive(true);
                 indicator.transform.position = new Vector2(Input.mousePosition.x,Input.mousePosition.y);
                 scanDetails.color = targetsList[0].GetComponent<EnemyBase>()?Color.red:Color.white;

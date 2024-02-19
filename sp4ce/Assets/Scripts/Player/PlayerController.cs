@@ -33,9 +33,11 @@ public class PlayerController : MonoBehaviour, IHealth
 
     void Update()
     {
+        if(GameManager.instance.bGameOver) return;
         sightController.transform.position = transform.position;
 
         if(GameManager.instance.isInUI) return;
+        
 
         if(canUse) {
             if(Input.GetMouseButtonDown(0))
@@ -141,23 +143,24 @@ public class PlayerController : MonoBehaviour, IHealth
         else if (health <= 0)
         {
             health = 0;
-            Color nigga = Color.black;
+            PlayerAudioController.instance.PlayAudio(AUDIOSOUND.JUMPSCARE);
             Die();
         }
     }
 
     public void Die()
     {
+        GameManager.instance.bGameOver = true;
         StartCoroutine(DieCoroutine());
     }
 
     private IEnumerator DieCoroutine()
     {
-        GameManager.instance.isInUI = true;
+        UIManager.instance.DisableAllPostProcessing();
         Camera.main.transform.parent = GameManager.instance.lastHitEnemy.transform;
         Camera.main.transform.localRotation = Quaternion.identity;
         Camera.main.transform.localPosition = Vector3.zero;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.25f);
         Debug.Log("im dead");
         UIManager.instance.OnDie();
         GameManager.instance.Die();
@@ -169,6 +172,7 @@ public class PlayerController : MonoBehaviour, IHealth
     }
 
     bool canUse = true;
+    Coroutine electronicsCoroutine;
     public void DisableEquipment()
     {
         canUse = false;
@@ -178,5 +182,13 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             obj.GetComponent<IItem>()?.OnEMPTrigger();
         }
+        if(electronicsCoroutine!=null) StopCoroutine(electronicsCoroutine);
+        electronicsCoroutine = StartCoroutine(EnableElectronics());
+    }
+
+    private IEnumerator EnableElectronics()
+    {
+        yield return new WaitForSeconds(3f);
+        canUse = true;
     }
 }

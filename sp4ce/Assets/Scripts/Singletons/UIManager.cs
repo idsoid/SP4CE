@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Image nvFill;
 
+    [SerializeField] private AudioSource ambientAC;
+    [SerializeField] private AudioClip dead;
+
     private void Awake()
     {
         instance = this;
@@ -54,7 +57,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-
+        if(GameManager.instance.bGameOver) return;
         if(Input.GetKeyDown(KeyCode.R) && itemTipObject.activeInHierarchy)
         {
             itemTipObject.SetActive(false);
@@ -129,22 +132,27 @@ public class UIManager : MonoBehaviour
         fadeCoroutine = null;
     }
 
+    public void DisableAllPostProcessing()
+    {
+        if(vol.profile.TryGet<NoisePostProcess>(out NoisePostProcess noise))
+        {
+            noise.active = false;
+        }
+        NVScanner.SetActive(false);
+    }
+
     public void OnDie()
     {
         if(vol.profile.TryGet<NightVisionPostProcess>(out NightVisionPostProcess nvpp))
         {
             nvpp.active = false;
         }
-
-        if(vol.profile.TryGet<NoisePostProcess>(out NoisePostProcess noise))
-        {
-            noise.active = false;
-        }
-
         if(vol.profile.TryGet<LensDistortion>(out LensDistortion ld))
         {
             ld.active = false;
         }
-        NVScanner.SetActive(false);
+        ambientAC.Stop();
+        ambientAC.clip = dead;
+        ambientAC.Play();
     }
 }

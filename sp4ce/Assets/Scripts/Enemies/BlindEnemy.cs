@@ -16,12 +16,16 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
     [SerializeField]
     int waypointIndex;
 
+    [SerializeField]
     private bool isChasingAudio;
+
+    [SerializeField]
     private Animator animator;
 
     //year
     private GameObject targetObject;
 
+    Coroutine patrolCooldownCoroutine;
     public override void FSM()
     {
         if(isChasingAudio)
@@ -33,7 +37,8 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
             }
             else
             {
-                StartCoroutine(ReturnToPatrol());
+                if(patrolCooldownCoroutine==null)
+                    patrolCooldownCoroutine = StartCoroutine(ReturnToPatrol());
             }
         }
         else
@@ -52,9 +57,12 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
 
     private IEnumerator ReturnToPatrol()
     {
+        Debug.Log("returning to patrol...");
         yield return new WaitForSeconds(3f);
-        speed = 5f;
+        speed = 3f;
         isChasingAudio = false;
+        targetObject = null;
+        patrolCooldownCoroutine = null;
     }
 
     public void Notify(Vector3 position, GameObject source)
@@ -66,19 +74,19 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
                 return;
             }
         }
-        animator.SetTrigger("Attack");
+
+        if(source.CompareTag("Player") && targetObject!=source) PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ADRENALINE);
         targetObject = source;
         Debug.Log("hi");
         audioPosition = position;
         isChasingAudio = true;
-        speed = 15f;
+        speed = 10f;
     }
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        speed = 5f;
+        speed = 3f;
         isChasingAudio = false;
         waypointIndex = 0;
     }

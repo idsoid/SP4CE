@@ -32,12 +32,15 @@ public class GameManager : MonoBehaviour
 
     public bool isInUI;
 
+    public bool bGameOver;
+
     public Checkpoint checkpt;
 
     public GameObject lastHitEnemy;
     
     void Awake()
     {
+        bGameOver = false;
         instance = this;
         accessLevel = 0;
         currCheckpoint = 0;

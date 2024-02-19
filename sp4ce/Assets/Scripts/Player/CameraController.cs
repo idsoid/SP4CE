@@ -19,6 +19,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if(GameManager.instance.isInUI) return;
+        if(GameManager.instance.bGameOver) return;
         mouseX += Input.GetAxis("Mouse X")* mouseSensitivity;
         mouseY += -Input.GetAxis("Mouse Y") * mouseSensitivity;
         mouseY = Mathf.Clamp(mouseY, -89f, 89f);

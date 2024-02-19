@@ -27,6 +27,7 @@ public class SightController : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.instance.bGameOver) return;
         CheckObjectsInRange();
         SightObjectsInVision();
     }

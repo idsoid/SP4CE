@@ -49,10 +49,12 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.bGameOver) return;
+
         HandleCrouching();
         HandlePlayerMovement();
 
-        if(GameManager.instance.isInUI) {
+        if(!GameManager.instance.isInUI) {
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 Jump();
@@ -100,6 +102,8 @@ public class MovementController : MonoBehaviour
     float fTime_barDuration = 0f;
     private void HandlePlayerMovement()
     {
+        if(GameManager.instance.bGameOver) return;
+
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
 
@@ -223,7 +227,7 @@ public class MovementController : MonoBehaviour
     private Coroutine footstepCoroutine;
     private IEnumerator PlayFootstep()
     {
-        if(isCrouching || !charController.isGrounded)
+        if(isCrouching || !charController.isGrounded || GameManager.instance.bGameOver)
         {
             footstepCoroutine = null;
             yield break;
@@ -234,7 +238,7 @@ public class MovementController : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f/currMoveSpeed);
 
-        if(isCrouching || !charController.isGrounded)
+        if(isCrouching || !charController.isGrounded || GameManager.instance.bGameOver)
         {
             footstepCoroutine = null;
             yield break;

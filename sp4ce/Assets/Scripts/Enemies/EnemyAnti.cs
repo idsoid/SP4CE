@@ -11,6 +11,11 @@ public class EnemyAnti : EnemyBase
     [SerializeField] private GameObject modelObject;
     [SerializeField] private float rageBuildUp = 1f;
     [SerializeField] private GameObject deathCam;
+    
+    [Header("Audio")]
+
+    [SerializeField] private AudioSource src;
+    [SerializeField] private AudioClip idleSound;
 
     private enum State
     {
@@ -28,6 +33,7 @@ public class EnemyAnti : EnemyBase
         agent = GetComponent<NavMeshAgent>();
 
         ChangeState(State.IDLE);
+        src.PlayOneShot(idleSound);
     }
 
     private void Update()

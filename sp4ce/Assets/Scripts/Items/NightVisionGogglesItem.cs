@@ -83,6 +83,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             src.PlayOneShot(onSfx);
             yield return new WaitForSeconds(0.5f);
             if(!isOn) yield break;
+            if(GameManager.instance.bGameOver) yield break;
             model.SetActive(false);
             if(globalVolume.profile.TryGet<NightVisionPostProcess>(out NightVisionPostProcess com))
             {
@@ -113,6 +114,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             isOn = true;
             src.PlayOneShot(offSfx);
             yield return new WaitForSeconds(0.5f);
+            if(GameManager.instance.bGameOver) yield break;
             if(globalVolume.profile.TryGet<NightVisionPostProcess>(out NightVisionPostProcess com))
             {
                 com.active = false;
@@ -135,6 +137,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
 
     void Update()
     {
+        if(GameManager.instance.bGameOver) return;
         if(isOn)
         {
             if(temperature > 90f && toggleCoroutine == null) 
