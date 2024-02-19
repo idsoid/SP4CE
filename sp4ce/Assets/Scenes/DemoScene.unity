@@ -757,6 +757,11 @@ PrefabInstance:
       objectReference: {fileID: 1894133486}
     - target: {fileID: 8810674050274176468, guid: 2a4a6b41291869245959f473fa686650,
         type: 3}
+      propertyPath: NVScanner
+      value: 
+      objectReference: {fileID: 783733451}
+    - target: {fileID: 8810674050274176468, guid: 2a4a6b41291869245959f473fa686650,
+        type: 3}
       propertyPath: discovIndex
       value: 
       objectReference: {fileID: 375135981}
