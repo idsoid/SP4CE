@@ -141,14 +141,24 @@ public class PlayerController : MonoBehaviour, IHealth
         else if (health <= 0)
         {
             health = 0;
+            Color nigga = Color.black;
             Die();
         }
     }
 
     public void Die()
     {
-        Debug.Log("im dead");
+        StartCoroutine(DieCoroutine());
+    }
+
+    private IEnumerator DieCoroutine()
+    {
         GameManager.instance.isInUI = true;
+        Camera.main.transform.parent = GameManager.instance.lastHitEnemy.transform;
+        Camera.main.transform.localRotation = Quaternion.identity;
+        Camera.main.transform.localPosition = Vector3.zero;
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("im dead");
         UIManager.instance.OnDie();
         GameManager.instance.Die();
     }

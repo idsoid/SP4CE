@@ -10,6 +10,8 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     private GameObject playerTarget;
     [SerializeField]
     private Transform eyeSight;
+    [SerializeField]
+    private Transform jumpscareCamTransform;
 
     private bool goingUp = true;
     private float walkSpeed = 3.5f;
@@ -42,28 +44,8 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentState);
-        Debug.Log(currWaypoint);
         PlayerSeen();
-        //FSM();
-    }
-
-    //See Player
-    public void PlayerSeen()
-    {
-        if (Physics.Linecast(eyeSight.position, playerTarget.transform.position, out RaycastHit hit))
-        {
-            if (hit.collider.gameObject.CompareTag("Player"))
-            {
-                Debug.DrawLine(eyeSight.position, hit.point, Color.green);
-                //playerSpotted = true;
-            }
-            else
-            {
-                Debug.DrawLine(eyeSight.position, hit.point, Color.red);
-                //playerSpotted = false;
-            }
-        }
+        FSM();
     }
 
     //StateManager
@@ -139,8 +121,10 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                     //Attack
                     if (agent.remainingDistance <= 0.75f)
                     {
+                        GameManager.instance.lastHitEnemy = jumpscareCamTransform.gameObject;
                         AttackPlayer();
-                        speed = waitTime = 0;
+                        speed = 0;
+                        waitTime = 0;
                         currentState = State.IDLE;
                     }
                 }
@@ -156,10 +140,28 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
         Move(target);
     }
 
+    //See Player
+    public void PlayerSeen()
+    {
+        if (Physics.Linecast(eyeSight.position, playerTarget.transform.position, out RaycastHit hit))
+        {
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                Debug.DrawLine(eyeSight.position, hit.point, Color.green);
+                playerSpotted = true;
+            }
+            else
+            {
+                Debug.DrawLine(eyeSight.position, hit.point, Color.red);
+                playerSpotted = false;
+            }
+        }
+    }
+
     //CameraFlash
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("my cock", "my  cock 2", true);
+        UIManager.instance.DisplayTip("Starer", "Don't. Look. Away.", true);
         isFlashed = true;
     }
 
@@ -170,10 +172,12 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     }
     public void OnSighted()
     {
-        Invoke(nameof(Freeze), 1.0f);
+        Invoke(nameof(Freeze), .1f);
     }
     public void Freeze()
     {
         isSeen = true;
     }
+
+    public string GetDetails() => "DANGER";
 }

@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public bool isInUI;
 
     public Checkpoint checkpt;
+
+    public GameObject lastHitEnemy;
     
     void Awake()
     {
