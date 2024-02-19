@@ -45,7 +45,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
         Debug.Log(currentState);
         Debug.Log(currWaypoint);
         PlayerSeen();
-        FSM();
+        //FSM();
     }
 
     //See Player
