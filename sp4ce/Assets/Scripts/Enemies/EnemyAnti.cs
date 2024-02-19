@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class EnemyAnti : EnemyBase
 {
     [Header("Anti-NV")]
-    [SerializeField] private Material material;
+    [SerializeField] private GameObject modelObject;
     [SerializeField] private float rageBuildUp = 1f;
 
     private enum State
@@ -17,11 +17,13 @@ public class EnemyAnti : EnemyBase
         RAGE,
     }
 
+    private Material material;
     private State currState;
     private float rage;
 
     private void Start()
     {
+        material = modelObject.GetComponent<Renderer>().material;
         agent = GetComponent<NavMeshAgent>();
 
         ChangeState(State.IDLE);
@@ -29,6 +31,9 @@ public class EnemyAnti : EnemyBase
 
     private void Update()
     {
+        Vector3 direction = target.position - transform.position;
+        transform.forward = direction;
+        
         FSM();
     }
 
@@ -51,9 +56,6 @@ public class EnemyAnti : EnemyBase
     {
         if (currState == State.IDLE)
         {
-            Vector3 direction = target.position - transform.position;
-            transform.forward = direction;
-
             rage += rageBuildUp * Time.deltaTime;
             material.SetFloat("_REFLECTIONS_WEIGHT", rage);
 

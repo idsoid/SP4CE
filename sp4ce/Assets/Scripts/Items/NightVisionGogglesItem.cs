@@ -1,31 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 
 public class NightVisionGogglesItem : MonoBehaviour, IItem
 {
     [SerializeField] private Volume globalVolume;
     [SerializeField] private GameObject model;
     [SerializeField] float fTime_elapsed;
+    [SerializeField] private GameObject NVScanner;
 
     [Header("Night Vision Enemy")]
     [SerializeField] private GameObject nvEnemyPrefab;
     [SerializeField] private float spawnChance;
     [SerializeField] private float distanceFromPlayer;
+    [SerializeField] private float distanceDeviation;
     [SerializeField] private LayerMask spawnLayer;
 
+    [Header("Audio")]
     [SerializeField] private AudioSource src;
     [SerializeField] private AudioClip onSfx;
     [SerializeField] private AudioClip offSfx;
-
     [SerializeField] private AudioClip equipSfx;
-
-    [SerializeField] private GameObject NVScanner;
 
     private bool isOn;
     private GameObject spawnedEnemy;
@@ -99,7 +95,18 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             NVScanner.SetActive(true);
             UIManager.instance.ToggleNightVisionUI();
             if (RandomNVEnemy())
-                    SpawnNVEnemy();
+            {
+                RaycastHit hit;
+
+                if (Physics.Raycast(transform.position, transform.forward, out hit, distanceFromPlayer))
+                {
+                    SpawnNVEnemy(hit.point);
+                }
+                else
+                {
+                    SpawnNVEnemy(transform.position + Camera.main.transform.forward * distanceFromPlayer);
+                }
+            }
         }
         else
         {
@@ -186,25 +193,26 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         return false;
     }
 
-    private void SpawnNVEnemy()
+    private void SpawnNVEnemy(Vector3 spawnPosition)
     {
         bool spawned = false;
         float x;
         float z;
         RaycastHit hit;
 
-        x = transform.position.x + Random.Range(-distanceFromPlayer, distanceFromPlayer);
-        z = transform.position.z + Random.Range(-distanceFromPlayer, distanceFromPlayer);
+        x = spawnPosition.x + Random.Range(-distanceDeviation, distanceDeviation);
+        z = spawnPosition.z + Random.Range(-distanceDeviation, distanceDeviation);
 
         if (Physics.Raycast(new Vector3(x, 1f, z), Vector3.down, out hit, 1.2f, spawnLayer))
         {
             spawnedEnemy = Instantiate(nvEnemyPrefab, hit.point, Quaternion.identity);
+            spawnedEnemy.GetComponent<EnemyAnti>().SetTarget(transform.parent.parent);
             spawned = true;
         }
 
         if (!spawned)
         {
-            SpawnNVEnemy();
+            SpawnNVEnemy(spawnPosition);
             Debug.Log("Retried spawned");
         }
     }
