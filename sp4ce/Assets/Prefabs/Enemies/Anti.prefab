@@ -1916,6 +1916,8 @@ MonoBehaviour:
   damage: 999
   speed: 25
   target: {fileID: 0}
+  modelObject: {fileID: 1169346834745043860}
+  rageBuildUp: 10
 --- !u!195 &1510217588
 NavMeshAgent:
   m_ObjectHideFlags: 0
