@@ -7,16 +7,22 @@ public class Radar : MonoBehaviour
     [SerializeField]
     private GameObject pingPrefab;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private float pingInterval = 10f;
+
+    private float pingTimer;
+
+    private void Start()
     {
-        
+        pingTimer = pingInterval;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        pingTimer -= Time.deltaTime;
+
+        if (pingTimer <= 0)
         {
             Collider[] radarColliders = Physics.OverlapSphere(Camera.main.transform.position, 10.0f);
             foreach (var collider in radarColliders)
@@ -26,6 +32,7 @@ public class Radar : MonoBehaviour
                     Instantiate(pingPrefab, collider.transform.position + new Vector3(0, 1.25f, 0), Quaternion.identity);
                 }
             }
+            pingTimer = pingInterval;
         }
         
         //Camera update
