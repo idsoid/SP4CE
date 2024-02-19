@@ -18,6 +18,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
 
     private bool isChasingAudio;
 
+    //year
     private GameObject targetObject;
 
     public override void FSM()
