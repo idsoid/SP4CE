@@ -48,7 +48,9 @@ public enum AUDIOSOUND
 
     JUMPSCARE = 9,
 
-    ADRENALINE = 10
+    ADRENALINE = 10,
+    DANGER = 11,
+    BUTTONHOVER = 12
 
     //more to add
 }

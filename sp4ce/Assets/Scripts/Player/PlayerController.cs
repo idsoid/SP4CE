@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour, IHealth
     [SerializeField]
     private GameObject sightController;
 
+    [SerializeField]
+    private GameObject model;
+
     
     private int equippedIndex;
     private FlashlightItem flashlight;
@@ -151,6 +154,8 @@ public class PlayerController : MonoBehaviour, IHealth
     public void Die()
     {
         GameManager.instance.bGameOver = true;
+        model.SetActive(false);
+        GetComponentsInChildren<MeshRenderer>()[0].enabled = false;
         StartCoroutine(DieCoroutine());
     }
 

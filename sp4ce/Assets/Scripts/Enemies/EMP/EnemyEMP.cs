@@ -177,7 +177,7 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("EMP", "put ya desc here stoopid", true);
+        UIManager.instance.DisplayTip("EMP", "put ya desc here stoopid", true, true);
     }
 
     public string GetDetails()

@@ -161,7 +161,8 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     //CameraFlash
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("Starer", "Don't. Look. Away.", true);
+        
+        UIManager.instance.DisplayTip("Starer", "Don't. Look. Away.", true, true);
         isFlashed = true;
     }
 

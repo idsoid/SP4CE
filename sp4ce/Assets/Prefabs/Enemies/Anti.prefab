@@ -1891,6 +1891,7 @@ GameObject:
   - component: {fileID: 1510217588}
   - component: {fileID: 1510217585}
   - component: {fileID: -6244988746159518900}
+  - component: {fileID: 8462149023722023733}
   m_Layer: 0
   m_Name: Anti
   m_TagString: Enemy
@@ -1930,7 +1931,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.51
-  m_Height: 2.8671255
+  m_Height: 2.9
   m_Direction: 1
   m_Center: {x: -0, y: 1.4352646, z: 0}
 --- !u!195 &1510217588
@@ -2072,6 +2073,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8462149023722023733
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7508079626905140304}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 3, z: 0.5}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &7681440117787660848
 GameObject:
   m_ObjectHideFlags: 0

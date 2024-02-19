@@ -88,11 +88,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Image deathImage;
     [SerializeField] private Image skullImage;
-    [SerializeField] private TMP_Text restartText;
+    [SerializeField] private GameObject deathButtons;
 
     public void Die()
     {
-        restartText.gameObject.SetActive(false);
+        deathButtons.SetActive(false);
         deathImage.material.SetFloat("_Effect", 0f);
         skullImage.material.SetFloat("_Effect", 0f);
         deathScreen.SetActive(true);
@@ -106,19 +106,31 @@ public class GameManager : MonoBehaviour
             skullImage.material.SetFloat("_Effect",eff);
             yield return new WaitForSeconds(0.1f);
         }
-
-        restartText.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        deathButtons.SetActive(true);
     }
 
     void Update()
     {
-        if(restartText.gameObject.activeInHierarchy)
+        if(deathButtons.activeInHierarchy)
         {
             if(Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                bGameOver = true;
+                RestartGame();
             }
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ToMainMenu()
+    {
+        Debug.Log("asher load ur main menu here");
+        //TODO: mainmenu
     }
 
     public GameObject GetPlayer()

@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
         temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
     }
 
-    public void DisplayTip(string name, string desc, bool saveToIndex)
+    public void DisplayTip(string name, string desc, bool saveToIndex, bool isDanger = false)
     {
         if(saveToIndex)
         {
@@ -106,7 +106,8 @@ public class UIManager : MonoBehaviour
             playerData.DiscoveryIndex.Add(name);
             playerData.DiscoveryIndex.Add(desc);
         }
-        
+        if(isDanger)
+            PlayerAudioController.instance.PlayAudio(AUDIOSOUND.DANGER);
         itemTipObject.SetActive(true);
 
         if(fadeCoroutine == null)

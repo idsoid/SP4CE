@@ -29,6 +29,7 @@ public class EnemyAnti : EnemyBase
 
     private void Start()
     {
+        speed = 10f;
         material = modelObject.GetComponent<Renderer>().material;
         agent = GetComponent<NavMeshAgent>();
 
@@ -45,6 +46,7 @@ public class EnemyAnti : EnemyBase
         FSM();
     }
 
+    Coroutine chaseCoroutine;
     private void ChangeState(State newState)
     {
         if (newState == State.IDLE)
@@ -54,7 +56,7 @@ public class EnemyAnti : EnemyBase
         }
         else if (newState == State.RAGE)
         {
-            
+            chaseCoroutine = StartCoroutine(ChaseDuration());
         }
 
         currState = newState;
@@ -62,10 +64,12 @@ public class EnemyAnti : EnemyBase
 
     void OnTriggerEnter(Collider other)
     {
+        if(GameManager.instance.bGameOver) return;
         if (currState == State.RAGE)
         {
             GameManager.instance.lastHitEnemy = deathCam;
             AttackPlayer();
+            StopCoroutine(chaseCoroutine);
         }
     }
 
@@ -83,6 +87,12 @@ public class EnemyAnti : EnemyBase
         {
             Move(target);
         }
+    }
+
+    private IEnumerator ChaseDuration()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 
     public void SetTarget(Transform newTarget)

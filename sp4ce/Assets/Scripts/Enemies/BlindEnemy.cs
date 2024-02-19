@@ -105,7 +105,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
 
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("EYELESS", "BLIND BUT EXTREMELY SENSITIVE TO SOUND.\nPROCEED WITH CAUTION.", true);
+        UIManager.instance.DisplayTip("EYELESS", "BLIND BUT EXTREMELY SENSITIVE TO SOUND.\nPROCEED WITH CAUTION.", true, true);
     }
 
     public string GetDetails()
