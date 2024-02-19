@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -17,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ItemTip itemTip;
     [SerializeField] private PlayerData playerData;
     [SerializeField] private GameObject discovIndex;
+
+    [SerializeField] private Volume vol;
 
     private void Awake()
     {
@@ -115,5 +119,23 @@ public class UIManager : MonoBehaviour
         }
         yield return new WaitForSeconds(5f);
         fadeCoroutine = null;
+    }
+
+    public void OnDie()
+    {
+        if(vol.profile.TryGet<NightVisionPostProcess>(out NightVisionPostProcess nvpp))
+        {
+            nvpp.active = false;
+        }
+
+        if(vol.profile.TryGet<NoisePostProcess>(out NoisePostProcess noise))
+        {
+            noise.active = false;
+        }
+
+        if(vol.profile.TryGet<LensDistortion>(out LensDistortion ld))
+        {
+            ld.active = false;
+        }
     }
 }

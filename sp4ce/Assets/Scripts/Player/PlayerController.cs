@@ -148,7 +148,8 @@ public class PlayerController : MonoBehaviour, IHealth
     public void Die()
     {
         Debug.Log("im dead");
-        gameObject.SetActive(false);
+        GameManager.instance.isInUI = true;
+        UIManager.instance.OnDie();
         GameManager.instance.Die();
     }
 

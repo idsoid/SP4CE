@@ -51,9 +51,12 @@ public class MovementController : MonoBehaviour
     {
         HandleCrouching();
         HandlePlayerMovement();
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
+
+        if(GameManager.instance.isInUI) {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
         }
         HandleGravity();
 
