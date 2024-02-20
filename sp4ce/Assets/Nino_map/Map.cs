@@ -23,6 +23,7 @@ public class Map : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             map.SetActive(!map.activeSelf);
+            GameManager.instance.isInUI= map.activeSelf;
         }
 
         //Zoom
