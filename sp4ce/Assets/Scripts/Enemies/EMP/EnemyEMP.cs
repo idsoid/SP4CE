@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,13 +16,23 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 
     [SerializeField]
     private float patrolTimerSet = 30f;
-    private float chaseTimerSet = 20f;
+    private float chaseTimerSet = 30f;
     public float restTimerSet = 50f;
     public float timer;
 
     public bool active = true;
 
     private int chargeCount = 0;
+
+    [SerializeField] private Light lightsource;
+    [SerializeField] private SkinnedMeshRenderer mr;
+
+    private Color passiveLight;
+    private Color angryLight;
+    private float passiveIntensity = 1;
+    private float angryIntensity = 100;
+    private Color passiveLightEmission;
+    private Color angryLightEmission;
 
     private enum State
     {
@@ -37,7 +48,7 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
     // Start is called before the first frame update
     void Start()
     {
-        damage = 1000;
+        damage = 50;
 
         timer = patrolTimerSet;
 
@@ -48,12 +59,25 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
         currentState = State.PATROL;
         currWaypoint = 0;
         target = patrolWaypoints[currWaypoint];
+
+        passiveLight = new Color(1, 0.9375429f, 0.6132075f);
+
+        angryLight = new Color(1, 0, 0);
+
+        passiveLightEmission = new Color(1.232728f, 0.7357641f, 0.180714f);
+        
+        angryLightEmission = new Color(2.813975f, 0.05163257f, 0f);
+
+        lightsource.color = passiveLight;
+        lightsource.intensity = passiveIntensity;
+        mr.material.SetColor("_EmissionColor", passiveLightEmission);
+        mr.material.EnableKeyword("_EMISSION");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(timer);
         if (!active)
         {
             Debug.Log("deactivated");
@@ -79,7 +103,7 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
             case State.PATROL:
                 timer -= Time.deltaTime;
                 speed = walkSpeed;
-                if (timer <= 0f && Random.Range(0, 100) > 40)
+                if (timer <= 0f && Random.Range(1, 100) > 40)
                 {
                     currentState = State.CHARGE;
                     break;
@@ -95,9 +119,14 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
                     currWaypoint = Random.Range(0, patrolWaypoints.Count);
                 break;
             case State.CHARGE:
+                lightsource.color = Color.Lerp(lightsource.color, angryLight, Time.deltaTime / 15);
+                lightsource.intensity = Mathf.Lerp(lightsource.intensity, angryIntensity, Time.deltaTime / 15);
+
+                mr.material.SetColor("_EmissionColor", Color.Lerp(mr.material.GetColor("_EmissionColor"), angryLightEmission, Time.deltaTime / 15));
+                mr.material.EnableKeyword("_EMISSION");
                 ar.SetBool("charge", true);
                 speed = 0;
-                if (chargeCount == 4)
+                if (chargeCount == 4 && Vector3.Distance(transform.position, player.transform.position) < 30)
                 {
                     timer = chaseTimerSet;
                     ar.SetBool("charge", false);
@@ -138,6 +167,11 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 
                 break;
             case State.REST:
+                lightsource.color = Color.Lerp(lightsource.color, passiveLight, Time.deltaTime);
+                lightsource.intensity = Mathf.Lerp(lightsource.intensity, passiveIntensity, Time.deltaTime);
+
+                mr.material.SetColor("_EmissionColor", Color.Lerp(mr.material.GetColor("_EmissionColor"), passiveLightEmission, Time.deltaTime));
+                mr.material.EnableKeyword("_EMISSION");
                 active = false;
                 speed = 0;
                 timer -= Time.deltaTime;
@@ -163,8 +197,15 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 
     public void AttackDone()
     {
-        ar.SetTrigger("rest");
-        currentState = State.REST;
+        if (timer > 0)
+        {
+            currentState = State.CHASE;
+        }
+        else
+        {
+            ar.SetTrigger("rest");
+            currentState = State.REST;
+        }
     }
 
     public void OnSighted()
@@ -177,7 +218,7 @@ public class EnemyEMP : EnemyBase, ISightObserver, IPhotoObserver
 
     public void OnPhotoTaken()
     {
-        UIManager.instance.DisplayTip("EMP", "put ya desc here stoopid", true, true);
+        UIManager.instance.DisplayTip("EMP", "This anomaly absorbs electricity around it to power itself. It has a deactivate switch on its back but no one has ever been able to touch it.", true, true);
     }
 
     public string GetDetails()

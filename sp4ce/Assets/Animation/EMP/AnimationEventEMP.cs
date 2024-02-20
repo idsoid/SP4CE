@@ -7,6 +7,8 @@ public class AnimationEventEMP : MonoBehaviour
     [SerializeField] private EnemyEMP emp;
     private Collider col;
 
+    private float timer = .5f;
+    private bool canHit;
     private void Start()
     {
         col = GetComponent<Collider>();
@@ -33,7 +35,21 @@ public class AnimationEventEMP : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.instance.lastHitEnemy = emp.jumpscareCamTransform.gameObject;
-        emp.AttackPlayer();
+        if (canHit)
+        {
+            canHit = false;
+            if (GameManager.instance.bGameOver) return;
+            GameManager.instance.lastHitEnemy = emp.jumpscareCamTransform.gameObject;
+            emp.AttackPlayer();
+        }
+    }
+
+    private void Update()
+    {
+        if (!canHit)
+            timer -= Time.deltaTime;
+
+        if (timer < 0)
+            canHit = true;
     }
 }
