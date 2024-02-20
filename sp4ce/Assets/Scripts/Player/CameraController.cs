@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float shakeMagnitude;
     
     Vector3 originalPos;
-    
-    bool blyat = false;
+
+    Coroutine shakeCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -32,31 +32,38 @@ public class CameraController : MonoBehaviour
         mouseY += -Input.GetAxis("Mouse Y") * mouseSensitivity;
         mouseY = Mathf.Clamp(mouseY, -89f, 89f);
         Camera.main.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0f);
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            blyat = !blyat;
-            originalPos = Camera.main.transform.localPosition;
-            if (blyat)
-                StartCoroutine(CameraShake(shakeMagnitude));
-            else
-            {
-                StopAllCoroutines();
-                Camera.main.transform.localPosition = originalPos;
-            }
-        }
     }
 
-    private IEnumerator CameraShake(float magnitude)
+    private IEnumerator CameraShake()
     {
-        float x = originalPos.x + Random.Range(-1f, 1f) * magnitude;
-        float y = originalPos.y + Random.Range(-1f, 1f) * magnitude;
-        float z = originalPos.z + Random.Range(-1f, 1f) * magnitude;
+        float x = originalPos.x + Random.Range(-1f, 1f) * shakeMagnitude;
+        float y = originalPos.y + Random.Range(-1f, 1f) * shakeMagnitude;
+        float z = originalPos.z + Random.Range(-1f, 1f) * shakeMagnitude;
 
         Camera.main.transform.localPosition = new Vector3(x, y, z);
 
         yield return new WaitForSeconds(timeBetweenShakes);
 
-        StartCoroutine(CameraShake(magnitude));
+        StartCoroutine(CameraShake());
+    }
+
+    public void StartShake()
+    {
+        shakeCoroutine = StartCoroutine(CameraShake());
+    }
+
+    public void StopShake()
+    {
+        StopCoroutine(shakeCoroutine);
+    }
+
+    public void SetShakeMagnitude(float newShakeMagnitude)
+    {
+        shakeMagnitude = newShakeMagnitude;
+    }
+
+    public float GetShakeMagnitude()
+    {
+        return shakeMagnitude;
     }
 }
