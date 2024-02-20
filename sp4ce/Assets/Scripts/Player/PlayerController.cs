@@ -118,6 +118,8 @@ public class PlayerController : MonoBehaviour, IHealth
             }
         }
         HandleAdrenaline();
+
+        FloorCheck();
     }
 
     Coroutine adrenalineCo;
@@ -252,5 +254,20 @@ public class PlayerController : MonoBehaviour, IHealth
     {
         yield return new WaitForSeconds(3f);
         canUse = true;
+    }
+
+    public void FloorCheck()
+    {
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit))
+        {
+            if (hit.collider.gameObject.layer == 7)
+            {
+                if (!hit.collider.gameObject.CompareTag("Visited"))
+                {
+                    hit.collider.gameObject.tag = "Visited";
+                    hit.collider.gameObject.layer = 8;
+                }
+            }
+        }
     }
 }

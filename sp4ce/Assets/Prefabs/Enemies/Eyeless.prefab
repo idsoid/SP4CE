@@ -603,6 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 254601858914047612}
   - component: {fileID: 631444744128007367}
+  - component: {fileID: 2267971344126901205}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -648,6 +649,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2267971344126901205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631444744128007366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9922199ed71b2469ebbb5adfebc6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCollider: {fileID: 45170446}
+  eyeless: {fileID: 1813398879}
 --- !u!1 &648058767160597344
 GameObject:
   m_ObjectHideFlags: 0
@@ -4469,6 +4484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1626689773854836698}
   - component: {fileID: 5303892152615967873}
+  - component: {fileID: 45170446}
   m_Layer: 0
   m_Name: Hand.001
   m_TagString: Untagged
@@ -4630,6 +4646,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.019260867, y: 0.09694624, z: 0.0045718625}
     m_Extent: {x: 0.060873166, y: 0.060916338, z: 0.064862065}
   m_DirtyAABB: 0
+--- !u!65 &45170446
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885448341935545362}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.09434814, y: 0.097504705, z: 0.038975872}
+  m_Center: {x: -0.0049463767, y: 0.023421673, z: -0.04298321}
 --- !u!1 &8953353547273053634
 GameObject:
   m_ObjectHideFlags: 0

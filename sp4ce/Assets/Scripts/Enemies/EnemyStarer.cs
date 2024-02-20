@@ -15,7 +15,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
 
     private bool goingUp = true;
     private float walkSpeed = 3.5f;
-    private float chaseSpeed = 10.0f;
+    private float chaseSpeed = 13.5f;
     private float waitTime = 0.0f;
 
     public bool playerSpotted;
@@ -119,12 +119,12 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
                 if (!isSeen) 
                 {
                     //Attack
-                    if (agent.remainingDistance <= 0.75f)
+                    if (agent.remainingDistance <= 0.8f)
                     {
                         GameManager.instance.lastHitEnemy = jumpscareCamTransform.gameObject;
                         AttackPlayer();
-                        speed = 0;
-                        waitTime = 0;
+                        speed = waitTime = 0;
+                        agent.velocity= Vector3.zero;
                         currentState = State.IDLE;
                     }
                 }
