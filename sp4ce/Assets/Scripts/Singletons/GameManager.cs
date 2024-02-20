@@ -140,8 +140,8 @@ public class GameManager : MonoBehaviour
 
     public void Escape()
     {
-        Debug.Log("Escape");
         winScreen.SetActive(true);
         isInUI = true;
+        bGameOver = true;
     }
 }

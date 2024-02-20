@@ -13,7 +13,6 @@ public class EnemyAnti : EnemyBase
     [SerializeField] private GameObject deathCam;
     
     [Header("Audio")]
-
     [SerializeField] private AudioSource src;
     [SerializeField] private AudioClip idleSound;
 
@@ -64,7 +63,9 @@ public class EnemyAnti : EnemyBase
 
     void OnTriggerEnter(Collider other)
     {
-        if(GameManager.instance.bGameOver) return;
+        if(GameManager.instance.bGameOver) 
+            return;
+            
         if (currState == State.RAGE)
         {
             GameManager.instance.lastHitEnemy = deathCam;
