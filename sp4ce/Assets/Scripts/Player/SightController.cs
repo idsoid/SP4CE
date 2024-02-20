@@ -71,6 +71,9 @@ public class SightController : MonoBehaviour
         List<GameObject> visibleObjects = new List<GameObject>();
         foreach(GameObject obj in objectsInRange)
         {
+            if (!obj)
+                continue;
+
             ISightObserver sightobj = obj.GetComponent<ISightObserver>();
             if(sightobj!=null)
             {
