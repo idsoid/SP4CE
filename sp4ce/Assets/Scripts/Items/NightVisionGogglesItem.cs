@@ -37,6 +37,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
     {
         fTime_elapsed = 2f;
         isOn = false;
+        GameManager.instance.nvIsOn = isOn;
         temperature = 49.0f;
     }
 
@@ -57,6 +58,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             if(!isOn && temperature > 70f) return;
             fTime_elapsed = 0f;
             isOn = !isOn;
+            GameManager.instance.nvIsOn = isOn;
             toggleCoroutine = StartCoroutine(ToggleNightVision());
         }
     }
@@ -112,6 +114,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
         else
         {
             isOn = true;
+            GameManager.instance.nvIsOn = isOn;
             src.PlayOneShot(offSfx);
             yield return new WaitForSeconds(0.5f);
             if(GameManager.instance.bGameOver) yield break;
@@ -127,6 +130,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             NVScanner.SetActive(false);
             UIManager.instance.ToggleNightVisionUI();
             isOn = false;
+            GameManager.instance.nvIsOn = isOn;
             if(temperature > 80f) temperature = 80f;
             if (spawnedEnemy)
                 Destroy(spawnedEnemy);
@@ -145,6 +149,7 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
                 //TODO: overheat
                 fTime_elapsed = 0f;
                 isOn = false;
+                GameManager.instance.nvIsOn = isOn;
                 toggleCoroutine = StartCoroutine(ToggleNightVision());
             }
             else

@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public Checkpoint checkpt;
 
     public GameObject lastHitEnemy;
+
+    public bool nvIsOn;
     
     void Awake()
     {
