@@ -36,6 +36,9 @@ public class MovementController : MonoBehaviour
 
     [SerializeField]
     private SightController sc;
+
+    [SerializeField]
+    private PlayerController pc;
     
     // Start is called before the first frame update
     void Start()
@@ -207,7 +210,8 @@ public class MovementController : MonoBehaviour
     private void HandleBobbing(float moveSpeed)
     {
         if (GameManager.instance.isInUI) return;
-        if(!charController.isGrounded) return; 
+        if(!charController.isGrounded) return;
+        if(pc.adrenalineOn) return; 
         fTime_elapsedBob += Time.deltaTime;
 
         if(moveSpeed > 0)

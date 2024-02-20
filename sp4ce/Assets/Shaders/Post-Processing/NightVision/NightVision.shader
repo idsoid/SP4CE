@@ -34,6 +34,7 @@ Shader "Custom Post-Processing/NightVision"
             uniform float4 _NightVisionTint;
             uniform float _NightVisionIntensity;
             uniform float _blend;
+            uniform int _pixelize;
 
             struct appdata
             {
@@ -63,15 +64,19 @@ Shader "Custom Post-Processing/NightVision"
 
             float4 frag(v2f i) : SV_Target
             {
-                i.uv.x = (int)(i.uv.x * 750) / 750.f;
-                i.uv.y = (int)(i.uv.y * 250) / 250.f;
+                if(_pixelize == 1) {
+                    i.uv.x = (int)(i.uv.x * 750) / 750.f;
+                    i.uv.y = (int)(i.uv.y * 250) / 250.f;
+                }
                 float3 c = tex2D(_MainTex, i.uv).rgb;
                 float lum = saturate(lerp(_LuminosityMidpoint, luminance(c), _LuminosityIntensity));
                 c = lum * _NightVisionTint * _NightVisionIntensity;
 
-                c.r = (int)(c.r*10) / 10.f;
-                c.g = (int)(c.g*10) / 10.f;
-                c.b = (int)(c.b*10) / 10.f;
+                if(_pixelize == 1) {
+                    c.r = (int)(c.r*10) / 10.f;
+                    c.g = (int)(c.g*10) / 10.f;
+                    c.b = (int)(c.b*10) / 10.f;
+                }
 
                 float3 result = lerp(tex2D(_MainTex, i.uv).rgb,c,_blend);
                 return float4(result,1);

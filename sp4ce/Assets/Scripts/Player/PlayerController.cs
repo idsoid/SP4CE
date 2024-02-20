@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour, IHealth
     private NightVisionPostProcess adrenalineColor;
     private LensDistortion adrenalineLens;
 
-    bool adrenalineOn;
+    public bool adrenalineOn;
 
     void Start()
     {
@@ -104,10 +104,12 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             SwapItem(false, false);
         }
-    
-        //TODO: remove pls. temporary
 
-
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            if(adrenalineCo==null)
+                adrenalineCo = StartCoroutine(AdrenalineCoroutine());
+        }
         foreach(GameObject obj in sightController.GetComponent<SightController>().GetObjectsInRange(15f))
         {
             if(obj.GetComponent<EnemyBase>()!=null)
@@ -123,16 +125,31 @@ public class PlayerController : MonoBehaviour, IHealth
     }
 
     Coroutine adrenalineCo;
+    Coroutine heartbeatCo;
+
+    float bpm = 0f;
     private IEnumerator AdrenalineCoroutine()
     {
         cameraController.StartShake();
         adrenalineOn = true;
+        bpm = 0.4f;
+        if(heartbeatCo==null)
+            heartbeatCo = StartCoroutine(HeartbeatCoroutine());
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ADRENALINE);
         yield return new WaitForSeconds(5f);
         adrenalineOn = false;
         adrenalineCo = null;
         yield return new WaitForSeconds(3f);
         cameraController.StopShake();
-        
+        StopCoroutine(heartbeatCo);
+        heartbeatCo=null;
+    }
+
+    private IEnumerator HeartbeatCoroutine()
+    {
+        PlayerAudioController.instance.PlayAudio(AUDIOSOUND.HEARTBEAT);
+        yield return new WaitForSeconds(bpm);
+        heartbeatCo = StartCoroutine(HeartbeatCoroutine());
     }
 
     void GetInventory()
@@ -198,15 +215,19 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, 0.4f, 0.01f);
             adrenalineColor.blend.value = Mathf.Lerp(adrenalineColor.blend.value, 1f, 0.01f);
-            cameraController.SetShakeMagnitude(Mathf.Lerp(cameraController.GetShakeMagnitude(),0.1f,0.01f));
+            cameraController.SetShakeMagnitude(Mathf.Lerp(cameraController.GetShakeMagnitude(),0.05f,0.01f));
             adrenalineLens.intensity.value = Mathf.Lerp(adrenalineLens.intensity.value,-0.4f,0.01f);
+            adrenalineLens.scale.value = Mathf.Lerp(adrenalineLens.scale.value,0.9f,0.01f);
+            
         }
         else
         {
             vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, 0.3f, 0.005f);
             adrenalineColor.blend.value = Mathf.Lerp(adrenalineColor.blend.value, -0.1f, 0.005f);
             cameraController.SetShakeMagnitude(Mathf.Lerp(cameraController.GetShakeMagnitude(),0f,0.005f));
-            adrenalineLens.intensity.value = Mathf.Lerp(adrenalineLens.intensity.value,-0.1f,0.005f);
+            adrenalineLens.intensity.value = Mathf.Lerp(adrenalineLens.intensity.value,0f,0.005f);
+            adrenalineLens.scale.value = Mathf.Lerp(adrenalineLens.scale.value,1f,0.005f);
+            bpm = Mathf.Lerp(bpm, 0.7f, 0.005f);
         }
     }
 
@@ -214,6 +235,14 @@ public class PlayerController : MonoBehaviour, IHealth
     {
         GameManager.instance.bGameOver = true;
         model.SetActive(false);
+
+        //switch off adrenaline
+        vignette.intensity.value = 0.3f;
+        adrenalineColor.blend.value = 0f;
+        cameraController.StopShake();
+        adrenalineLens.intensity.value = 0f;
+        adrenalineLens.scale.value = 0f;
+
         GetComponentsInChildren<MeshRenderer>()[0].enabled = false;
         StartCoroutine(DieCoroutine());
     }
@@ -253,6 +282,11 @@ public class PlayerController : MonoBehaviour, IHealth
     private IEnumerator EnableElectronics()
     {
         yield return new WaitForSeconds(3f);
+
+        foreach(GameObject obj in inventory)
+        {
+            obj.GetComponent<IItem>()?.OnEMPOff();
+        }
         canUse = true;
     }
 

@@ -50,7 +50,9 @@ public enum AUDIOSOUND
 
     ADRENALINE = 10,
     DANGER = 11,
-    BUTTONHOVER = 12
+    BUTTONHOVER = 12,
+
+    HEARTBEAT = 13
 
     //more to add
 }

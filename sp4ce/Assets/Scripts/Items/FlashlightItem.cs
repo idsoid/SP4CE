@@ -24,6 +24,11 @@ public class FlashlightItem : MonoBehaviour, IItem
         return 3;
     }
 
+    void Start()
+    {
+        isOn = true;
+    }
+
     void OnEnable()
     {
         src.PlayOneShot(equipSound);
@@ -60,13 +65,6 @@ public class FlashlightItem : MonoBehaviour, IItem
     {
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        isOn = false;
-        lightSource.enabled = isOn;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -83,5 +81,10 @@ public class FlashlightItem : MonoBehaviour, IItem
     {
         isOn = false;
         lightSource.enabled = false;
+    }
+
+    public void OnEMPOff()
+    {
+        
     }
 }

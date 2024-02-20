@@ -55,6 +55,7 @@ public class CameraController : MonoBehaviour
 
     public void StopShake()
     {
+        if(shakeCoroutine == null) return;
         StopCoroutine(shakeCoroutine);
         shakeCoroutine = null;
         Camera.main.transform.localPosition = new Vector3(0f,0.5f,0f);

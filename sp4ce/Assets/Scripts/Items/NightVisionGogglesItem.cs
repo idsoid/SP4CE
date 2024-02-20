@@ -237,4 +237,9 @@ public class NightVisionGogglesItem : MonoBehaviour, IItem
             OnPrimaryAction();
         }
     }
+
+    public void OnEMPOff()
+    {
+        
+    }
 }

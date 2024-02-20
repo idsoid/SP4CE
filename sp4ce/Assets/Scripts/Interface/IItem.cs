@@ -18,5 +18,7 @@ public interface IItem
 
     public void OnEMPTrigger();
 
+    public void OnEMPOff();
+
     public void GetRequiredControllers(GameObject obj, GameObject sightController);
 }

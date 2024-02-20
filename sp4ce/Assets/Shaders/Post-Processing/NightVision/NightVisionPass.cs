@@ -57,6 +57,7 @@ public class NightVisionPass : ScriptableRenderPass
         material.SetColor("_NightVisionTint", nightVisionPostProcess.nightVisionTint.value);
         material.SetFloat("_NightVisionIntensity", nightVisionPostProcess.nightVisionIntensity.value);
         material.SetFloat("_blend", nightVisionPostProcess.blend.value);
+        material.SetInt("_pixelize", nightVisionPostProcess.pixelize.value);
 
         cmd.Blit(src, texID, material, 0);
         cmd.Blit(texID, src, material);

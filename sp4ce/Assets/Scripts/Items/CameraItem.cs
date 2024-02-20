@@ -16,6 +16,9 @@ public class CameraItem : MonoBehaviour, IItem
     private Material whiteMaterial;
 
     [SerializeField]
+    private Material blackMaterial;
+
+    [SerializeField]
     private MeshRenderer mr;
 
     [SerializeField]
@@ -129,6 +132,11 @@ public class CameraItem : MonoBehaviour, IItem
 
     public void OnEMPTrigger()
     {
-        
+        mr.material = blackMaterial;
+    }
+
+    public void OnEMPOff()
+    {
+        mr.material = screenMaterial;
     }
 }
