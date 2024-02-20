@@ -16,6 +16,9 @@ MonoBehaviour:
   blend:
     m_OverrideState: 1
     m_Value: 0
+  brightness:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &-6688036824215369131
 MonoBehaviour:
   m_ObjectHideFlags: 3

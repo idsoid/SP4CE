@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
     public GameObject lastHitEnemy;
 
     public bool nvIsOn;
+
+    [SerializeField]
+    private GameObject settings;
     
     void Awake()
     {
@@ -48,6 +51,8 @@ public class GameManager : MonoBehaviour
         currCheckpoint = 0;
         isInUI = false;
         deathScreen.SetActive(false);
+        winScreen.SetActive(false);
+        settings.SetActive(false);
     }
 
     void Start()
@@ -114,6 +119,24 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (!settings.active)
+            {
+                isInUI = true;
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0f;
+                settings.SetActive(true);
+            }
+            else
+            {
+                isInUI = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Time.timeScale = 1;
+                settings.SetActive(false);
+            }
+        }
+
         if(deathButtons.activeInHierarchy)
         {
             if(Input.GetKeyDown(KeyCode.R))
@@ -131,8 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void ToMainMenu()
     {
-        Debug.Log("asher load ur main menu here");
-        //TODO: mainmenu
+        SceneManager.LoadScene("MainMenu");
     }
 
     public GameObject GetPlayer()

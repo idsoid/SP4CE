@@ -27,6 +27,7 @@ public class NoisePass : ScriptableRenderPass
 
         CommandBuffer cmd = CommandBufferPool.Get("Custom Post-Processing/Noise");
         material.SetFloat("_Blend",noisePP.blend.value);
+        material.SetFloat("_Brightness",noisePP.brightness.value);
 
         cmd.Blit(src, texID, material, 0);
         cmd.Blit(texID, src, material);

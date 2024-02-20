@@ -7,7 +7,7 @@ public class MMNVManager : MonoBehaviour
 {
     [SerializeField] private Volume volume;
     private float timer;
-    [SerializeField] private float timerSet = 8f;
+    private float timerSet = 2f;
     bool inNV = false, maxNV = false;
 
     private void Start()
@@ -18,7 +18,7 @@ public class MMNVManager : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-
+        Debug.Log(timer);
         if (inNV)
         {
             volume.profile.TryGet(out NightVisionPostProcess nv);
@@ -42,7 +42,7 @@ public class MMNVManager : MonoBehaviour
 
         if (timer < 0 && !inNV)
         {
-            if (Random.Range(0, 100) > 60)
+            if (Random.Range(0, 100) > 50)
             {
                 maxNV = false;
                 inNV = true;

@@ -11,7 +11,7 @@ public class SceneSwitcher : MonoBehaviour
         switch(scene)
         {
             case 0:
-                SceneManager.LoadScene("AsherScene");
+                SceneManager.LoadScene("DemoScene");
                 break;
         }
     }

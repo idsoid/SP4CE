@@ -80,7 +80,7 @@ MonoBehaviour:
   active: 1
   luminosityMidpoint:
     m_OverrideState: 1
-    m_Value: 0.11
+    m_Value: 0.08
   luminosityIntensity:
     m_OverrideState: 1
     m_Value: 5
