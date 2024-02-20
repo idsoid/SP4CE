@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 2a235a8e393b0704d995f7f3b4739295, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e7292f24d7d5a6041bcf6e320126af2c, type: 2}
 --- !u!1001 &442727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17512,6 +17512,7 @@ MonoBehaviour:
   checkpt: {fileID: 0}
   lastHitEnemy: {fileID: 0}
   nvIsOn: 0
+  settings: {fileID: 0}
   deathImage: {fileID: 995536079}
   skullImage: {fileID: 995536078}
   deathButtons: {fileID: 995536077}
@@ -43496,6 +43497,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Decoy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004022445722050, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: shakeMagnitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594004022445722050, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: timeBetweenShakes
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4594004022445722051, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}

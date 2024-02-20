@@ -8,6 +8,14 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private float mouseSensitivity = 1f;
+
+    [SerializeField] private float timeBetweenShakes;
+    [SerializeField] private float shakeMagnitude;
+    
+    Vector3 originalPos;
+    
+    bool blyat = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +32,31 @@ public class CameraController : MonoBehaviour
         mouseY += -Input.GetAxis("Mouse Y") * mouseSensitivity;
         mouseY = Mathf.Clamp(mouseY, -89f, 89f);
         Camera.main.transform.rotation = Quaternion.Euler(mouseY, mouseX, 0f);
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            blyat = !blyat;
+            originalPos = Camera.main.transform.localPosition;
+            if (blyat)
+                StartCoroutine(CameraShake(shakeMagnitude));
+            else
+            {
+                StopAllCoroutines();
+                Camera.main.transform.localPosition = originalPos;
+            }
+        }
+    }
+
+    private IEnumerator CameraShake(float magnitude)
+    {
+        float x = originalPos.x + Random.Range(-1f, 1f) * magnitude;
+        float y = originalPos.y + Random.Range(-1f, 1f) * magnitude;
+        float z = originalPos.z + Random.Range(-1f, 1f) * magnitude;
+
+        Camera.main.transform.localPosition = new Vector3(x, y, z);
+
+        yield return new WaitForSeconds(timeBetweenShakes);
+
+        StartCoroutine(CameraShake(magnitude));
     }
 }
