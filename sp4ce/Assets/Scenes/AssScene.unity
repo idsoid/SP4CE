@@ -619,22 +619,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1160217447, guid: 5f1cbb9809b879344add750a4f7e9a71, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160217447, guid: 5f1cbb9809b879344add750a4f7e9a71, type: 3}
-      propertyPath: m_Color.g
-      value: 0.10310407
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160217447, guid: 5f1cbb9809b879344add750a4f7e9a71, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160217447, guid: 5f1cbb9809b879344add750a4f7e9a71, type: 3}
-      propertyPath: m_Intensity
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 5461572073797632762, guid: 5f1cbb9809b879344add750a4f7e9a71,
         type: 3}
       propertyPath: m_Name
@@ -645,16 +629,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 244661049}
-    - target: {fileID: 5461572073797632764, guid: 5f1cbb9809b879344add750a4f7e9a71,
-        type: 3}
-      propertyPath: patrolTimerSet
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5461572073797632764, guid: 5f1cbb9809b879344add750a4f7e9a71,
-        type: 3}
-      propertyPath: patrolWaypoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5461572073797632764, guid: 5f1cbb9809b879344add750a4f7e9a71,
         type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
@@ -15721,10 +15695,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1160217447, guid: 5f1cbb9809b879344add750a4f7e9a71, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5461572073797632762, guid: 5f1cbb9809b879344add750a4f7e9a71,
         type: 3}
       propertyPath: m_Name
@@ -15735,16 +15705,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 244661049}
-    - target: {fileID: 5461572073797632764, guid: 5f1cbb9809b879344add750a4f7e9a71,
-        type: 3}
-      propertyPath: patrolTimerSet
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5461572073797632764, guid: 5f1cbb9809b879344add750a4f7e9a71,
-        type: 3}
-      propertyPath: patrolWaypoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5461572073797632764, guid: 5f1cbb9809b879344add750a4f7e9a71,
         type: 3}
       propertyPath: patrolWaypoints.Array.data[0]
@@ -38415,6 +38375,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1660178497, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -902.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660178497, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -793.00006
+      objectReference: {fileID: 0}
     - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: NVScanner
