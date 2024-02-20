@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6708,6 +6708,69 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 310578730}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &312449748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312449749}
+  - component: {fileID: 312449751}
+  - component: {fileID: 312449750}
+  m_Layer: 0
+  m_Name: Adrenaline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &312449749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312449748}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1143976250}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &312449750
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312449748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &312449751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312449748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 0
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: f2c63e7b077064a4083245a3dc66aa92, type: 2}
 --- !u!1001 &318246781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15535,6 +15598,18 @@ Transform:
   m_Father: {fileID: 2136960730}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &667643773 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4594004022445722050, guid: ac121ffcc49a43c4b87b82faf5603860,
+    type: 3}
+  m_PrefabInstance: {fileID: 1601409733}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb23e8a15f21c04296de1cc31cd41af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &668520070
 GameObject:
   m_ObjectHideFlags: 0
@@ -29716,6 +29791,12 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1601409733}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1143976250 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4594004021386018879, guid: ac121ffcc49a43c4b87b82faf5603860,
+    type: 3}
+  m_PrefabInstance: {fileID: 1601409733}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1145340432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37995,11 +38076,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1660178497, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660178497, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -793
+      objectReference: {fileID: 0}
     - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: NVScanner
       value: 
       objectReference: {fileID: 783733451}
+    - target: {fileID: 4594004022445722051, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: vol
+      value: 
+      objectReference: {fileID: 312449751}
+    - target: {fileID: 4594004022445722051, guid: ac121ffcc49a43c4b87b82faf5603860,
+        type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 667643773}
     - target: {fileID: 4594004022445722059, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: m_Name

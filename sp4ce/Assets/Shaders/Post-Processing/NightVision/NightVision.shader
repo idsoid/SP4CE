@@ -33,6 +33,7 @@ Shader "Custom Post-Processing/NightVision"
             uniform float _LuminosityIntensity;
             uniform float4 _NightVisionTint;
             uniform float _NightVisionIntensity;
+            uniform float _blend;
 
             struct appdata
             {
@@ -72,9 +73,9 @@ Shader "Custom Post-Processing/NightVision"
                 c.g = (int)(c.g*10) / 10.f;
                 c.b = (int)(c.b*10) / 10.f;
 
-                return float4(c, 1);
+                float3 result = lerp(tex2D(_MainTex, i.uv).rgb,c,_blend);
+                return float4(result,1);
             }
-
             ENDHLSL
         }
     }

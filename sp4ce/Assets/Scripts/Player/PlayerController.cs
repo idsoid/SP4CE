@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour, IHealth
 {
@@ -17,12 +19,24 @@ public class PlayerController : MonoBehaviour, IHealth
     [SerializeField]
     private GameObject model;
 
+    [SerializeField]
+    private CameraController cameraController;
+
+    [SerializeField]
+    private Volume vol;
+
     
     private int equippedIndex;
     private FlashlightItem flashlight;
+    private Vignette vignette;
+    private NightVisionPostProcess adrenalineColor;
+    private LensDistortion adrenalineLens;
+
+    bool adrenalineOn;
 
     void Start()
     {
+        adrenalineOn = false;
         InitHealth();
         GetInventory();
 
@@ -32,6 +46,10 @@ public class PlayerController : MonoBehaviour, IHealth
             obj.SetActive(false);
         }
         inventory[equippedIndex].SetActive(true);
+
+        vol.profile.TryGet<Vignette>(out vignette);
+        vol.profile.TryGet<NightVisionPostProcess>(out adrenalineColor);
+        vol.profile.TryGet<LensDistortion>(out adrenalineLens);
     }
 
     void Update()
@@ -88,10 +106,31 @@ public class PlayerController : MonoBehaviour, IHealth
         }
     
         //TODO: remove pls. temporary
-        if(Input.GetKeyDown(KeyCode.H))
+
+
+        foreach(GameObject obj in sightController.GetComponent<SightController>().GetObjectsInRange(15f))
         {
-            GameManager.instance.Die();
+            if(obj.GetComponent<EnemyBase>()!=null)
+            {
+                if(adrenalineCo==null)
+                    adrenalineCo = StartCoroutine(AdrenalineCoroutine());
+                break;
+            }
         }
+        HandleAdrenaline();
+    }
+
+    Coroutine adrenalineCo;
+    private IEnumerator AdrenalineCoroutine()
+    {
+        cameraController.StartShake();
+        adrenalineOn = true;
+        yield return new WaitForSeconds(5f);
+        adrenalineOn = false;
+        adrenalineCo = null;
+        yield return new WaitForSeconds(3f);
+        cameraController.StopShake();
+        
     }
 
     void GetInventory()
@@ -148,6 +187,24 @@ public class PlayerController : MonoBehaviour, IHealth
             health = 0;
             PlayerAudioController.instance.PlayAudio(AUDIOSOUND.JUMPSCARE);
             Die();
+        }
+    }
+
+    void HandleAdrenaline()
+    {
+        if(adrenalineOn)
+        {
+            vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, 0.4f, 0.01f);
+            adrenalineColor.blend.value = Mathf.Lerp(adrenalineColor.blend.value, 1f, 0.01f);
+            cameraController.SetShakeMagnitude(Mathf.Lerp(cameraController.GetShakeMagnitude(),0.1f,0.01f));
+            adrenalineLens.intensity.value = Mathf.Lerp(adrenalineLens.intensity.value,-0.4f,0.01f);
+        }
+        else
+        {
+            vignette.intensity.value = Mathf.Lerp(vignette.intensity.value, 0.3f, 0.005f);
+            adrenalineColor.blend.value = Mathf.Lerp(adrenalineColor.blend.value, -0.1f, 0.005f);
+            cameraController.SetShakeMagnitude(Mathf.Lerp(cameraController.GetShakeMagnitude(),0f,0.005f));
+            adrenalineLens.intensity.value = Mathf.Lerp(adrenalineLens.intensity.value,-0.1f,0.005f);
         }
     }
 

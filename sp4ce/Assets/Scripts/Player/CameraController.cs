@@ -44,17 +44,20 @@ public class CameraController : MonoBehaviour
 
         yield return new WaitForSeconds(timeBetweenShakes);
 
-        StartCoroutine(CameraShake());
+        shakeCoroutine = StartCoroutine(CameraShake());
     }
 
     public void StartShake()
     {
+        originalPos = new Vector3(0f,0.5f,0f);
         shakeCoroutine = StartCoroutine(CameraShake());
     }
 
     public void StopShake()
     {
         StopCoroutine(shakeCoroutine);
+        shakeCoroutine = null;
+        Camera.main.transform.localPosition = new Vector3(0f,0.5f,0f);
     }
 
     public void SetShakeMagnitude(float newShakeMagnitude)

@@ -92,12 +92,13 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTemperatureText(float temp)
     {
-        Debug.Log("temp" + temp + " aa " + (temp - 60) / 30);
+        //Debug.Log("temp" + temp + " aa " + (temp - 60) / 30);
         nvFill.fillAmount = (temp - 60) / 30;
         temperatureText.text = Mathf.Round(temp*10)*0.1f + "C";
         temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
     }
 
+    
     public void DisplayTip(string name, string desc, bool saveToIndex, bool isDanger = false)
     {
         if(saveToIndex)

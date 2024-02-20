@@ -10,6 +10,7 @@ public class NightVisionPostProcess : VolumeComponent, IPostProcessComponent
     public FloatParameter luminosityIntensity = new ClampedFloatParameter(0.0f, 0.0f, 50.0f);
     public ColorParameter nightVisionTint = new ColorParameter(new Color());
     public FloatParameter nightVisionIntensity = new ClampedFloatParameter(0.0f, 0.0f, 20.0f);
+    public FloatParameter blend = new ClampedFloatParameter(0.0f, 0.0f, 1.0f);
 
     public bool IsActive()
     {

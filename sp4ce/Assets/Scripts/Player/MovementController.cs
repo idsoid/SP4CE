@@ -211,9 +211,9 @@ public class MovementController : MonoBehaviour
         fTime_elapsedBob += Time.deltaTime;
 
         if(moveSpeed > 0)
-            Camera.main.transform.localPosition = Vector3.Lerp(new Vector3(0f,(isCrouching?0.2f:0.5f) - 0.05f,0f), new Vector3(0f,(isCrouching?0.2f:0.5f) + 0.05f,0f), (Mathf.Sin(fTime_elapsedBob * moveSpeed * 4f) + 1) * 0.5f);
+            Camera.main.transform.localPosition = Vector3.Lerp(new Vector3(0f,0.5f - 0.05f,0f), new Vector3(0f,(0.5f) + 0.05f,0f), (Mathf.Sin(fTime_elapsedBob * moveSpeed * 4f) + 1) * 0.5f);
         else
-            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, new Vector3(0f,isCrouching?0.2f:0.5f,0f),Time.deltaTime*5f); 
+            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, new Vector3(0f,0.5f,0f),Time.deltaTime*5f); 
     }
 
     private void HandleCrouching()
