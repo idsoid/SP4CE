@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
     public void Die()
     {
+        GameManager.instance.DisableMap();
         GameManager.instance.bGameOver = true;
         model.SetActive(false);
 

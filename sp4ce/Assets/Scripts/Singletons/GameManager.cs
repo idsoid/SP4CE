@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor.Rendering;
 using System.Text;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -75,17 +76,17 @@ public class GameManager : MonoBehaviour
             inventoryIds.Add(obj.GetComponent<IItem>().GetItemID());
         }
 
-        GameObject[] floors = GameObject.FindGameObjectsWithTag("Object");
-        foreach (GameObject floor in floors)
-        {
-            data.objName = obj.name;
-            data.posX = obj.transform.position.x;
-            data.posY = obj.transform.position.y;
-            data.posZ = obj.transform.position.z;
-            string json = JsonUtility.ToJson(data, true);
-            Debug.Log(json.ToString());
-            sb.AppendLine(json);
-        }
+        // GameObject[] floors = GameObject.FindGameObjectsWithTag("Object");
+        // foreach (GameObject floor in floors)
+        // {
+        //     data.objName = obj.name;
+        //     data.posX = obj.transform.position.x;
+        //     data.posY = obj.transform.position.y;
+        //     data.posZ = obj.transform.position.z;
+        //     string json = JsonUtility.ToJson(data, true);
+        //     Debug.Log(json.ToString());
+        //     sb.AppendLine(json);
+        // }
 
         //Saving player data
         playerData.InventoryIDs = inventoryIds;
@@ -108,15 +109,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image deathImage;
     [SerializeField] private Image skullImage;
     [SerializeField] private GameObject deathButtons;
+    [SerializeField] private GameObject map;
 
     public void Die()
     {
+        
         deathButtons.SetActive(false);
         deathImage.material.SetFloat("_Effect", 0f);
         skullImage.material.SetFloat("_Effect", 0f);
         deathScreen.SetActive(true);
         StartCoroutine(FadeDeathScreen());
     }
+
+    public void DisableMap()
+    {
+        map.SetActive(false);
+    }
+    
     private IEnumerator FadeDeathScreen()
     {
         for(float eff = 0f; eff < 1f; eff+=0.1f)
