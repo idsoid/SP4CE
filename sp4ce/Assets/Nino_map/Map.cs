@@ -35,12 +35,15 @@ public class Map : MonoBehaviour
             Zoom();
         }
     }
+
+    public bool isUsing = false;
     private void MapDisplay()
     {
         if(GameManager.instance.bGameOver) return;
         if(!map.activeSelf) return;
         if (Input.GetMouseButton(0))
         {
+            isUsing = true;
             float mouseX, mouseY;
             mouseX = -Input.GetAxis("Mouse X");
             mouseY = -Input.GetAxis("Mouse Y");
@@ -50,6 +53,7 @@ public class Map : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            isUsing = false;
             Vector3 newPos = Camera.main.transform.position;
             newPos.y = transform.position.y;
             transform.position = newPos;

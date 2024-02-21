@@ -8,6 +8,8 @@ public class CompanyTabletItem : MonoBehaviour, IItem
     [SerializeField] private List<GameObject> screens;
     private int screenIndex;
 
+    [SerializeField] private Map mapScript;
+
     void Awake()
     {
         screenIndex = 0;
@@ -44,8 +46,9 @@ public class CompanyTabletItem : MonoBehaviour, IItem
 
     public bool IsItemInUse()
     {
-        return false;
-        
+        return mapScript.isUsing;
+
+
     }
 
     public void OnEMPOff()
