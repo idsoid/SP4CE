@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -39407,18 +39407,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1466987252}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1467677175 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4594004022445722051, guid: ac121ffcc49a43c4b87b82faf5603860,
-    type: 3}
-  m_PrefabInstance: {fileID: 1601409733}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872551217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c11e6c8ccc0f6409ce139ff9a8bfc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1468402405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44835,34 +44823,6 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 2126824209}
-    - target: {fileID: 19885489, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: m_BackGroundColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19885489, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 19885489, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 19885489, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 312449748, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1230085859, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: audioList.Array.size
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1230085859, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
-      propertyPath: audioList.Array.data[13]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1db80356cd6410b4286b329aec302d2b, type: 3}
     - target: {fileID: 1660178497, guid: ac121ffcc49a43c4b87b82faf5603860, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -902
@@ -44871,46 +44831,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -793
       objectReference: {fileID: 0}
-    - target: {fileID: 2642276776593034174, guid: ac121ffcc49a43c4b87b82faf5603860,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594004021386018878, guid: ac121ffcc49a43c4b87b82faf5603860,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 439
-      objectReference: {fileID: 0}
     - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: NVScanner
       value: 
       objectReference: {fileID: 783733451}
-    - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
-        type: 3}
-      propertyPath: spawnChance
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594004021684534346, guid: ac121ffcc49a43c4b87b82faf5603860,
-        type: 3}
-      propertyPath: spawnLayer.m_Bits
-      value: 439
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594004022444221584, guid: ac121ffcc49a43c4b87b82faf5603860,
-        type: 3}
-      propertyPath: blackMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 458369125fed0eb4c9c1de0f87fd38a6, type: 2}
     - target: {fileID: 4594004022445722059, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4594004022445722061, guid: ac121ffcc49a43c4b87b82faf5603860,
-        type: 3}
-      propertyPath: pc
-      value: 
-      objectReference: {fileID: 1467677175}
     - target: {fileID: 4594004022445722063, guid: ac121ffcc49a43c4b87b82faf5603860,
         type: 3}
       propertyPath: m_RootOrder
