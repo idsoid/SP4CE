@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3012541121394750633}
   - component: {fileID: 3012541121394750632}
   m_Layer: 0
-  m_Name: lvl3Keycard
+  m_Name: Lvl3Keycard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

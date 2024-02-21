@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 4229837640874017803}
   - component: {fileID: 4229837640874017909}
   m_Layer: 0
-  m_Name: lvl5keycard
+  m_Name: Lvl5keycard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

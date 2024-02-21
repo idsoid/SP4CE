@@ -3,7 +3,27 @@ guid: 95b0fd4c9642efd41b8e2b65e7de591a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass_MAT
+    second: {fileID: 2100000, guid: 99da7d90810fc6a43892f168032da3f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Granite_MAT
+    second: {fileID: 2100000, guid: c1bd7f82e5f08004287a8b7e9d1dee35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoundBottomFlaskSupports_MAT
+    second: {fileID: 2100000, guid: de41893bfaa9af54ab3d444e0ef258bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WhitePlastic_MAT
+    second: {fileID: 2100000, guid: 08a6fd9013c80a444b72c855bd495adc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
