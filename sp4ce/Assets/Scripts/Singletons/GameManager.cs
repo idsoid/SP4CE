@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Load();
+        
     }
 
     public void SetAccessLevel(int lvl)
