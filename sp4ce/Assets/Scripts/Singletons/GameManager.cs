@@ -113,7 +113,6 @@ public class GameManager : MonoBehaviour
 
     public void Die()
     {
-        
         deathButtons.SetActive(false);
         deathImage.material.SetFloat("_Effect", 0f);
         skullImage.material.SetFloat("_Effect", 0f);
@@ -125,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         map.SetActive(false);
     }
-    
+
     private IEnumerator FadeDeathScreen()
     {
         for(float eff = 0f; eff < 1f; eff+=0.1f)
