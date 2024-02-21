@@ -103,9 +103,9 @@ public class UIManager : MonoBehaviour
     {
         if(saveToIndex)
         {
-            if(playerData.DiscoveryIndex.Contains(name)) return;
-            playerData.DiscoveryIndex.Add(name);
-            playerData.DiscoveryIndex.Add(desc);
+            if(playerData.discoveryIndex.Contains(name)) return;
+            playerData.discoveryIndex.Add(name);
+            playerData.discoveryIndex.Add(desc);
         }
         if(isDanger)
             PlayerAudioController.instance.PlayAudio(AUDIOSOUND.DANGER);

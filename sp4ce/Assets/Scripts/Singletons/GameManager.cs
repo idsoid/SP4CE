@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        Load();
     }
 
     public void SetAccessLevel(int lvl)
@@ -76,29 +76,39 @@ public class GameManager : MonoBehaviour
             inventoryIds.Add(obj.GetComponent<IItem>().GetItemID());
         }
 
-        // GameObject[] floors = GameObject.FindGameObjectsWithTag("Object");
-        // foreach (GameObject floor in floors)
-        // {
-        //     data.objName = obj.name;
-        //     data.posX = obj.transform.position.x;
-        //     data.posY = obj.transform.position.y;
-        //     data.posZ = obj.transform.position.z;
-        //     string json = JsonUtility.ToJson(data, true);
-        //     Debug.Log(json.ToString());
-        //     sb.AppendLine(json);
-        // }
+        playerData.floorIds.Clear();
+        playerData.floorLayers.Clear();
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
+        foreach (GameObject floor in floors)
+        {
+            playerData.floorIds.Add(floor.GetInstanceID());
+            playerData.floorLayers.Add(floor.layer);
+        }
 
         //Saving player data
-        playerData.InventoryIDs = inventoryIds;
-        playerData.LastCheckpoint = currCheckpoint;
-        playerData.LastAccessLevel = accessLevel;
-        playerData.Health = player.GetComponent<IHealth>().GetHealth();
+        playerData.inventoryIds = inventoryIds;
+        playerData.lastCheckpoint = currCheckpoint;
+        playerData.lastAccessLevel = accessLevel;
+        playerData.health = player.GetComponent<IHealth>().GetHealth();
         playerData.SaveData();
     }
 
     public void Load()
     {
         playerData.LoadData();
+
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
+        for (int i = 0; i < playerData.floorIds.Count; i++)
+        {
+            for (int j = 0; j < playerData.floorIds.Count; j++)
+            {
+                if (floors[i].GetInstanceID() == playerData.floorIds[j])
+                {
+                    floors[i].layer = playerData.floorLayers[j];
+                    continue;
+                }
+            }
+        }
     }
 
     public void OnCheckpointChanged()
