@@ -14,7 +14,6 @@ public class Map : MonoBehaviour
     {
         mapCamera = GetComponent<Camera>();
         mapMaxSize = 110.0f;
-        //map.SetActive(false);
 
         Vector3 newPos = Camera.main.transform.position;
         newPos.y = transform.position.y;
@@ -41,6 +40,8 @@ public class Map : MonoBehaviour
     {
         if(GameManager.instance.bGameOver) return;
         if(!map.activeSelf) return;
+
+        mapCamera.transform.eulerAngles = new Vector3(90.0f, 0.0f, 0.0f);
         if (Input.GetMouseButton(0))
         {
             isUsing = true;

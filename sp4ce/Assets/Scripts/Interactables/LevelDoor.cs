@@ -121,4 +121,10 @@ public class LevelDoor : MonoBehaviour, IInteract, IPhotoObserver, ISightObserve
     {
         return ".";
     }
+
+    public void SetDoorLayer(int layer)
+    {
+        gameObject.layer = layer;
+        door.gameObject.layer = layer;
+    }
 }

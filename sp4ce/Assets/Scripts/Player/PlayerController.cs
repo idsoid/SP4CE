@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -122,10 +123,12 @@ public class PlayerController : MonoBehaviour, IHealth
                     adrenalineCo = StartCoroutine(AdrenalineCoroutine());
                 break;
             }
+            
         }
         HandleAdrenaline();
 
         FloorCheck();
+        DoorCheck();
     }
 
     Coroutine adrenalineCo;
@@ -311,6 +314,21 @@ public class PlayerController : MonoBehaviour, IHealth
             if (hit.collider.gameObject.layer == 7)
             {
                 if (hit.collider.gameObject.CompareTag("Floor"))
+                {
+                    hit.collider.gameObject.layer = 8;
+                }
+            }
+        }
+    }
+
+    public void DoorCheck()
+    {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward, Color.green);
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 5f))
+        {
+            if (hit.collider.gameObject.layer == 7)
+            {
+                if (hit.collider.gameObject.CompareTag("Door"))
                 {
                     hit.collider.gameObject.layer = 8;
                 }

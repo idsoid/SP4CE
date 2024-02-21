@@ -18,6 +18,13 @@ public class SightController : MonoBehaviour
             if(!objectsInRange.Contains(other.gameObject))
                 objectsInRange.Add(other.gameObject);
         }
+        if (other.gameObject.layer == 7)
+        {
+            if (other.gameObject.CompareTag("Door"))
+            {
+                other.gameObject.GetComponent<LevelDoor>().SetDoorLayer(8);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
