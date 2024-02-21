@@ -31,22 +31,46 @@ public class ObjectiveSpawner : MonoBehaviour
 
     private void SpawnLvl3Keycard()
     {
-        int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
-        float rot = Random.Range(-180f, 180f);
-        Instantiate(lvl3KeycardPrefab, lvl3KeycardSpawnpoints[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
+        List<Transform> list = new List<Transform>();
+        foreach (Transform pos in lvl3KeycardSpawnpoints)
+            list.Add(pos);
+
+        for (int i = 0; i < 2; i++)
+        {
+            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
+            float rot = Random.Range(-180f, 180f);
+            Instantiate(lvl3KeycardPrefab, list[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
+            list.Remove(list[rng]);
+        }
     }
 
     private void SpawnLvl4Keycard()
     {
-        int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
-        float rot = Random.Range(-180f, 180f);
-        Instantiate(lvl4KeycardPrefab, lvl4KeycardSpawnpoints[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
+        List<Transform> list = new List<Transform>();
+        foreach (Transform pos in lvl4KeycardSpawnpoints)
+            list.Add(pos);
+        
+        for (int i = 0; i < 2; i++)
+        {
+            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
+            float rot = Random.Range(-180f, 180f);
+            Instantiate(lvl4KeycardPrefab, list[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
+            list.Remove(list[rng]);
+        }
     }
 
     private void SpawnLvl5Keycard()
     {
-        int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
-        float rot = Random.Range(-180f, 180f);
-        Instantiate(lvl5KeycardPrefab, lvl5KeycardSpawnpoints[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
+        List<Transform> list = new List<Transform>();
+        foreach (Transform pos in lvl5KeycardSpawnpoints)
+            list.Add(pos);
+        
+        for (int i = 0; i < 2; i++)
+        {
+            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
+            float rot = Random.Range(-180f, 180f);
+            Instantiate(lvl5KeycardPrefab, list[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
+            list.Remove(list[rng]);
+        }
     }
 }
