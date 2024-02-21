@@ -59,6 +59,18 @@ public class PlayerController : MonoBehaviour, IHealth
         if(GameManager.instance.bGameOver) return;
         sightController.transform.position = transform.position;
 
+        
+
+        //weapon swapping
+        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            SwapItem(true, false);
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            SwapItem(false, false);
+        }
+
         if(GameManager.instance.isInUI) return;
         
 
@@ -95,16 +107,6 @@ public class PlayerController : MonoBehaviour, IHealth
                 if(obj.activeInHierarchy)
                     obj.GetComponent<IItem>()?.RunBackgroundProcesses();
             }
-        }
-
-        //weapon swapping
-        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
-        {
-            SwapItem(true, false);
-        }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
-        {
-            SwapItem(false, false);
         }
 
         if(Input.GetKeyDown(KeyCode.H))
@@ -267,7 +269,6 @@ public class PlayerController : MonoBehaviour, IHealth
         Camera.main.transform.localRotation = Quaternion.identity;
         Camera.main.transform.localPosition = Vector3.zero;
         yield return new WaitForSeconds(1.25f);
-        Debug.Log("im dead");
         UIManager.instance.OnDie();
         GameManager.instance.Die();
     }

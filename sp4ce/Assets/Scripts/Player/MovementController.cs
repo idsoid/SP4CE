@@ -115,7 +115,6 @@ public class MovementController : MonoBehaviour
             moveX = 0f;
             moveY = 0f;
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, Time.deltaTime * 20f);
-            return;
         }
 
         Vector3 moveDir = Camera.main.transform.forward * moveY + Camera.main.transform.right * moveX;

@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
     {
         mapCamera = GetComponent<Camera>();
         mapMaxSize = 110.0f;
-        map.SetActive(false);
+        //map.SetActive(false);
 
         Vector3 newPos = Camera.main.transform.position;
         newPos.y = transform.position.y;
@@ -29,13 +29,6 @@ public class Map : MonoBehaviour
 
     private void MapEnable()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            map.SetActive(!map.activeSelf);
-            Cursor.lockState = map.activeSelf?CursorLockMode.None:CursorLockMode.Locked;
-            GameManager.instance.isInUI = map.activeSelf;
-        }
-
         if (map.activeSelf)
         {
             MapDisplay();
@@ -44,9 +37,10 @@ public class Map : MonoBehaviour
     }
     private void MapDisplay()
     {
+        if(GameManager.instance.bGameOver) return;
+        if(!map.activeSelf) return;
         if (Input.GetMouseButton(0))
         {
-            Cursor.lockState = CursorLockMode.Locked;
             float mouseX, mouseY;
             mouseX = -Input.GetAxis("Mouse X");
             mouseY = -Input.GetAxis("Mouse Y");
@@ -56,7 +50,6 @@ public class Map : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Cursor.lockState = CursorLockMode.None;
             Vector3 newPos = Camera.main.transform.position;
             newPos.y = transform.position.y;
             transform.position = newPos;

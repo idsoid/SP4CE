@@ -144,7 +144,8 @@ public class Decoy : MonoBehaviour, IItem, ISightObserver, IPhotoObserver
 
     public void OnEMPTrigger()
     {
-        Destroy(gameObject);
+        if(transform.parent == null)
+            Destroy(gameObject);
     }
 
     public void OnEMPOff()

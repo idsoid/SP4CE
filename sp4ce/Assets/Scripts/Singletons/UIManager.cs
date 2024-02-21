@@ -68,13 +68,6 @@ public class UIManager : MonoBehaviour
                 fadeCoroutine = null;
             }
         }
-
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            discovIndex.SetActive(!discovIndex.activeInHierarchy);
-            Cursor.lockState = discovIndex.activeInHierarchy?CursorLockMode.None:CursorLockMode.Locked;
-            GameManager.instance.isInUI = discovIndex.activeInHierarchy;
-        }
     }
 
     public void SetStaminaAlpha(float lerpval)
@@ -98,7 +91,6 @@ public class UIManager : MonoBehaviour
         temperatureText.color = Color.Lerp(Color.white,Color.red,(temp-60f)/(30f));
     }
 
-    
     public void DisplayTip(string name, string desc, bool saveToIndex, bool isDanger = false)
     {
         if(saveToIndex)
