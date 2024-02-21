@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour, IHealth
         yield return new WaitForSeconds(5f);
         adrenalineOn = false;
         adrenalineCo = null;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f);
 
         adrenalineColor.active = false;
 
