@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour, IHealth
         vol.profile.TryGet<Vignette>(out vignette);
         vol.profile.TryGet<NightVisionPostProcess>(out adrenalineColor);
         vol.profile.TryGet<LensDistortion>(out adrenalineLens);
+
+        adrenalineColor.active = false;
     }
 
     void Update()
@@ -136,13 +138,22 @@ public class PlayerController : MonoBehaviour, IHealth
         if(heartbeatCo==null)
             heartbeatCo = StartCoroutine(HeartbeatCoroutine());
         PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ADRENALINE);
+
+        adrenalineColor.active = true;
+
         yield return new WaitForSeconds(5f);
         adrenalineOn = false;
         adrenalineCo = null;
         yield return new WaitForSeconds(3f);
+
+        adrenalineColor.active = false;
+
         cameraController.StopShake();
-        StopCoroutine(heartbeatCo);
-        heartbeatCo=null;
+
+        if(heartbeatCo!=null) {
+            StopCoroutine(heartbeatCo);
+            heartbeatCo=null;
+        }
     }
 
     private IEnumerator HeartbeatCoroutine()
@@ -199,6 +210,7 @@ public class PlayerController : MonoBehaviour, IHealth
     }
     public void UpdateHealth(int amt)
     {
+        if(GameManager.instance.bGameOver) return;
         health += amt;
         if(health > maxHealth) health = maxHealth;
         else if (health <= 0)

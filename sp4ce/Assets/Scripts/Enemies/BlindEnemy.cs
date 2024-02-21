@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObserver
@@ -11,8 +12,11 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
     [SerializeField]
     Vector3 audioPosition = Vector3.zero;
 
+    //[SerializeField]
+    //private List<Transform> waypoints;
+
     [SerializeField]
-    private List<Transform> waypoints;
+    private GameObject jumpscareCam;
 
     [SerializeField]
     int waypointIndex;
@@ -27,6 +31,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
     private GameObject targetObject;
 
     Coroutine patrolCooldownCoroutine;
+
     public override void FSM()
     {
         if(isChasingAudio)
@@ -44,13 +49,13 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
         }
         else
         {
-            if(Vector3.Distance(waypoints[waypointIndex].position,transform.position) < 1)
+            if(Vector3.Distance(patrolWaypoints[waypointIndex].position,transform.position) < 1)
             {
-                waypointIndex = UnityEngine.Random.Range(0,waypoints.Count);
+                waypointIndex = UnityEngine.Random.Range(0,patrolWaypoints.Count);
             }
             else
             {
-                MoveToPos(waypoints[waypointIndex].position);
+                MoveToPos(patrolWaypoints[waypointIndex].position);
                 animator.SetInteger("Move", 1);
             }
         }
@@ -75,9 +80,11 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
                 return;
             }
         }
-
-        if(source.CompareTag("Player") && targetObject!=source) PlayerAudioController.instance.PlayAudio(AUDIOSOUND.ADRENALINE);
         targetObject = source;
+        if(targetObject.CompareTag("Player"))
+        {
+            target = targetObject.transform;
+        }
         Debug.Log("hi");
         audioPosition = position;
         isChasingAudio = true;
@@ -90,6 +97,7 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
         speed = 3f;
         isChasingAudio = false;
         waypointIndex = 0;
+        damage = 50;
     }
     void Update()
     {
@@ -112,5 +120,14 @@ public class BlindEnemy : EnemyBase, IAudioObserver, ISightObserver, IPhotoObser
     public string GetDetails()
     {
         return "DANGER";
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.instance.lastHitEnemy = jumpscareCam;
+            AttackPlayer();
+        }
     }
 }

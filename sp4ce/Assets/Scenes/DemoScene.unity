@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4936,7 +4936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 222759507}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: eyeless 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11866,7 +11866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 539032380}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: eyeless 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12212,7 +12212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 547934352}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: eyeless 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47709,7 +47709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1725326038}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: eyeless
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50645,6 +50645,26 @@ PrefabInstance:
       objectReference: {fileID: 547934352}
     - target: {fileID: 1813398879, guid: 59b236d388ae4674294fdccc63d946df, type: 3}
       propertyPath: waypoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 539032380}
+    - target: {fileID: 1813398879, guid: 59b236d388ae4674294fdccc63d946df, type: 3}
+      propertyPath: patrolWaypoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1813398879, guid: 59b236d388ae4674294fdccc63d946df, type: 3}
+      propertyPath: patrolWaypoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1725326038}
+    - target: {fileID: 1813398879, guid: 59b236d388ae4674294fdccc63d946df, type: 3}
+      propertyPath: patrolWaypoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 222759507}
+    - target: {fileID: 1813398879, guid: 59b236d388ae4674294fdccc63d946df, type: 3}
+      propertyPath: patrolWaypoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 547934352}
+    - target: {fileID: 1813398879, guid: 59b236d388ae4674294fdccc63d946df, type: 3}
+      propertyPath: patrolWaypoints.Array.data[3]
       value: 
       objectReference: {fileID: 539032380}
     - target: {fileID: 288862009427217017, guid: 59b236d388ae4674294fdccc63d946df,
