@@ -12,12 +12,12 @@ public class CompanyTabletItem : MonoBehaviour, IItem
 
     void Awake()
     {
-        screenIndex = 0;
         foreach(GameObject screen in screens)
         {
             screen.SetActive(false);
         }
-        screens[screenIndex].SetActive(true);
+        screenIndex = 0;
+        screens[0].SetActive(true);
     }
 
     public void SwapScreen(bool front)
