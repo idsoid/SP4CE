@@ -10,12 +10,14 @@ public class PlayerData : ScriptableObject
     private int health;
     private int lastAccessLevel;
     public List<string> discoveryIndex;
+    public List<GameObject> floorObjects;
 
     public List<int> InventoryIDs { get => inventoryIds; set => inventoryIds = value; }
     public int LastCheckpoint { get => lastCheckpoint; set => lastCheckpoint = value; }
     public int Health { get => health; set => health = value; }
     public int LastAccessLevel { get => lastAccessLevel; set => lastAccessLevel = value; }
     public List<string> DiscoveryIndex { get => discoveryIndex; set => discoveryIndex = value; }
+    public List<GameObject> FloorObjects { get => floorObjects; set => floorObjects = value; }
     public void SaveData()
     {
         string s = JsonUtility.ToJson(this);

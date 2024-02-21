@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor.Rendering;
+using System.Text;
 
 public class GameManager : MonoBehaviour
 {
@@ -74,6 +75,17 @@ public class GameManager : MonoBehaviour
             inventoryIds.Add(obj.GetComponent<IItem>().GetItemID());
         }
 
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("Object");
+        foreach (GameObject floor in floors)
+        {
+            data.objName = obj.name;
+            data.posX = obj.transform.position.x;
+            data.posY = obj.transform.position.y;
+            data.posZ = obj.transform.position.z;
+            string json = JsonUtility.ToJson(data, true);
+            Debug.Log(json.ToString());
+            sb.AppendLine(json);
+        }
 
         //Saving player data
         playerData.InventoryIDs = inventoryIds;

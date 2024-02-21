@@ -308,9 +308,8 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             if (hit.collider.gameObject.layer == 7)
             {
-                if (!hit.collider.gameObject.CompareTag("Visited"))
+                if (hit.collider.gameObject.CompareTag("Floor"))
                 {
-                    hit.collider.gameObject.tag = "Visited";
                     hit.collider.gameObject.layer = 8;
                 }
             }

@@ -15,7 +15,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
 
     private bool goingUp = true;
     private float walkSpeed = 3.5f;
-    private float chaseSpeed = 13.5f;
+    private float chaseSpeed = 22.5f;
     private float waitTime = 0.0f;
 
     public bool playerSpotted;
@@ -53,7 +53,8 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     {
         if (isFlashed)
         {
-            Destroy(gameObject);
+            currWaypoint = Random.Range(0, patrolWaypoints.Count);
+            Move(patrolWaypoints[currWaypoint]);
             return;
         }
         switch (currentState)
@@ -173,7 +174,7 @@ public class EnemyStarer : EnemyBase, ISightObserver, IPhotoObserver
     }
     public void OnSighted()
     {
-        Invoke(nameof(Freeze), .1f);
+        Invoke(nameof(Freeze), .05f);
     }
     public void Freeze()
     {

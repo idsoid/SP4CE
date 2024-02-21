@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Decoy
-  - Visited
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -15,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Radar
-  - Floor
+  - Unexplored
   - Explored
   - 
   - 
