@@ -1,9 +1,7 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class EnemyBase : MonoBehaviour
 {
