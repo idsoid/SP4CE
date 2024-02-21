@@ -37,7 +37,7 @@ public class ObjectiveSpawner : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
-            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
+            int rng = Random.Range(0, lvl3KeycardSpawnpoints.Count - i);
             float rot = Random.Range(-180f, 180f);
             Instantiate(lvl3KeycardPrefab, list[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
             list.Remove(list[rng]);
@@ -52,7 +52,7 @@ public class ObjectiveSpawner : MonoBehaviour
         
         for (int i = 0; i < 2; i++)
         {
-            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
+            int rng = Random.Range(0, lvl4KeycardSpawnpoints.Count - i);
             float rot = Random.Range(-180f, 180f);
             Instantiate(lvl4KeycardPrefab, list[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
             list.Remove(list[rng]);
@@ -67,7 +67,7 @@ public class ObjectiveSpawner : MonoBehaviour
         
         for (int i = 0; i < 2; i++)
         {
-            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count);
+            int rng = Random.Range(0, lvl5KeycardSpawnpoints.Count - i);
             float rot = Random.Range(-180f, 180f);
             Instantiate(lvl5KeycardPrefab, list[rng].position, Quaternion.Euler(new Vector3(-90f, rot, 0f)));
             list.Remove(list[rng]);
